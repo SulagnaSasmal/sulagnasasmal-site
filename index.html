@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Sulagna Sasmal — Senior Technical Writer & Documentation Architect. 19+ years in FinTech, fraud prevention, and enterprise SaaS. Docs-as-Code, API documentation, AI-enabled content strategy.">
+<title>Sulagna Sasmal — Technical Writer & Documentation Architect</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & ROOT ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 15px; scroll-behavior: smooth; }
+
+:root {
+  --bg: #faf9f7;
+  --bg-card: #ffffff;
+  --bg-hover: #f5f3ef;
+  --bg-tag: #f0ede8;
+  --border: #e8e4de;
+  --border-dark: #d5cfc8;
+  --text: #1c1917;
+  --text-secondary: #57534e;
+  --text-muted: #a8a29e;
+  --accent: #E8A84C;
+  --accent-dark: #c97d2a;
+  --accent-bg: #fef3e2;
+  --accent-border: #fde68a;
+  --green: #16a34a;
+  --green-bg: #f0fdf4;
+  --nav-h: 60px;
+  --content-w: 780px;
+  --wide-w: 1100px;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-dark); border-radius: 10px; }
+
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  height: var(--nav-h);
+  background: rgba(250,249,247,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+}
+.nav-inner {
+  max-width: var(--wide-w);
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 2rem;
+}
+.nav-brand {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+.nav-brand span { color: var(--accent); }
+.nav-links {
+  display: flex; align-items: center; gap: 0.25rem;
+}
+.nav-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background 0.15s, color 0.15s;
+}
+.nav-link:hover { background: var(--bg-hover); color: var(--text); }
+.nav-icons { display: flex; align-items: center; gap: 0.5rem; }
+.nav-icon {
+  width: 34px; height: 34px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.nav-icon:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+.nav-cta {
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.nav-cta:hover { background: var(--accent-dark); }
+
+/* ── HERO ── */
+.hero {
+  max-width: var(--content-w);
+  margin: 0 auto;
+  padding: 5rem 2rem 4rem;
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+}
+.hero-avatar {
+  width: 110px; height: 110px; flex-shrink: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #E8A84C, #c97d2a);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Outfit', sans-serif;
+  font-size: 2rem; font-weight: 800;
+  color: #fff;
+  box-shadow: 0 4px 24px rgba(232,168,76,0.3);
+  /* swap with: <img src="your-photo.jpg" style="width:110px;height:110px;border-radius:50%;object-fit:cover;"> */
+}
+.hero-text { flex: 1; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--green-bg);
+  border: 1px solid #bbf7d0;
+  color: var(--green);
+  font-size: 0.75rem; font-weight: 600;
+  padding: 4px 10px; border-radius: 20px;
+  margin-bottom: 1rem;
+}
+.hero-eyebrow::before { content: ''; width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: blink 2s infinite; }
+@keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+.hero h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.15;
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.02em;
+}
+.hero-tagline {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+.hero-tagline em { font-style: normal; color: var(--accent); font-weight: 600; }
+.hero-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.hero-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.875rem; font-weight: 600;
+  padding: 9px 18px; border-radius: 9px;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+.hero-btn.primary { background: var(--accent); color: #fff; }
+.hero-btn.primary:hover { background: var(--accent-dark); }
+.hero-btn.ghost { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); }
+.hero-btn.ghost:hover { border-color: var(--border-dark); color: var(--text); }
+
+/* ── DIVIDER ── */
+.divider { max-width: var(--content-w); margin: 0 auto; padding: 0 2rem; }
+.divider hr { border: none; border-top: 1px solid var(--border); }
+
+/* ── SECTIONS ── */
+.section { max-width: var(--content-w); margin: 0 auto; padding: 3.5rem 2rem; }
+.section-wide { max-width: var(--wide-w); margin: 0 auto; padding: 3.5rem 2rem; }
+.section-label {
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+.section h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.5rem; font-weight: 800;
+  color: var(--text);
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.01em;
+}
+.section p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+/* ── ABOUT ── */
+.about-grid { display: grid; grid-template-columns: 1fr 280px; gap: 3rem; align-items: start; }
+.about-stats { display: flex; flex-direction: column; gap: 1rem; }
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.2rem 1.4rem;
+}
+.stat-num {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.8rem; font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 0.2rem;
+}
+.stat-label { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.4; }
+.expertise-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1.25rem; }
+.chip {
+  background: var(--bg-tag);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+}
+.chip.accent { background: var(--accent-bg); color: var(--accent-dark); border-color: var(--accent-border); font-weight: 600; }
+
+/* ── FEATURED WORK ── */
+.work-list { display: flex; flex-direction: column; gap: 0; }
+.work-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 0 1.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  transition: background 0.15s;
+  border-radius: 0;
+  cursor: pointer;
+}
+.work-item:first-child { border-top: 1px solid var(--border); }
+.work-item:hover { background: var(--bg-hover); margin: 0 -1rem; padding-left: 1rem; padding-right: 1rem; border-radius: 10px; border-color: transparent; }
+.work-item:hover + .work-item { border-top-color: transparent; }
+.work-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  padding-top: 3px;
+  line-height: 1.4;
+}
+.work-content {}
+.work-tag {
+  display: inline-block;
+  font-size: 0.68rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 0.3rem;
+}
+.work-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.05rem; font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+  line-height: 1.3;
+}
+.work-desc { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.75rem; }
+.work-pills { display: flex; flex-wrap: wrap; gap: 5px; }
+.work-pill {
+  background: var(--bg-tag);
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+.work-arrow { color: var(--accent); font-size: 0.875rem; font-weight: 600; margin-top: 0.5rem; display: inline-block; transition: transform 0.15s; }
+.work-item:hover .work-arrow { transform: translateX(4px); }
+
+/* ── TOPICS ── */
+.topics-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.topic {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: default;
+  transition: border-color 0.15s, color 0.15s;
+}
+.topic:hover { border-color: var(--accent); color: var(--text); }
+.topic-icon { font-size: 1rem; }
+
+/* ── PERSONAL / TALK TO ME ── */
+.personal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.personal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.personal-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+.personal-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+.personal-title { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+.personal-text { font-size: 0.855rem; color: var(--text-secondary); line-height: 1.65; }
+.personal-link { display: inline-block; margin-top: 0.6rem; font-size: 0.78rem; color: var(--accent); font-weight: 600; text-decoration: none; }
+.personal-link:hover { text-decoration: underline; }
+
+/* ── EXPERIENCE ── */
+.exp-list { display: flex; flex-direction: column; gap: 0; }
+.exp-item { display: grid; grid-template-columns: 120px 1fr; gap: 0 1.5rem; padding: 1.25rem 0; border-bottom: 1px solid var(--border); }
+.exp-item:first-child { border-top: 1px solid var(--border); }
+.exp-years { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-muted); padding-top: 3px; }
+.exp-role { font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 0.15rem; }
+.exp-company { font-size: 0.85rem; color: var(--accent-dark); font-weight: 600; margin-bottom: 0.3rem; }
+.exp-note { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
+
+/* ── SKILLS ── */
+.skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+.skill-group { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 1.4rem; }
+.skill-group-title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-dark); margin-bottom: 0.6rem; }
+.skill-group-items { font-size: 0.855rem; color: var(--text-secondary); line-height: 1.7; }
+
+/* ── CONTACT ── */
+.contact-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2.5rem;
+  text-align: center;
+}
+.contact-box h2 { font-family: 'Outfit', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--text); margin-bottom: 0.75rem; }
+.contact-box p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+.contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.contact-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.875rem; font-weight: 600;
+  padding: 11px 22px; border-radius: 10px;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+.contact-link.primary { background: var(--accent); color: #fff; }
+.contact-link.primary:hover { background: var(--accent-dark); }
+.contact-link.ghost { border: 1px solid var(--border); color: var(--text-secondary); background: var(--bg); }
+.contact-link.ghost:hover { border-color: var(--border-dark); color: var(--text); }
+
+/* ── FOOTER ── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem;
+  margin-top: 2rem;
+}
+.footer-inner {
+  max-width: var(--content-w);
+  margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-brand { font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--text); }
+.footer-brand span { color: var(--accent); }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a { font-size: 0.82rem; color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+.footer-links a:hover { color: var(--accent); }
+.footer-copy { font-size: 0.78rem; color: var(--text-muted); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; }
+  .about-stats { flex-direction: row; flex-wrap: wrap; }
+  .stat-card { flex: 1; min-width: 140px; }
+  .personal-grid { grid-template-columns: 1fr 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .hero { flex-direction: column; gap: 1.5rem; padding: 3rem 1.5rem 2.5rem; }
+  .hero-avatar { width: 80px; height: 80px; font-size: 1.5rem; }
+  .nav-links { display: none; }
+  .personal-grid { grid-template-columns: 1fr; }
+  .work-item { grid-template-columns: 1fr; }
+  .work-date { display: none; }
+  .exp-item { grid-template-columns: 1fr; }
+  .exp-years { display: none; }
+  .section, .section-wide { padding: 2.5rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════ NAV ═══════ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">Sulagna<span>.</span></a>
+    <div class="nav-links">
+      <a href="#about" class="nav-link">About</a>
+      <a href="#work" class="nav-link">Work</a>
+      <a href="#experience" class="nav-link">Experience</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+    <div class="nav-icons">
+      <a href="https://www.linkedin.com/in/sulagnasasmal/" target="_blank" rel="noopener" class="nav-icon" title="LinkedIn">in</a>
+      <a href="https://github.com/SulagnaSasmal" target="_blank" rel="noopener" class="nav-icon" title="GitHub">⌥</a>
+      <a href="mailto:sulagna.sasmal@gmail.com" class="nav-cta">Get in touch</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero">
+  <div class="hero-avatar">SS</div>
+  <div class="hero-text">
+    <div class="hero-eyebrow">Open to new opportunities</div>
+    <h1>Hey, I'm Sulagna Sasmal.</h1>
+    <p class="hero-tagline">
+      Documentation architect. Fraud specialist.<br>
+      <em>Collector of travel stories and good food.</em>
+    </p>
+    <p style="font-size:0.95rem; color:#57534e; line-height:1.8; margin-bottom:1.5rem; max-width:540px;">
+      I've spent 19+ years making complex systems understandable — from fraud prevention platforms at NICE Actimize to fintech APIs, enterprise SaaS, and everything in between. I build documentation that scales, ships with the product, and actually gets read.
+    </p>
+    <div class="hero-links">
+      <a href="#work" class="hero-btn primary">See my work ↓</a>
+      <a href="https://sulagnasasmal.github.io/docs-as-code-portal/" target="_blank" rel="noopener" class="hero-btn ghost">Docs-as-Code Portal ↗</a>
+      <a href="https://github.com/SulagnaSasmal" target="_blank" rel="noopener" class="hero-btn ghost">GitHub ↗</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════ ABOUT ═══════ -->
+<section class="section" id="about">
+  <div class="section-label">About</div>
+  <div class="about-grid">
+    <div>
+      <h2>Documentation that thinks like engineering.</h2>
+      <p>
+        I'm a Senior Technical Writer and Documentation Architect based in Pune, India, with deep expertise in FinTech, fraud prevention, and enterprise SaaS platforms. At NICE Actimize, I lead documentation for the Fraud Prevention suite — owning the full content lifecycle across on-prem and cloud-native deployments.
+      </p>
+      <p>
+        My work goes beyond writing. I architect documentation ecosystems, embed docs into CI/CD pipelines, evaluate and adopt AI tooling, and mentor teams of writers to deliver documentation that ships with — not after — the product.
+      </p>
+      <p>
+        I believe documentation is a product capability, not an afterthought. When it's done right, it reduces support load, accelerates developer adoption, and builds trust with enterprise clients.
+      </p>
+      <div class="expertise-chips">
+        <span class="chip accent">Fraud Prevention</span>
+        <span class="chip accent">API Documentation</span>
+        <span class="chip accent">Docs-as-Code</span>
+        <span class="chip">FinTech & SaaS</span>
+        <span class="chip">NICE Actimize</span>
+        <span class="chip">CI/CD Workflows</span>
+        <span class="chip">AI-Assisted Documentation</span>
+        <span class="chip">Information Architecture</span>
+        <span class="chip">Git & PR Governance</span>
+        <span class="chip">Structured Authoring</span>
+      </div>
+    </div>
+    <div class="about-stats">
+      <div class="stat-card">
+        <div class="stat-num">19+</div>
+        <div class="stat-label">Years in technical documentation across FinTech, SaaS, and enterprise software</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">8</div>
+        <div class="stat-label">Writers mentored across Fraud and SaaS product teams at NICE Actimize</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Fraud Prevention solutions owned end-to-end: IFM, EF, and related channels</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">4</div>
+        <div class="stat-label">AI tools formally integrated into team workflows after structured evaluation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════ FEATURED WORK ═══════ -->
+<section class="section" id="work">
+  <div class="section-label">Portfolio</div>
+  <h2>Featured work & writing samples</h2>
+  <p style="margin-bottom: 2rem;">
+    Each project below is a live, fully authored documentation site — built using Docs-as-Code principles, version-controlled in Git, and hosted on GitHub Pages.
+  </p>
+
+  <div class="work-list">
+
+    <div class="work-item" onclick="window.open('https://sulagnasasmal.github.io/vaultpay-api-docs/','_blank')">
+      <div class="work-date">API Docs<br>FinTech</div>
+      <div class="work-content">
+        <div class="work-tag" style="color:#0d9488;">VaultPay Payment API</div>
+        <div class="work-title">Enterprise REST API reference for a fintech payment processing platform</div>
+        <div class="work-desc">
+          Comprehensive API documentation covering the full payments lifecycle — authentication, charges, refunds, disputes, webhooks, and 3D Secure/SCA. Includes compliance sections aligned to NICE Actimize: risk scoring (IFM-AI), AML transaction monitoring (SAM), KYC verification (CDD), and sanctions screening. Written to match the quality bar of real-world developer portals.
+        </div>
+        <div class="work-pills">
+          <span class="work-pill">PCI DSS L1</span>
+          <span class="work-pill">PSD2 / SCA</span>
+          <span class="work-pill">BSA/AML</span>
+          <span class="work-pill">NICE Actimize IFM · SAM · CDD</span>
+          <span class="work-pill">Webhooks</span>
+          <span class="work-pill">OpenAPI</span>
+        </div>
+        <div class="work-arrow">View live site →</div>
+      </div>
+    </div>
+
+    <div class="work-item" onclick="window.open('https://sulagnasasmal.github.io/caseforge-api-docs/caseforge-api-docs.html','_blank')">
+      <div class="work-date">API Docs<br>Compliance</div>
+      <div class="work-content">
+        <div class="work-tag" style="color:#d97706;">CaseForge Enterprise Case Management</div>
+        <div class="work-title">AML case management & SAR filing API documentation (v10.2)</div>
+        <div class="work-desc">
+          Enterprise API reference for a compliance case management platform. Documents the full SAR lifecycle (draft → filed → returned), tamper-evident audit trail with SHA-256 hash chaining, and a 15-event webhook system. Written for compliance officers, system integrators, and AML analysts. Aligned to FinCEN BSA e-filing, FATF Recommendation 20, EU AMLD6, and FINRA 3310.
+        </div>
+        <div class="work-pills">
+          <span class="work-pill">FinCEN BSA</span>
+          <span class="work-pill">FATF R.20</span>
+          <span class="work-pill">SOC 2 Type II</span>
+          <span class="work-pill">FedRAMP</span>
+          <span class="work-pill">Audit Trail</span>
+          <span class="work-pill">SAR Filing</span>
+        </div>
+        <div class="work-arrow">View live site →</div>
+      </div>
+    </div>
+
+    <div class="work-item" onclick="window.open('https://sulagnasasmal.github.io/docs-as-code-portal/','_blank')">
+      <div class="work-date">Platform<br>Guide</div>
+      <div class="work-content">
+        <div class="work-tag" style="color:#7c3aed;">Docs-as-Code Portal</div>
+        <div class="work-title">16-page documentation portal explaining the Docs-as-Code methodology</div>
+        <div class="work-desc">
+          A traditional documentation portal — not a dashboard — that explains the Docs-as-Code methodology end to end. Covers the 5-stage pipeline, version control for docs, GitHub Actions CI/CD, Vale style linting, and multi-format publishing. Includes code examples, comparison tables, step guides, and prev/next navigation. Built using Docs-as-Code principles itself.
+        </div>
+        <div class="work-pills">
+          <span class="work-pill">Docs-as-Code</span>
+          <span class="work-pill">GitHub Actions</span>
+          <span class="work-pill">Vale Linting</span>
+          <span class="work-pill">MkDocs</span>
+          <span class="work-pill">CI/CD</span>
+          <span class="work-pill">16 pages</span>
+        </div>
+        <div class="work-arrow">View live site →</div>
+      </div>
+    </div>
+
+    <div class="work-item" onclick="window.open('https://sulagnasasmal.github.io/Documentation-Center-Platform/docforge-platform.html','_blank')">
+      <div class="work-date">Platform<br>Demo</div>
+      <div class="work-content">
+        <div class="work-tag" style="color:#E8A84C;">Documentation Center Dashboard</div>
+        <div class="work-title">Interactive Docs-as-Code platform with 6 live modules</div>
+        <div class="work-desc">
+          A single-page interactive platform demonstrating the authoring and management side of a Docs-as-Code system. Includes a live Markdown editor with real-time preview, style linter, content map, build output viewer, and configuration panel. Shows platform-level thinking — not just writing skill, but understanding of the tooling and infrastructure documentation teams depend on.
+        </div>
+        <div class="work-pills">
+          <span class="work-pill">Live Editor</span>
+          <span class="work-pill">Style Linter</span>
+          <span class="work-pill">Content Map</span>
+          <span class="work-pill">Build Outputs</span>
+          <span class="work-pill">Interactive Demo</span>
+        </div>
+        <div class="work-arrow">View live site →</div>
+      </div>
+    </div>
+
+  </div>
+
+  <p style="margin-top: 1.5rem; font-size: 0.82rem; color: var(--text-muted);">
+    All projects are open source — <a href="https://github.com/SulagnaSasmal" target="_blank" style="color:var(--accent);">view the code on GitHub ↗</a>
+  </p>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════ TOPICS ═══════ -->
+<section class="section">
+  <div class="section-label">Expertise</div>
+  <h2>What I write and work on</h2>
+  <div class="topics-grid">
+    <div class="topic"><span class="topic-icon">🔐</span> Fraud Prevention</div>
+    <div class="topic"><span class="topic-icon">⚡</span> API Documentation</div>
+    <div class="topic"><span class="topic-icon">🔀</span> Docs-as-Code</div>
+    <div class="topic"><span class="topic-icon">🏦</span> FinTech & Payments</div>
+    <div class="topic"><span class="topic-icon">⚖️</span> Compliance & Regulation</div>
+    <div class="topic"><span class="topic-icon">🤖</span> AI-Assisted Authoring</div>
+    <div class="topic"><span class="topic-icon">🏗️</span> Information Architecture</div>
+    <div class="topic"><span class="topic-icon">⚙️</span> CI/CD for Documentation</div>
+    <div class="topic"><span class="topic-icon">👥</span> Team Leadership</div>
+    <div class="topic"><span class="topic-icon">🔍</span> Style & Governance</div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════ PERSONAL ═══════ -->
+<section class="section">
+  <div class="section-label">Beyond Work</div>
+  <h2>Talk to me about...</h2>
+  <p style="margin-bottom: 1.75rem;">The best conversations happen outside the job description.</p>
+  <div class="personal-grid">
+    <div class="personal-card">
+      <div class="personal-icon">✈️</div>
+      <div class="personal-title">Travel Stories</div>
+      <div class="personal-text">
+        New cities, unfamiliar streets, and the kind of detours that turn into the best part of the trip. I travel to get lost and end up finding good stories.
+      </div>
+      <a href="https://www.instagram.com/thewindowtomylife/" target="_blank" rel="noopener" class="personal-link">@thewindowtomylife ↗</a>
+    </div>
+    <div class="personal-card">
+      <div class="personal-icon">🍜</div>
+      <div class="personal-title">Good Food</div>
+      <div class="personal-text">
+        Street food, hole-in-the-wall restaurants, and dishes I can't pronounce but can't stop thinking about. Food is how I explore a place and remember it.
+      </div>
+    </div>
+    <div class="personal-card">
+      <div class="personal-icon">👨‍👩‍👧</div>
+      <div class="personal-title">Family & Friends</div>
+      <div class="personal-text">
+        The people who make the adventures worth taking and the long work weeks worth it. Time with them is where I actually recharge.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════ EXPERIENCE ═══════ -->
+<section class="section" id="experience">
+  <div class="section-label">Experience</div>
+  <h2>Where I've worked</h2>
+  <div class="exp-list">
+    <div class="exp-item">
+      <div class="exp-years">2017 – Present</div>
+      <div>
+        <div class="exp-role">Documentation Team Lead · Senior Specialist Technical Writer</div>
+        <div class="exp-company">NICE Actimize — Pune, India</div>
+        <div class="exp-note">Own end-to-end documentation lifecycle for 5 Fraud Prevention solutions. Lead Docs-as-Code transformation, GitLab-to-GitHub migration, and AI tooling adoption across a team of 8 writers. Serve as documentation escalation and governance authority for enterprise clients.</div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-years">2013 – 2017</div>
+      <div>
+        <div class="exp-role">Information Engineer · Technical Writer</div>
+        <div class="exp-company">Avaya India — Pune, India</div>
+        <div class="exp-note">Authored deployment and configuration documentation for enterprise communication platforms. Reduced localization costs by 80% through XML-based image management. Awarded Writer of the Month with a 97% editorial quality score.</div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-years">2010 – 2013</div>
+      <div>
+        <div class="exp-role">Technical Writer</div>
+        <div class="exp-company">SunGard Technology Services — Pune, India</div>
+        <div class="exp-note">User guides and online help for Investment Banking software supporting European markets.</div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-years">2008 – 2010</div>
+      <div>
+        <div class="exp-role">Technical Writer</div>
+        <div class="exp-company">Fundtech India — Pune, India</div>
+        <div class="exp-note">Documentation for enterprise payment workflow systems.</div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-years">2006 – 2008</div>
+      <div>
+        <div class="exp-role">Technical Author</div>
+        <div class="exp-company">Commit Technologies — Pune, India</div>
+        <div class="exp-note">Technical documentation, white papers, and customer-facing content for enterprise software.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════ SKILLS ═══════ -->
+<section class="section">
+  <div class="section-label">Skills</div>
+  <h2>Tools & technologies</h2>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-title">Documentation Tools</div>
+      <div class="skill-group-items">MadCap Flare · Arbortext · FrameMaker · RoboHelp · VS Code · Confluence</div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Docs-as-Code</div>
+      <div class="skill-group-items">GitHub · Git · Markdown · HTML/CSS · MkDocs · Sphinx · Static Site Generators</div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">API Documentation</div>
+      <div class="skill-group-items">Swagger / OpenAPI · Postman · Redoc · REST API reference · Webhook documentation</div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">AI & Automation</div>
+      <div class="skill-group-items">GitHub Copilot · Claude · Confluence Rovo · NotebookLM · Azure TTS · Python · Napkin AI</div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Diagramming & Design</div>
+      <div class="skill-group-items">Lucidchart · Draw.io · Figma · Visio · Canva · SnagIt · Camtasia</div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Standards & Methodology</div>
+      <div class="skill-group-items">DITA · Information Mapping · XML · Agile SDLC · CI/CD · PR governance · Vale linting</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════ CONTACT ═══════ -->
+<section class="section" id="contact">
+  <div class="contact-box">
+    <div class="section-label" style="text-align:center; margin-bottom:0.75rem;">Contact</div>
+    <h2>Let's work together</h2>
+    <p>
+      I'm open to senior technical writing, documentation architecture, and documentation engineering roles — remote, hybrid, or relocation. If you're building documentation infrastructure for regulated industries, I'd love to talk.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:sulagna.sasmal@gmail.com" class="contact-link primary">✉ sulagna.sasmal@gmail.com</a>
+      <a href="https://www.linkedin.com/in/sulagnasasmal/" target="_blank" rel="noopener" class="contact-link ghost">LinkedIn ↗</a>
+      <a href="https://github.com/SulagnaSasmal" target="_blank" rel="noopener" class="contact-link ghost">GitHub ↗</a>
+    </div>
+    <p style="margin-top:1.5rem; font-size:0.8rem; color:var(--text-muted); margin-bottom:0;">
+      Pune, India · Open to relocation & remote
+    </p>
+  </div>
+</section>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Sulagna<span>.</span></div>
+      <div class="footer-copy" style="margin-top:4px;">© 2026 Sulagna Sasmal · Built with Docs-as-Code principles</div>
+    </div>
+    <div class="footer-links">
+      <a href="https://sulagnasasmal.github.io/vaultpay-api-docs/" target="_blank">VaultPay Docs</a>
+      <a href="https://sulagnasasmal.github.io/caseforge-api-docs/caseforge-api-docs.html" target="_blank">CaseForge Docs</a>
+      <a href="https://sulagnasasmal.github.io/docs-as-code-portal/" target="_blank">Docs Portal</a>
+      <a href="https://github.com/SulagnaSasmal" target="_blank">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
