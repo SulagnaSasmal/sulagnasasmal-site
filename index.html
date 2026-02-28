@@ -364,6 +364,29 @@ body {
 .footer-links a:hover { color: var(--accent); }
 .footer-copy { font-size: 0.78rem; color: var(--text-muted); }
 
+/* ── AWARDS ── */
+.awards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.award-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.award-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+.award-icon { font-size: 1.75rem; margin-bottom: 0.6rem; }
+.award-title { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.35rem; }
+.award-text { font-size: 0.855rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 0.5rem; }
+.award-org { font-size: 0.75rem; font-weight: 600; color: var(--accent-dark); }
+
+/* ── EDUCATION ── */
+.edu-list { display: flex; flex-direction: column; gap: 0; }
+.edu-item { display: grid; grid-template-columns: 120px 1fr; gap: 0 1.5rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+.edu-item:first-child { border-top: 1px solid var(--border); }
+.edu-years { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-muted); padding-top: 3px; }
+.edu-degree { font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 0.15rem; }
+.edu-school { font-size: 0.85rem; color: var(--accent-dark); font-weight: 600; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .about-grid { grid-template-columns: 1fr; }
@@ -371,6 +394,7 @@ body {
   .stat-card { flex: 1; min-width: 140px; }
   .personal-grid { grid-template-columns: 1fr 1fr; }
   .skills-grid { grid-template-columns: 1fr; }
+  .awards-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 640px) {
   .hero { flex-direction: column; gap: 1.5rem; padding: 3rem 1.5rem 2.5rem; }
@@ -381,6 +405,9 @@ body {
   .work-date { display: none; }
   .exp-item { grid-template-columns: 1fr; }
   .exp-years { display: none; }
+  .edu-item { grid-template-columns: 1fr; }
+  .edu-years { display: none; }
+  .awards-grid { grid-template-columns: 1fr; }
   .section, .section-wide { padding: 2.5rem 1.5rem; }
 }
 </style>
@@ -412,7 +439,7 @@ body {
     <div class="hero-eyebrow">Open to new opportunities</div>
     <h1>Hey, I'm Sulagna Sasmal.</h1>
     <p class="hero-tagline">
-      Documentation architect. Fraud specialist.<br>
+      Documentation architect. Fraud specialist. Tool builder.<br>
       <em>Collector of travel stories and good food.</em>
     </p>
     <p style="font-size:0.95rem; color:#57534e; line-height:1.8; margin-bottom:1.5rem; max-width:540px;">
@@ -438,7 +465,10 @@ body {
         I'm a Senior Technical Writer and Documentation Architect based in Pune, India, with deep expertise in FinTech, fraud prevention, and enterprise SaaS platforms. At NICE Actimize, I lead documentation for the Fraud Prevention suite — owning the full content lifecycle across on-prem and cloud-native deployments.
       </p>
       <p>
-        My work goes beyond writing. I architect documentation ecosystems, embed docs into CI/CD pipelines, evaluate and adopt AI tooling, build automation tools that eliminate manual documentation work, and mentor teams of writers to deliver documentation that ships with — not after — the product.
+        My work goes beyond writing. I architect documentation ecosystems, embed docs into CI/CD pipelines, influence portal roadmaps (search, filtering, content discoverability), and mentor teams of writers to deliver documentation that ships with — not after — the product.
+      </p>
+      <p>
+        I've also led the evaluation of 7 AI and productivity tools — building a governance framework for prompt standards, review checkpoints, and compliance controls — resulting in 4 tools formally adopted across my team of 8 writers.
       </p>
       <p>
         I believe documentation is a product capability, not an afterthought. When it's done right, it reduces support load, accelerates developer adoption, and builds trust with enterprise clients.
@@ -472,8 +502,36 @@ body {
       </div>
       <div class="stat-card">
         <div class="stat-num">4</div>
-        <div class="stat-label">AI tools formally integrated into team workflows after structured evaluation</div>
+        <div class="stat-label">AI tools integrated after evaluating 7 tools and building a governance framework — adopted across 8 writers</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════ ACHIEVEMENTS ═══════ -->
+<section class="section" id="achievements">
+  <div class="section-label">Recognition</div>
+  <h2>Awards & measurable impact</h2>
+  <div class="awards-grid">
+    <div class="award-card">
+      <div class="award-icon">⭐</div>
+      <div class="award-title">Star Performer × 3</div>
+      <div class="award-text">The highest individual recognition at NICE Actimize — awarded three times over 9 years for documentation leadership, Docs-as-Code transformation, and AI tooling adoption.</div>
+      <div class="award-org">NICE Actimize</div>
+    </div>
+    <div class="award-card">
+      <div class="award-icon">🏆</div>
+      <div class="award-title">Writer of the Month</div>
+      <div class="award-text">97% editorial quality score. Recognized for documentation excellence across the enterprise communication platform documentation suite.</div>
+      <div class="award-org">Avaya India</div>
+    </div>
+    <div class="award-card">
+      <div class="award-icon">📉</div>
+      <div class="award-title">80% Localization Cost Reduction</div>
+      <div class="award-text">Reduced per-document localization costs by 80% by migrating content to Adobe InDesign and implementing an XML-based image management approach that eliminated per-image translation overhead.</div>
+      <div class="award-org">Avaya India</div>
     </div>
   </div>
 </section>
@@ -591,7 +649,7 @@ body {
         <div class="work-tag" style="color:#4c6ef5;">DocCraft AI — Documentation Generator</div>
         <div class="work-title">Converts raw content into MSTP-compliant documentation — auto-compliance, one-click fixes</div>
         <div class="work-desc">
-          A full-stack AI application that takes raw content (meeting notes, specs, anything) and produces publication-ready documentation. Features a context layer for style guide and glossary upload, an interactive gap-analysis Q&A loop, and an MSTP compliance engine that auto-runs after generation and lets you apply fixes with a single click. Deployed on Vercel.
+          A full-stack AI application that takes raw content (meeting notes, specs, anything) and produces publication-ready documentation. Features a context layer (style guide, glossary, GitHub URL import), gap-analysis Q&A, MSTP compliance engine with one-click fixes, Mermaid diagram generation, format recommendation, document history, and multi-format export (HTML, DOCX, PDF, Markdown). Deployed on Vercel.
         </div>
         <div style="margin: 0.35rem 0 0.6rem; font-size: 0.78rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">
           Raw content + context → GPT-4o → doc → MSTP check → one-click Fix → Export
@@ -600,8 +658,10 @@ body {
           <span class="work-pill">Next.js 14</span>
           <span class="work-pill">TypeScript</span>
           <span class="work-pill">OpenAI GPT-4o</span>
-          <span class="work-pill">Tailwind CSS</span>
           <span class="work-pill">MSTP Compliance</span>
+          <span class="work-pill">Mermaid Diagrams</span>
+          <span class="work-pill">DOCX Export</span>
+          <span class="work-pill">GitHub Import</span>
           <span class="work-pill">Vercel</span>
         </div>
         <div class="work-arrow">Try the live demo →</div>
@@ -700,7 +760,7 @@ body {
       <div>
         <div class="exp-role">Documentation Team Lead · Senior Specialist Technical Writer</div>
         <div class="exp-company">NICE Actimize — Pune, India</div>
-        <div class="exp-note">Own end-to-end documentation lifecycle for 5 Fraud Prevention solutions. Lead Docs-as-Code transformation, GitLab-to-GitHub migration, and AI tooling adoption across a team of 8 writers. Serve as documentation escalation and governance authority for enterprise clients.</div>
+        <div class="exp-note">Own end-to-end documentation lifecycle for 5 Fraud Prevention solutions. Lead Docs-as-Code transformation, GitLab-to-GitHub migration, and AI tooling adoption across 8 writers. Influenced the DOCenter documentation portal roadmap (search relevance, filtering, content discoverability). Built and rolled out an AI governance framework — prompt standards, review checkpoints, compliance controls — across the entire team.</div>
       </div>
     </div>
     <div class="exp-item">
@@ -768,6 +828,37 @@ body {
     <div class="skill-group">
       <div class="skill-group-title">Standards & Methodology</div>
       <div class="skill-group-items">DITA · Information Mapping · XML · Agile SDLC · CI/CD · PR governance · Vale linting</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══════ EDUCATION ═══════ -->
+<section class="section">
+  <div class="section-label">Education</div>
+  <h2>Academic background</h2>
+  <div class="edu-list">
+    <div class="edu-item">
+      <div class="edu-years">2004 – 2006</div>
+      <div>
+        <div class="edu-degree">PGDBM in HR Management</div>
+        <div class="edu-school">Wigan &amp; Leigh College, Pune, India</div>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-years">2002 – 2003</div>
+      <div>
+        <div class="edu-degree">Post Graduate Diploma in Mass Communication</div>
+        <div class="edu-school">Jadavpur University, Calcutta, India</div>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-years">1998 – 2002</div>
+      <div>
+        <div class="edu-degree">B.Sc. — Mathematics, Physics &amp; Electronics</div>
+        <div class="edu-school">Burdwan University, Burdwan, India</div>
+      </div>
     </div>
   </div>
 </section>
