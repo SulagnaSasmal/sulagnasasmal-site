@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Documentation samples by Sulagna Sasmal — Senior Technical Writer. Payments API reference, enterprise admin guides, compliance documentation, and Docs-as-Code portfolios.">
+<title>Documentation Samples — Sulagna Sasmal</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 15px; scroll-behavior: smooth; }
+
+:root {
+  --bg: #faf9f7;
+  --bg-card: #ffffff;
+  --bg-hover: #f5f3ef;
+  --bg-tag: #f0ede8;
+  --border: #e8e4de;
+  --border-dark: #d5cfc8;
+  --text: #1c1917;
+  --text-secondary: #57534e;
+  --text-muted: #a8a29e;
+  --accent: #E8A84C;
+  --accent-dark: #c97d2a;
+  --accent-bg: #fef3e2;
+  --accent-border: #fde68a;
+  --green: #16a34a;
+  --green-bg: #f0fdf4;
+  --teal: #0d9488;
+  --teal-bg: #f0fdfa;
+  --teal-border: #99f6e4;
+  --purple: #7c3aed;
+  --purple-bg: #f5f3ff;
+  --purple-border: #ddd6fe;
+  --nav-h: 60px;
+  --content-w: 820px;
+}
+
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-dark); border-radius: 10px; }
+
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  height: var(--nav-h);
+  background: rgba(250,249,247,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+}
+.nav-inner {
+  max-width: var(--content-w);
+  margin: 0 auto; padding: 0 2rem; width: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-brand {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem; font-weight: 700;
+  color: var(--text); text-decoration: none;
+}
+.nav-brand span { color: var(--accent); }
+.nav-back {
+  font-size: 0.85rem; font-weight: 500;
+  color: var(--text-secondary); text-decoration: none;
+  display: flex; align-items: center; gap: 4px;
+  padding: 6px 12px; border-radius: 8px;
+  transition: background 0.15s, color 0.15s;
+}
+.nav-back:hover { background: var(--bg-hover); color: var(--text); }
+
+/* ── HERO ── */
+.hero {
+  max-width: var(--content-w);
+  margin: 0 auto; padding: 4rem 2rem 3rem;
+}
+.hero-label {
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 0.6rem;
+}
+.hero h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 800; color: var(--text);
+  line-height: 1.15; margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+.hero-sub {
+  font-size: 1rem; color: var(--text-secondary);
+  line-height: 1.7; max-width: 620px;
+  margin-bottom: 1.5rem;
+}
+.hero-sub strong { color: var(--text); }
+.hero-meta {
+  display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+  font-size: 0.82rem; color: var(--text-muted);
+}
+.hero-meta a {
+  color: var(--accent); text-decoration: none; font-weight: 600;
+}
+.hero-meta a:hover { text-decoration: underline; }
+
+/* ── DIVIDER ── */
+.divider { max-width: var(--content-w); margin: 0 auto; padding: 0 2rem; }
+.divider hr { border: none; border-top: 1px solid var(--border); }
+
+/* ── SECTION ── */
+.section { max-width: var(--content-w); margin: 0 auto; padding: 3rem 2rem; }
+.section-label {
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 0.4rem;
+}
+.section h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.3rem; font-weight: 800;
+  color: var(--text); margin-bottom: 0.4rem;
+  letter-spacing: -0.01em;
+}
+.section-desc {
+  font-size: 0.9rem; color: var(--text-secondary);
+  margin-bottom: 1.75rem; line-height: 1.7;
+}
+
+/* ── SUITE BANNER ── */
+.suite-banner {
+  background: linear-gradient(135deg, var(--accent-bg) 0%, #fff8ec 100%);
+  border: 1px solid var(--accent-border);
+  border-radius: 16px;
+  padding: 1.75rem 2rem;
+  margin-bottom: 1.25rem;
+}
+.suite-banner-label {
+  font-size: 0.68rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--accent-dark); margin-bottom: 0.4rem;
+}
+.suite-banner h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.15rem; font-weight: 800;
+  color: var(--text); margin-bottom: 0.5rem;
+}
+.suite-banner p {
+  font-size: 0.875rem; color: var(--text-secondary);
+  line-height: 1.65; margin-bottom: 1.25rem;
+}
+
+/* ── SAMPLE CARDS ── */
+.sample-list { display: flex; flex-direction: column; gap: 0; }
+.sample-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: start;
+  padding: 1.4rem 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  transition: background 0.15s;
+  border-radius: 0;
+}
+.sample-item:first-child { border-top: 1px solid var(--border); }
+.sample-item:hover {
+  background: var(--bg-hover);
+  margin: 0 -1rem; padding-left: 1rem; padding-right: 1rem;
+  border-radius: 10px; border-color: transparent;
+}
+.sample-item:hover + .sample-item { border-top-color: transparent; }
+.sample-type {
+  font-size: 0.68rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 0.25rem;
+  display: inline-block;
+}
+.sample-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem; font-weight: 700;
+  color: var(--text); margin-bottom: 0.35rem;
+  line-height: 1.3;
+}
+.sample-desc {
+  font-size: 0.85rem; color: var(--text-secondary);
+  line-height: 1.65; margin-bottom: 0.6rem;
+}
+.sample-pills { display: flex; flex-wrap: wrap; gap: 5px; }
+.sample-pill {
+  background: var(--bg-tag);
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  padding: 2px 8px; border-radius: 4px;
+  border: 1px solid var(--border);
+}
+.sample-arrow {
+  color: var(--accent);
+  font-size: 0.875rem; font-weight: 600;
+  white-space: nowrap;
+  padding-top: 0.2rem;
+  transition: transform 0.15s;
+  display: flex; align-items: center; gap: 4px;
+}
+.sample-item:hover .sample-arrow { transform: translateX(3px); }
+
+/* ── SUITE GRID (3 cards side by side) ── */
+.suite-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+.suite-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem 1.4rem;
+  text-decoration: none;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+  display: flex; flex-direction: column; gap: 0.5rem;
+}
+.suite-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 2px 16px rgba(232,168,76,0.12);
+  background: var(--accent-bg);
+}
+.suite-card-icon { font-size: 1.4rem; }
+.suite-card-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem; font-weight: 700;
+  color: var(--text); line-height: 1.3;
+}
+.suite-card-desc {
+  font-size: 0.8rem; color: var(--text-secondary);
+  line-height: 1.6; flex: 1;
+}
+.suite-card-link {
+  font-size: 0.78rem; font-weight: 600;
+  color: var(--accent); margin-top: 0.25rem;
+}
+
+/* ── COLOUR ACCENTS PER TYPE ── */
+.type-api { color: #0d9488; }
+.type-admin { color: #E8A84C; }
+.type-ops { color: #6366f1; }
+.type-compliance { color: #dc2626; }
+.type-dac { color: #7c3aed; }
+
+/* ── FOOTER ── */
+.footer {
+  max-width: var(--content-w);
+  margin: 0 auto; padding: 2rem 2rem 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+  border-top: 1px solid var(--border);
+}
+.footer-text { font-size: 0.82rem; color: var(--text-muted); }
+.footer-links { display: flex; gap: 1rem; }
+.footer-link {
+  font-size: 0.82rem; font-weight: 500;
+  color: var(--text-secondary); text-decoration: none;
+}
+.footer-link:hover { color: var(--accent); }
+
+@media (max-width: 640px) {
+  .suite-grid { grid-template-columns: 1fr; }
+  .sample-item { grid-template-columns: 1fr; }
+  .sample-arrow { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">Sulagna <span>Sasmal</span></a>
+    <a class="nav-back" href="index.html">← Back to portfolio</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">Documentation Samples</div>
+  <h1>Writing samples &amp; live documentation</h1>
+  <p class="hero-sub">
+    A focused set of end-to-end documentation projects — covering <strong>developer API references</strong>,
+    <strong>enterprise administration guides</strong>, <strong>operations &amp; compliance references</strong>,
+    and <strong>Docs-as-Code</strong> portfolios. Each project is fully authored and live.
+  </p>
+  <div class="hero-meta">
+    <span>Sulagna Sasmal · Senior Technical Writer · 19+ years in FinTech</span>
+    <a href="https://www.linkedin.com/in/sulagnasasmal" target="_blank" rel="noopener">LinkedIn →</a>
+    <a href="index.html">Full portfolio →</a>
+  </div>
+</div>
+
+<div class="divider"><hr></div>
+
+<!-- PAYPLUS SUITE -->
+<div class="section">
+  <div class="section-label">Featured — Payments documentation suite</div>
+  <h2>PayPlus documentation suite</h2>
+  <p class="section-desc">
+    Three related documents for the same fictional multi-rail payment hub — covering the developer API, system administration, and the underlying payment rail infrastructure. Together they demonstrate full-platform documentation depth for a regulated FinTech product.
+    Modelled on the GlobalPAYplus class of payment hub systems (Finastra), drawing on direct experience at Fundtech India (2008–2010).
+  </p>
+
+  <div class="suite-grid">
+
+    <a class="suite-card" href="https://sulagnasasmal.github.io/payments-api-guide/" target="_blank" rel="noopener">
+      <div class="suite-card-icon">⚡</div>
+      <div class="suite-card-title">PayPlus REST API Developer Reference</div>
+      <div class="suite-card-desc">
+        OAuth 2.0, ACH, instant payments (RTP/FedNow), Fedwire/SWIFT, webhooks, and full error code reference.
+        Stripe / Plaid quality bar.
+      </div>
+      <div class="suite-card-link">View live site →</div>
+    </a>
+
+    <a class="suite-card" href="https://sulagnasasmal.github.io/payplus-admin-guide/" target="_blank" rel="noopener">
+      <div class="suite-card-icon">🏛️</div>
+      <div class="suite-card-title">PayPlus Enterprise Administration Guide</div>
+      <div class="suite-card-desc">
+        Installation, RBAC/LDAP/SAML SSO, payment rail connectors, workflow engine, OFAC/BSA/AML compliance, troubleshooting.
+        MadCap Flare-style HTML.
+      </div>
+      <div class="suite-card-link">View live site →</div>
+    </a>
+
+    <a class="suite-card" href="https://sulagnasasmal.github.io/us-payments-hub/" target="_blank" rel="noopener">
+      <div class="suite-card-icon">💳</div>
+      <div class="suite-card-title">US Payments Hub — Operations &amp; Compliance</div>
+      <div class="suite-card-desc">
+        All six US payment rails — ACH, Fedwire, SWIFT, RTP, FedNow, Card Networks.
+        12 scenario walkthroughs for operations and compliance teams.
+      </div>
+      <div class="suite-card-link">View live site →</div>
+    </a>
+
+  </div>
+</div>
+
+<div class="divider"><hr></div>
+
+<!-- OTHER SAMPLES -->
+<div class="section">
+  <div class="section-label">Additional samples</div>
+  <h2>More documentation projects</h2>
+  <p class="section-desc">Further writing samples covering fintech API documentation, AML/compliance platforms, and Docs-as-Code methodology.</p>
+
+  <div class="sample-list">
+
+    <a class="sample-item" href="https://sulagnasasmal.github.io/vaultpay-api-docs/" target="_blank" rel="noopener">
+      <div class="sample-content">
+        <span class="sample-type type-api">Developer API reference</span>
+        <div class="sample-title">VaultPay Payment API Documentation</div>
+        <div class="sample-desc">
+          REST API reference for a fintech payment processing platform. Covers the complete payments lifecycle —
+          authentication, settlement, disputes, AML/SAM transaction monitoring, KYC/CDD, OFAC sanctions screening,
+          3D Secure/SCA flow, and webhook HMAC-SHA256 verification. Aligned to NICE Actimize compliance coverage.
+        </div>
+        <div class="sample-pills">
+          <span class="sample-pill">PCI DSS</span>
+          <span class="sample-pill">PSD2 / SCA</span>
+          <span class="sample-pill">BSA/AML</span>
+          <span class="sample-pill">NICE Actimize IFM · SAM · CDD · Sanctions</span>
+          <span class="sample-pill">FATF</span>
+        </div>
+      </div>
+      <div class="sample-arrow">View →</div>
+    </a>
+
+    <a class="sample-item" href="https://sulagnasasmal.github.io/caseforge-api-docs/caseforge-api-docs.html" target="_blank" rel="noopener">
+      <div class="sample-content">
+        <span class="sample-type type-compliance">Enterprise compliance API</span>
+        <div class="sample-title">CaseForge Case Management API — v10.2</div>
+        <div class="sample-desc">
+          API reference for an enterprise AML case management platform. Covers SAR filing with FinCEN (BSA e-filing),
+          case workflow state machine, goAML export, tamper-evident audit trail with SHA-256 hash chaining,
+          and signed PDF export. Written for compliance officers, legal teams, and system integrators.
+        </div>
+        <div class="sample-pills">
+          <span class="sample-pill">FinCEN BSA e-filing</span>
+          <span class="sample-pill">FATF Rec. 20</span>
+          <span class="sample-pill">EU AMLD6</span>
+          <span class="sample-pill">SOC 2 Type II</span>
+          <span class="sample-pill">goAML</span>
+        </div>
+      </div>
+      <div class="sample-arrow">View →</div>
+    </a>
+
+    <a class="sample-item" href="https://sulagnasasmal.github.io/docs-as-code-portal/" target="_blank" rel="noopener">
+      <div class="sample-content">
+        <span class="sample-type type-dac">Docs-as-Code portal</span>
+        <div class="sample-title">Docs-as-Code Portal — 16-page methodology site</div>
+        <div class="sample-desc">
+          A full documentation portal — left nav, table of contents, step-by-step guides, code examples,
+          comparison tables, callouts, prev/next navigation. Explains the Docs-as-Code pipeline:
+          Markdown authoring → GitHub PR review → Vale linting → CI/CD build → GitHub Pages deploy.
+          Self-referential: the portal is itself built using Docs-as-Code principles.
+        </div>
+        <div class="sample-pills">
+          <span class="sample-pill">GitHub Actions CI/CD</span>
+          <span class="sample-pill">Vale linting</span>
+          <span class="sample-pill">MkDocs</span>
+          <span class="sample-pill">Multi-format output</span>
+        </div>
+      </div>
+      <div class="sample-arrow">View →</div>
+    </a>
+
+    <a class="sample-item" href="https://sulagnasasmal.github.io/Documentation-Center-Platform/docforge-platform.html" target="_blank" rel="noopener">
+      <div class="sample-content">
+        <span class="sample-type type-dac">Interactive platform demo</span>
+        <div class="sample-title">DocForge — Docs-as-Code Platform Dashboard</div>
+        <div class="sample-desc">
+          An interactive single-page application demonstrating the complete Docs-as-Code pipeline.
+          Six live modules: Dashboard, Live Editor (split-pane Markdown + Vale), Content Map,
+          Style Linter, Build Outputs, and Configuration. Shows platform-level documentation engineering thinking.
+        </div>
+        <div class="sample-pills">
+          <span class="sample-pill">Docs-as-Code</span>
+          <span class="sample-pill">Vale style linting</span>
+          <span class="sample-pill">CI/CD for docs</span>
+          <span class="sample-pill">Single-source publishing</span>
+        </div>
+      </div>
+      <div class="sample-arrow">View →</div>
+    </a>
+
+  </div>
+</div>
+
+<div class="divider"><hr></div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-text">Sulagna Sasmal · Senior Technical Writer · Documentation Architect · © 2026</div>
+  <div class="footer-links">
+    <a class="footer-link" href="index.html">Full portfolio</a>
+    <a class="footer-link" href="https://www.linkedin.com/in/sulagnasasmal" target="_blank" rel="noopener">LinkedIn</a>
+    <a class="footer-link" href="https://github.com/SulagnaSasmal" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</footer>
+
+</body>
+</html>
