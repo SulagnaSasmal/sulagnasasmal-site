@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -725,109 +725,21 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
 <div class="divider"><hr></div>
 
 <!-- ═══ AI TOOLS ═══ -->
-<section class="section-wide" id="tools">
-  <div style="max-width:var(--content-w);margin:0 auto;">
-    <div class="section-label">Built tools</div>
-    <h2>AI-powered documentation tools</h2>
-    <p style="color:var(--text-2);font-size:0.95rem;margin-bottom:2rem;">
-      These are production projects I built solo — not demos. Each addresses a real documentation
-      workflow problem.
-    </p>
+<section class="section" id="tools">
+  <div class="section-label">Built tools</div>
+  <h2>AI-powered documentation tools</h2>
+  <p style="color:var(--text-2);font-size:0.95rem;margin-bottom:1.5rem;">
+    Five production tools covering documentation generation, RAG search, analytics, OpenAPI rendering, and video automation. Not demos — each solves a real workflow problem.
+  </p>
+  <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:2rem;">
+    <a href="https://doccraft-ten.vercel.app/" target="_blank" rel="noopener" style="padding:0.35rem 0.85rem;background:var(--surface-1,#f8fafc);border:1.5px solid var(--border);border-radius:6px;font-size:0.875rem;font-weight:600;text-decoration:none;color:var(--text);">✍️ DocCraft AI ↗</a>
+    <a href="https://sulagnasasmal.github.io/docquery/" target="_blank" rel="noopener" style="padding:0.35rem 0.85rem;background:var(--surface-1,#f8fafc);border:1.5px solid var(--border);border-radius:6px;font-size:0.875rem;font-weight:600;text-decoration:none;color:var(--text);">💬 DocQuery ↗</a>
+    <a href="https://sulagnasasmal.github.io/docpulse/" target="_blank" rel="noopener" style="padding:0.35rem 0.85rem;background:var(--surface-1,#f8fafc);border:1.5px solid var(--border);border-radius:6px;font-size:0.875rem;font-weight:600;text-decoration:none;color:var(--text);">📊 DocPulse ↗</a>
+    <a href="https://sulagnasasmal.github.io/specflow/" target="_blank" rel="noopener" style="padding:0.35rem 0.85rem;background:var(--surface-1,#f8fafc);border:1.5px solid var(--border);border-radius:6px;font-size:0.875rem;font-weight:600;text-decoration:none;color:var(--text);">⚡ SpecFlow ↗</a>
+    <a href="https://github.com/SulagnaSasmal/ppt-to-mp4-doc-automation" target="_blank" rel="noopener" style="padding:0.35rem 0.85rem;background:var(--surface-1,#f8fafc);border:1.5px solid var(--border);border-radius:6px;font-size:0.875rem;font-weight:600;text-decoration:none;color:var(--text);">🎬 PPT→MP4 ↗</a>
   </div>
-  <div class="tools-grid" style="max-width:var(--wide-w);margin:0 auto;">
+  <a href="https://sulagnasasmal.github.io/ai-doc-tools/" target="_blank" rel="noopener" class="btn btn-primary">Explore all tools at AI Tools Portal ↗</a>
 
-    <a class="tool-card" href="https://doccraft-ten.vercel.app/" target="_blank" rel="noopener">
-      <div class="tool-card-header">
-        <div class="tool-icon">✍️</div>
-        <span class="badge badge-green">Live on Vercel</span>
-      </div>
-      <h3>DocCraft AI</h3>
-      <p>Converts meeting notes, specs, and raw content into polished documentation. Gap analysis, Mermaid diagrams, compliance checking, and multi-format export (HTML, MD, DOCX, PDF).</p>
-      <div class="tool-stack">
-        <span>Next.js 14</span><span>TypeScript</span><span>GPT-4o</span><span>Tailwind</span><span>Vercel</span>
-      </div>
-      <div class="tool-link">Open demo ↗</div>
-    </a>
-
-    <a class="tool-card" href="https://sulagnasasmal.github.io/docquery/" target="_blank" rel="noopener">
-      <div class="tool-card-header">
-        <div class="tool-icon">💬</div>
-        <span class="badge badge-teal">Live demo</span>
-      </div>
-      <h3>DocQuery</h3>
-      <p>RAG-powered documentation chatbot. Crawls live doc sites, chunks by section, embeds with OpenAI, and answers questions with source citations and confidence scores.</p>
-      <div class="tool-stack">
-        <span>Python</span><span>FastAPI</span><span>ChromaDB</span><span>LangChain</span><span>Next.js</span>
-      </div>
-      <div class="tool-link">Open demo ↗</div>
-    </a>
-
-    <a class="tool-card" href="https://sulagnasasmal.github.io/docpulse/" target="_blank" rel="noopener">
-      <div class="tool-card-header">
-        <div class="tool-icon">📊</div>
-        <span class="badge badge-blue">Live demo</span>
-      </div>
-      <h3>DocPulse</h3>
-      <p>Documentation analytics dashboard. Tracks page views, search queries, content freshness, coverage gaps, and ticket deflection rates across documentation sites.</p>
-      <div class="tool-stack">
-        <span>Next.js</span><span>Python</span><span>FastAPI</span><span>SQLite</span><span>Tailwind</span>
-      </div>
-      <div class="tool-link">Open demo ↗</div>
-    </a>
-
-    <a class="tool-card" href="https://sulagnasasmal.github.io/specflow/" target="_blank" rel="noopener">
-      <div class="tool-card-header">
-        <div class="tool-icon">⚡</div>
-        <span class="badge badge-purple">Live demo</span>
-      </div>
-      <h3>SpecFlow</h3>
-      <p>Drop an OpenAPI spec, get a Stripe-quality developer portal. Interactive endpoint explorer, code samples in 5 languages, authentication guide, and error reference.</p>
-      <div class="tool-stack">
-        <span>Next.js</span><span>TypeScript</span><span>OpenAPI</span><span>Tailwind</span>
-      </div>
-      <div class="tool-link">Open demo ↗</div>
-    </a>
-
-    <a class="tool-card" href="https://github.com/SulagnaSasmal/ppt-to-mp4-doc-automation" target="_blank" rel="noopener">
-      <div class="tool-card-header">
-        <div class="tool-icon">🎬</div>
-        <span class="badge badge-gray">GitHub</span>
-      </div>
-      <h3>PPT-to-Video Pipeline</h3>
-      <p>Upload a .pptx file, get a narrated .mp4. Azure TTS generates per-slide audio, PowerPoint COM exports slides as images, FFmpeg muxes the final video. ~1,800 lines of Python.</p>
-      <div class="tool-stack">
-        <span>Python</span><span>FastAPI</span><span>Azure TTS</span><span>FFmpeg</span><span>PowerPoint COM</span>
-      </div>
-      <div class="tool-link">View on GitHub ↗</div>
-    </a>
-
-    <a class="tool-card" href="https://sulagnasasmal.github.io/ai-doc-tools/" target="_blank" rel="noopener">
-      <div class="tool-card-header">
-        <div class="tool-icon">🚀</div>
-        <span class="badge badge-green">Live portal</span>
-      </div>
-      <h3>AI Tools Portal</h3>
-      <p>All five AI-powered documentation tools in one place — DocCraft AI, DocQuery, DocPulse, SpecFlow, and the PPT-to-Video pipeline, with descriptions and direct links.</p>
-      <div class="tool-stack">
-        <span>GitHub Pages</span><span>HTML</span><span>CSS</span>
-      </div>
-      <div class="tool-link">Explore all tools ↗</div>
-    </a>
-
-    <a class="tool-card" href="https://sulagnasasmal.github.io/doc-portal/" target="_blank" rel="noopener">
-      <div class="tool-card-header">
-        <div class="tool-icon">📁</div>
-        <span class="badge badge-amber">12 projects</span>
-      </div>
-      <h3>DOC Portal</h3>
-      <p>12 live documentation sites: payment API references, enterprise admin guides, compliance frameworks, developer portals, and Docs-as-Code methodology documentation.</p>
-      <div class="tool-stack">
-        <span>GitHub Pages</span><span>HTML</span><span>Markdown</span><span>MkDocs</span>
-      </div>
-      <div class="tool-link">View all projects ↗</div>
-    </a>
-
-  </div>
 </section>
 
 <div class="divider-wide"><hr></div>
@@ -836,105 +748,19 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
 <section class="section" id="portfolio">
   <div class="section-label">Portfolio</div>
   <h2>Featured writing samples</h2>
-  <p style="margin-bottom:2rem;">
-    Live, fully authored documentation sites — version-controlled in Git, hosted on GitHub Pages.
-    Spans Docs-as-Code (Markdown), enterprise HTML, and developer API references.
+  <p style="color:var(--text-2);font-size:0.95rem;margin-bottom:1.5rem;">
+    12 live documentation sites — API references, admin guides, compliance frameworks, developer portals, and Docs-as-Code methodology documentation.
   </p>
-
-  <div class="work-list">
-
-    <div class="work-item" onclick="window.open('https://sulagnasasmal.github.io/vaultpay-api-docs/','_blank')">
-      <div class="work-date">API Docs<br>FinTech</div>
-      <div>
-        <div class="work-tag" style="color:#0d9488;">VaultPay Payment API</div>
-        <div class="work-title">Enterprise REST API reference for a fintech payment processing platform</div>
-        <div class="work-desc">Full payments lifecycle: authentication, charges, refunds, disputes, webhooks, and 3D Secure. Compliance sections covering NICE Actimize risk scoring (IFM-AI), AML monitoring (SAM), KYC (CDD), and sanctions screening. Written to match the quality bar of real developer portals.</div>
-        <div class="work-pills">
-          <span class="work-pill">PCI DSS L1</span><span class="work-pill">PSD2 / SCA</span>
-          <span class="work-pill">BSA/AML</span><span class="work-pill">Webhooks</span><span class="work-pill">OpenAPI</span>
-        </div>
-        <div class="work-arrow">View live site →</div>
-      </div>
-    </div>
-
-    <div class="work-item" onclick="window.open('https://sulagnasasmal.github.io/caseforge-api-docs/caseforge-api-docs.html','_blank')">
-      <div class="work-date">API Docs<br>Compliance</div>
-      <div>
-        <div class="work-tag" style="color:#d97706;">CaseForge Case Management</div>
-        <div class="work-title">AML case management and SAR filing API reference (v10.2)</div>
-        <div class="work-desc">Enterprise API reference for a compliance platform: full SAR lifecycle from draft to filed, tamper-evident audit trail with SHA-256 hash chaining, and a 15-event webhook system. Aligned to FinCEN BSA, FATF Recommendation 20, EU AMLD6, and FINRA 3310.</div>
-        <div class="work-pills">
-          <span class="work-pill">FinCEN BSA</span><span class="work-pill">FATF R.20</span>
-          <span class="work-pill">SOC 2 Type II</span><span class="work-pill">FedRAMP</span><span class="work-pill">Audit Trail</span>
-        </div>
-        <div class="work-arrow">View live site →</div>
-      </div>
-    </div>
-
-    <div class="work-item" onclick="window.open('https://sulagnasasmal.github.io/fraudshield-docs/','_blank')">
-      <div class="work-date">Platform<br>Docs</div>
-      <div>
-        <div class="work-tag" style="color:#cf222e;">FraudShield AI Engine</div>
-        <div class="work-title">AI fraud detection platform documentation: risk model to API to explainability</div>
-        <div class="work-desc">Nine-page enterprise documentation site for a fictional AI fraud platform. Covers scoring model, model inputs, configuration YAML, threshold tuning, false positive management, retraining lifecycle, REST API integration, and GDPR / SR 11-7 audit explainability.</div>
-        <div class="work-pills">
-          <span class="work-pill">GDPR Art.22</span><span class="work-pill">SR 11-7</span>
-          <span class="work-pill">BSA/AML</span><span class="work-pill">Risk Scoring</span><span class="work-pill">MLOps</span>
-        </div>
-        <div class="work-arrow">View live site →</div>
-      </div>
-    </div>
-
-    <div class="work-item" onclick="window.open('https://sulagnasasmal.github.io/us-payments-hub/','_blank')">
-      <div class="work-date">Operations<br>Reference</div>
-      <div>
-        <div class="work-tag" style="color:#0969da;">US Payments Hub</div>
-        <div class="work-title">Enterprise operations reference for all six US payment rails</div>
-        <div class="work-desc">Covers ACH (SEC codes, R01-R29 returns, Reg E), Fedwire (ISO 20022 March 2025 migration), SWIFT (MT/MX, gpi, gSRP), RTP (TCH), FedNow (July 2023 launch), and Card Networks. Twelve scenario walkthroughs for bank operations and compliance teams.</div>
-        <div class="work-pills">
-          <span class="work-pill">ACH / NACHA</span><span class="work-pill">Fedwire / ISO 20022</span>
-          <span class="work-pill">SWIFT gpi</span><span class="work-pill">RTP / FedNow</span>
-        </div>
-        <div class="work-arrow">View live site →</div>
-      </div>
-    </div>
-
-    <div class="work-item" onclick="window.open('https://sulagnasasmal.github.io/docs-as-code-portal/','_blank')">
-      <div class="work-date">Platform<br>Guide</div>
-      <div>
-        <div class="work-tag" style="color:#7c3aed;">Docs-as-Code Portal</div>
-        <div class="work-title">16-page documentation portal covering the Docs-as-Code methodology end to end</div>
-        <div class="work-desc">Explains the five-stage pipeline, Git version control for docs, GitHub Actions CI/CD, Vale style linting, and multi-format publishing. Built using the same methodology it documents.</div>
-        <div class="work-pills">
-          <span class="work-pill">Docs-as-Code</span><span class="work-pill">GitHub Actions</span>
-          <span class="work-pill">Vale</span><span class="work-pill">MkDocs</span>
-        </div>
-        <div class="work-arrow">View live site →</div>
-      </div>
-    </div>
-
-    <div class="work-item" onclick="window.open('https://sulagnasasmal.github.io/enterprise-investment-management-platform-docs/','_blank')">
-      <div class="work-date">Platform<br>Docs</div>
-      <div>
-        <div class="work-tag" style="color:#0969da;">SunBridge Asset Atrium Manager</div>
-        <div class="work-title">Enterprise investment platform architecture, NAV batch processing, and release governance</div>
-        <div class="work-desc">Platform architecture documentation for a multi-timezone institutional asset management system. Covers NAV batch processing, high-availability configuration, and release governance workflows. Reflects real experience from SunGard Asset Arena.</div>
-        <div class="work-pills">
-          <span class="work-pill">Asset Management</span><span class="work-pill">NAV Processing</span>
-          <span class="work-pill">UCITS</span><span class="work-pill">MiFID II</span>
-        </div>
-        <div class="work-arrow">View live site →</div>
-      </div>
-    </div>
-
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:0;border-top:1px solid var(--border);margin-bottom:2rem;">
+    <div style="padding:0.75rem 0.5rem;border-bottom:1px solid var(--border);"><a href="https://sulagnasasmal.github.io/vaultpay-api-docs/" target="_blank" rel="noopener" style="font-weight:700;color:var(--text);text-decoration:none;font-size:0.875rem;">VaultPay Payment API ↗</a><div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.15rem;">API Reference · FinTech</div></div>
+    <div style="padding:0.75rem 0.5rem;border-bottom:1px solid var(--border);"><a href="https://sulagnasasmal.github.io/caseforge-api-docs/caseforge-api-docs.html" target="_blank" rel="noopener" style="font-weight:700;color:var(--text);text-decoration:none;font-size:0.875rem;">CaseForge Case Management ↗</a><div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.15rem;">API Reference · Compliance</div></div>
+    <div style="padding:0.75rem 0.5rem;border-bottom:1px solid var(--border);"><a href="https://sulagnasasmal.github.io/fraudshield-docs/" target="_blank" rel="noopener" style="font-weight:700;color:var(--text);text-decoration:none;font-size:0.875rem;">FraudShield AI Engine ↗</a><div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.15rem;">Platform Docs · AI/ML</div></div>
+    <div style="padding:0.75rem 0.5rem;border-bottom:1px solid var(--border);"><a href="https://sulagnasasmal.github.io/us-payments-hub/" target="_blank" rel="noopener" style="font-weight:700;color:var(--text);text-decoration:none;font-size:0.875rem;">US Payments Hub ↗</a><div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.15rem;">Operations Reference · FinTech</div></div>
+    <div style="padding:0.75rem 0.5rem;border-bottom:1px solid var(--border);"><a href="https://sulagnasasmal.github.io/docs-as-code-portal/" target="_blank" rel="noopener" style="font-weight:700;color:var(--text);text-decoration:none;font-size:0.875rem;">Docs-as-Code Portal ↗</a><div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.15rem;">Platform Guide · Methodology</div></div>
+    <div style="padding:0.75rem 0.5rem;border-bottom:1px solid var(--border);"><a href="https://sulagnasasmal.github.io/enterprise-investment-management-platform-docs/" target="_blank" rel="noopener" style="font-weight:700;color:var(--text);text-decoration:none;font-size:0.875rem;">SunBridge Asset Atrium ↗</a><div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.15rem;">Platform Docs · Investment</div></div>
   </div>
+  <a href="https://sulagnasasmal.github.io/doc-portal/" target="_blank" rel="noopener" class="btn btn-primary">View all 12 projects at DOC Portal ↗</a>
 
-  <p style="margin-top:1.5rem;font-size:0.85rem;color:var(--text-3);">
-    All projects are open source.
-    <a href="https://github.com/SulagnaSasmal" target="_blank" style="color:var(--amber);font-weight:600;">View the code on GitHub ↗</a>
-    &nbsp;·&nbsp;
-    <a href="samples.html" style="color:var(--amber);font-weight:600;">See all writing samples ↗</a>
-  </p>
 </section>
 
 <div class="divider"><hr></div>
