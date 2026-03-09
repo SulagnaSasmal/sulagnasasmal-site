@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Technical writing portfolio of Sulagna Sasmal — 15 live documentation projects across API references, SDK guides, onboarding kits, and developer portals.">
+<title>Portfolio — Sulagna Sasmal · Senior Technical Writer</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('ss-theme');if(t){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia('(prefers-color-scheme:dark)').matches){document.documentElement.setAttribute('data-theme','dark');}})();</script>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 15px; scroll-behavior: smooth; }
+
+:root {
+  --bg: #faf9f7;
+  --bg-card: #ffffff;
+  --bg-hover: #f5f3ef;
+  --bg-tag: #f0ede8;
+  --border: #e8e4de;
+  --border-dark: #d5cfc8;
+  --text: #1c1917;
+  --text-2: #57534e;
+  --text-muted: #a8a29e;
+  --accent: #E8A84C;
+  --accent-dark: #c97d2a;
+  --accent-bg: #fef3e2;
+  --accent-border: #fde68a;
+  --green: #16a34a;
+  --green-bg: #f0fdf4;
+  --teal: #0d9488;
+  --blue: #2563eb;
+  --blue-bg: #eff6ff;
+  --purple: #7c3aed;
+  --purple-bg: #f5f3ff;
+  --nav-h: 58px;
+  --max-w: 1100px;
+}
+
+[data-theme="dark"] {
+  --bg: #0f1117;
+  --bg-card: #181c26;
+  --bg-hover: #1f2333;
+  --bg-tag: #1a1f2e;
+  --border: #242b3d;
+  --border-dark: #2e3650;
+  --text: #e2e8f0;
+  --text-2: #94a3b8;
+  --text-muted: #475569;
+  --accent: #f59e0b;
+  --accent-dark: #d97706;
+  --accent-bg: rgba(245,158,11,.08);
+  --accent-border: rgba(245,158,11,.2);
+  --green: #22c55e;
+  --green-bg: rgba(34,197,94,.08);
+  --teal: #14b8a6;
+  --blue: #60a5fa;
+  --blue-bg: rgba(96,165,250,.08);
+  --purple: #a78bfa;
+  --purple-bg: rgba(167,139,250,.08);
+}
+
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+
+/* NAV */
+.nav { position: sticky; top: 0; z-index: 100; height: var(--nav-h); background: rgba(250,249,247,.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; }
+[data-theme="dark"] .nav { background: rgba(15,17,23,.92); }
+.nav-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
+.nav-brand { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--text); text-decoration: none; }
+.nav-brand span { color: var(--accent); }
+.nav-links { display: flex; gap: 1.5rem; align-items: center; }
+.nav-links a { font-size: 0.875rem; color: var(--text-2); text-decoration: none; font-weight: 500; transition: color .15s; }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.theme-btn { background: none; border: 1px solid var(--border-dark); color: var(--text-2); width: 32px; height: 32px; border-radius: 7px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; transition: .15s; flex-shrink: 0; }
+.theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* HERO */
+.hero { max-width: var(--max-w); margin: 0 auto; padding: 3.5rem 2rem 2.5rem; }
+.hero-label { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: .75rem; }
+.hero h1 { font-family: 'Outfit', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -.03em; line-height: 1.15; margin-bottom: 1rem; }
+.hero p { font-size: 1.05rem; color: var(--text-2); max-width: 640px; line-height: 1.75; margin-bottom: 1.5rem; }
+.hero-stats { display: flex; gap: 2rem; flex-wrap: wrap; }
+.stat { text-align: left; }
+.stat-n { font-family: 'Outfit', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--text); }
+.stat-l { font-size: 0.78rem; color: var(--text-muted); margin-top: .1rem; }
+
+/* FILTERS */
+.filters-bar { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem 1.5rem; display: flex; gap: .5rem; flex-wrap: wrap; }
+.filter-btn { font-size: 0.8rem; font-weight: 600; padding: .3rem .9rem; border-radius: 20px; border: 1px solid var(--border-dark); background: none; color: var(--text-2); cursor: pointer; transition: .15s; }
+.filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+.filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* GRID */
+.grid-wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem 4rem; }
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem; }
+.card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem; display: flex; flex-direction: column; gap: .9rem; transition: border-color .15s, transform .15s; }
+.card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: .5rem; }
+.card-phase { font-family: 'JetBrains Mono', monospace; font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: .2rem .6rem; border-radius: 5px; white-space: nowrap; }
+.ph-api { color: var(--blue); background: var(--blue-bg); }
+.ph-sdk { color: var(--purple); background: var(--purple-bg); }
+.ph-onboard { color: var(--teal); background: var(--green-bg); }
+.ph-platform { color: var(--accent); background: var(--accent-bg); }
+.ph-training { color: var(--green); background: var(--green-bg); }
+.ph-portal { color: var(--purple); background: var(--purple-bg); }
+.card-icon { font-size: 1.4rem; flex-shrink: 0; }
+.card-title { font-family: 'Outfit', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+.card-desc { font-size: .875rem; color: var(--text-2); line-height: 1.65; flex: 1; }
+.card-tags { display: flex; flex-wrap: wrap; gap: .35rem; }
+.tag { font-size: .72rem; font-weight: 600; padding: .18rem .55rem; border-radius: 4px; background: var(--bg-tag); color: var(--text-2); border: 1px solid var(--border); }
+.card-links { display: flex; gap: .6rem; margin-top: .25rem; }
+.card-link { font-size: .8rem; font-weight: 600; color: var(--accent); text-decoration: none; padding: .3rem .75rem; border: 1px solid var(--accent-border); border-radius: 6px; background: var(--accent-bg); transition: .15s; }
+.card-link:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.card-link.secondary { color: var(--text-2); border-color: var(--border-dark); background: none; }
+.card-link.secondary:hover { color: var(--text); border-color: var(--border-dark); background: var(--bg-hover); }
+
+/* FOOTER */
+.footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: .82rem; color: var(--text-muted); }
+.footer a { color: var(--text-2); text-decoration: none; }
+.footer a:hover { color: var(--accent); }
+
+@media (max-width: 640px) {
+  .hero h1 { font-size: 1.6rem; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .nav-links a:not(:last-child) { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">Sulagna <span>Sasmal</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#portfolio">Samples</a>
+      <a href="samples.html">All Samples</a>
+      <a href="portfolio.html" class="active">Portfolio</a>
+      <a href="Sulagna-Sasmal-CV.pdf" target="_blank">CV</a>
+    </div>
+    <button class="theme-btn" id="theme-btn" aria-label="Toggle theme">🌙</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-label">Technical Writing Portfolio</div>
+  <h1>15 live documentation<br>projects across 7 phases</h1>
+  <p>API references, SDK guides, onboarding kits, developer portals, compliance training, and Docs-as-Code methodology — all production-quality, all live.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-n">15</div><div class="stat-l">live documentation sites</div></div>
+    <div class="stat"><div class="stat-n">20+</div><div class="stat-l">years experience</div></div>
+    <div class="stat"><div class="stat-n">7</div><div class="stat-l">documentation phases</div></div>
+    <div class="stat"><div class="stat-n">3</div><div class="stat-l">regulated domains</div></div>
+  </div>
+</section>
+
+<div class="filters-bar">
+  <button class="filter-btn active" onclick="filter('all',this)">All</button>
+  <button class="filter-btn" onclick="filter('api',this)">API Reference</button>
+  <button class="filter-btn" onclick="filter('sdk',this)">SDK Docs</button>
+  <button class="filter-btn" onclick="filter('onboard',this)">Onboarding</button>
+  <button class="filter-btn" onclick="filter('platform',this)">Platform Docs</button>
+  <button class="filter-btn" onclick="filter('training',this)">Training</button>
+</div>
+
+<div class="grid-wrap">
+  <div class="projects-grid" id="grid">
+
+    <div class="card" data-cat="api">
+      <div class="card-top"><span class="card-phase ph-api">API Reference</span><span class="card-icon">💳</span></div>
+      <div class="card-title">VaultPay Payment API</div>
+      <div class="card-desc">FinTech REST API reference covering ACH, wire, instant payments, webhook events, and error handling. Stripe-style layout with full code examples.</div>
+      <div class="card-tags"><span class="tag">REST API</span><span class="tag">FinTech</span><span class="tag">Webhooks</span><span class="tag">OpenAPI</span></div>
+      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/vaultpay-api-docs/" target="_blank">Live Site ↗</a></div>
+    </div>
+
+    <div class="card" data-cat="api">
+      <div class="card-top"><span class="card-phase ph-api">API Reference</span><span class="card-icon">🔐</span></div>
+      <div class="card-title">CaseForge Case Management API</div>
+      <div class="card-desc">AML/compliance platform REST API documentation. OAuth 2.0, entity endpoints, case management lifecycle, bulk operations, webhooks, and a full error catalog.</div>
+      <div class="card-tags"><span class="tag">REST API</span><span class="tag">Compliance</span><span class="tag">OAuth 2.0</span><span class="tag">AML</span></div>
+      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/caseforge-api-docs/" target="_blank">Live Site ↗</a></div>
+    </div>
+
+    <div class="card" data-cat="platform">
+      <div class="card-top"><span class="card-phase ph-platform">Platform Docs</span><span class="card-icon">🛡️</span></div>
+      <div class="card-title">FraudShield AI Engine</div>
+      <div class="card-desc">AI/ML fraud detection platform documentation covering deployment, rule configuration, model fine-tuning, and real-time monitoring dashboards.</div>
+      <div class="card-tags"><span class="tag">AI/ML</span><span class="tag">Platform Docs</span><span class="tag">Fraud</span></div>
+      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/fraudshield-docs/" target="_blank">Live Site ↗</a></div>
+    </div>
+
+    <div class="card" data-cat="api">
+      <div class="card-top"><span class="card-phase ph-api">Operations Reference</span><span class="card-icon">🏦</span></div>
+      <div class="card-title">US Payments Hub</div>
+      <div class="card-desc">Comprehensive US payments operations reference for ACH, SWIFT, wire, and instant rails. Covers cut-off times, exception handling, and regulatory requirements.</div>
+      <div class="card-tags"><span class="tag">FinTech</span><span class="tag">ACH</span><span class="tag">SWIFT</span><span class="tag">Operations</span></div>
+      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/us-payments-hub/" target="_blank">Live Site ↗</a></div>
+    </div>
+
+    <div class="card" data-cat="platform">
+      <div class="card-top"><span class="card-phase ph-platform">Platform Docs</span><span class="card-icon">📋</span></div>
+      <div class="card-title">Docs-as-Code Portal</div>
+      <div class="card-desc">A complete Docs-as-Code methodology guide: Git workflows, PR review process, CI/CD pipelines, Vale linting, and publishing automation for documentation teams.</div>
+      <div class="card-tags"><span class="tag">Docs-as-Code</span><span class="tag">GitHub Actions</span><span class="tag">Vale</span><span class="tag">Methodology</span></div>
+      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/docs-as-code-portal/" target="_blank">Live Site ↗</a></div>
+    </div>
+
+    <div class="card" data-cat="platform">
+      <div class="card-top"><span class="card-phase ph-platform">Platform Docs</span><span class="card-icon">📈</span></div>
+      <div class="card-title">SunBridge Asset Atrium Manager</div>
+      <div class="card-desc">Enterprise investment platform documentation — NAV batch processing, high-availability design, multi-timezone support, audit framework, and release governance.</div>
+      <div class="card-tags"><span class="tag">Investment Platform</span><span class="tag">Enterprise</span><span class="tag">HA</span><span class="tag">Multi-TZ</span></div>
+      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/enterprise-investment-management-platform-docs/" target="_blank">Live Site ↗</a></div>
+    </div>
+
+    <div class="card" data-cat="onboard">
+      <div class="card-top"><span class="card-phase ph-onboard">Onboarding Kit</span><span class="card-icon">🚀</span></div>
+      <div class="card-title">CaseForge Customer Onboarding Kit</div>
+      <div class="card-desc">Post-sale enterprise onboarding package. 30-day time-boxed program with role-based checklists, environment provisioning, data migration, user training tracks, and go-live validation.</div>
+      <div class="card-tags"><span class="tag">Enterprise</span><span class="tag">AML</span><span class="tag">Checklists</span><span class="tag">Go-live</span></div>
+      <div class="card-links">
+        <a class="card-link" href="https://sulagnasasmal.github.io/caseforge-onboarding/" target="_blank">Live Site ↗</a>
+        <a class="card-link secondary" href="https://github.com/SulagnaSasmal/caseforge-onboarding" target="_blank">GitHub</a>
+      </div>
+    </div>
+
+    <div class="card" data-cat="sdk">
+      <div class="card-top"><span class="card-phase ph-sdk">SDK Docs</span><span class="card-icon">🐍</span></div>
+      <div class="card-title">CaseForge SDK Documentation</div>
+      <div class="card-desc">Python and Node.js SDK guide for the CaseForge AML API. Quickstart, auth (API keys + OAuth 2.0), exception hierarchy, code-sample library, versioned changelog, and v1→v2 migration guide.</div>
+      <div class="card-tags"><span class="tag">Python</span><span class="tag">Node.js</span><span class="tag">OAuth 2.0</span><span class="tag">Migration Guide</span></div>
+      <div class="card-links">
+        <a class="card-link" href="https://sulagnasasmal.github.io/caseforge-sdk-docs/" target="_blank">Live Site ↗</a>
+        <a class="card-link secondary" href="https://github.com/SulagnaSasmal/caseforge-sdk-docs" target="_blank">GitHub</a>
+      </div>
+    </div>
+
+    <div class="card" data-cat="sdk">
+      <div class="card-top"><span class="card-phase ph-sdk">SDK Docs</span><span class="card-icon">📦</span></div>
+      <div class="card-title">NexaFlow SDK Documentation</div>
+      <div class="card-desc">Full developer reference for a workflow automation SDK — installation, core concepts, authentication, error handling with retry policies, complete API reference, and v1→v2 migration guide.</div>
+      <div class="card-tags"><span class="tag">SDK</span><span class="tag">API Reference</span><span class="tag">Node.js</span><span class="tag">Python</span><span class="tag">Migration</span></div>
+      <div class="card-links">
+        <a class="card-link secondary" href="https://github.com/SulagnaSasmal/nexaflow-sdk-docs" target="_blank">GitHub ↗</a>
+      </div>
+    </div>
+
+    <div class="card" data-cat="training">
+      <div class="card-top"><span class="card-phase ph-training">Compliance Training</span><span class="card-icon">📚</span></div>
+      <div class="card-title">AML Compliance Training Program</div>
+      <div class="card-desc">BSA/AML regulatory scenario-based training with interactive quiz engine. Covers SAR filing, CDD, transaction monitoring, OFAC screening, and FinCEN requirements.</div>
+      <div class="card-tags"><span class="tag">AML</span><span class="tag">Compliance</span><span class="tag">FinCEN</span><span class="tag">Training</span></div>
+      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/aml-compliance-training/" target="_blank">Live Site ↗</a></div>
+    </div>
+
+    <div class="card" data-cat="onboard">
+      <div class="card-top"><span class="card-phase ph-onboard">Developer Onboarding</span><span class="card-icon">👩‍💻</span></div>
+      <div class="card-title">Developer Onboarding Experience</div>
+      <div class="card-desc">5-step interactive Payments API onboarding with checklist-gated navigation. Guides developers from sandbox setup through first payment transaction.</div>
+      <div class="card-tags"><span class="tag">Developer</span><span class="tag">Payments API</span><span class="tag">Onboarding</span><span class="tag">Interactive</span></div>
+      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/developer-onboarding/" target="_blank">Live Site ↗</a></div>
+    </div>
+
+    <div class="card" data-cat="platform">
+      <div class="card-top"><span class="card-phase ph-platform">Content Strategy</span><span class="card-icon">🗂️</span></div>
+      <div class="card-title">Technical Documentation Content Strategy</div>
+      <div class="card-desc">Complete documentation program framework: style guide, information architecture methodology, doc type taxonomy, audience analysis, metrics program, four templates, audit checklist, and content health scorecard.</div>
+      <div class="card-tags"><span class="tag">Content Strategy</span><span class="tag">Style Guide</span><span class="tag">IA</span><span class="tag">Metrics</span></div>
+      <div class="card-links">
+        <a class="card-link secondary" href="https://github.com/SulagnaSasmal/docs-content-strategy" target="_blank">GitHub ↗</a>
+      </div>
+    </div>
+
+    <div class="card" data-cat="portal">
+      <div class="card-top"><span class="card-phase ph-portal">Portfolio Hub</span><span class="card-icon">🏛️</span></div>
+      <div class="card-title">Documentation Center Platform</div>
+      <div class="card-desc">Capstone portfolio hub bringing all 7 phases together. Meta-documentation on writing philosophy (MSTP compliance, before/after examples), IA decisions per phase, and full doc-as-code workflow with Vale, GitHub Actions CI, and deployment pipeline.</div>
+      <div class="card-tags"><span class="tag">Portfolio Hub</span><span class="tag">MSTP</span><span class="tag">Doc-as-Code</span><span class="tag">GitHub Actions</span></div>
+      <div class="card-links">
+        <a class="card-link" href="https://sulagnasasmal.github.io/Documentation-Center-Platform/" target="_blank">Live Site ↗</a>
+        <a class="card-link secondary" href="https://github.com/SulagnaSasmal/Documentation-Center-Platform" target="_blank">GitHub</a>
+      </div>
+    </div>
+
+    <div class="card" data-cat="platform">
+      <div class="card-top"><span class="card-phase ph-platform">AI Tools</span><span class="card-icon">🤖</span></div>
+      <div class="card-title">AI Documentation Tools Portal</div>
+      <div class="card-desc">Portal for all AI-powered documentation tools: DocCraft AI, SpecFlow (OpenAPI → developer docs), DocQuery (RAG chatbot), DocPulse (analytics), and PPT→MP4 automation pipeline.</div>
+      <div class="card-tags"><span class="tag">AI/ML</span><span class="tag">DocCraft</span><span class="tag">OpenAPI</span><span class="tag">RAG</span><span class="tag">Automation</span></div>
+      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/ai-doc-tools/" target="_blank">Live Site ↗</a></div>
+    </div>
+
+    <div class="card" data-cat="training">
+      <div class="card-top"><span class="card-phase ph-training">Learning Portal</span><span class="card-icon">🎓</span></div>
+      <div class="card-title">FinTech Learning Academy</div>
+      <div class="card-desc">LMS-style tutorial site covering payments infrastructure, regulatory compliance, and financial technology fundamentals — structured learning paths for technical and non-technical audiences.</div>
+      <div class="card-tags"><span class="tag">LMS</span><span class="tag">FinTech</span><span class="tag">Tutorial</span><span class="tag">Learning Paths</span></div>
+      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/fintech-learning-academy/" target="_blank">Live Site ↗</a></div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="footer">
+  <p><a href="index.html">sulagnasasmal.com</a> · <a href="https://github.com/SulagnaSasmal" target="_blank">GitHub</a> · <a href="Sulagna-Sasmal-CV.pdf" target="_blank">Download CV</a></p>
+  <p style="margin-top:.5rem;">© 2025 Sulagna Sasmal · Senior Technical Writer</p>
+</footer>
+
+<script>
+// Theme toggle
+const btn = document.getElementById('theme-btn');
+function setTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  localStorage.setItem('ss-theme', t);
+  if (btn) btn.textContent = t === 'dark' ? '☀️' : '🌙';
+}
+if (btn) {
+  const cur = document.documentElement.getAttribute('data-theme') || 'light';
+  btn.textContent = cur === 'dark' ? '☀️' : '🌙';
+  btn.addEventListener('click', () => {
+    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+  });
+}
+// Category filter
+function filter(cat, el) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.card').forEach(c => {
+    c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
