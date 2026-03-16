@@ -9,125 +9,776 @@
 <script>(function(){var t=localStorage.getItem('ss-theme');if(t){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia('(prefers-color-scheme:dark)').matches){document.documentElement.setAttribute('data-theme','dark');}})();</script>
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { font-size: 15px; scroll-behavior: smooth; }
+
+html {
+  font-size: 15px;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-dark) var(--bg);
+}
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-dark); border-radius: 4px; }
+
+::selection { background: var(--accent-bg); color: var(--accent); }
 
 :root {
-  --bg: #faf9f7;
-  --bg-card: #ffffff;
-  --bg-hover: #f5f3ef;
-  --bg-tag: #f0ede8;
-  --border: #e8e4de;
-  --border-dark: #d5cfc8;
-  --text: #1c1917;
-  --text-2: #57534e;
-  --text-muted: #a8a29e;
-  --accent: #E8A84C;
-  --accent-dark: #c97d2a;
-  --accent-bg: #fef3e2;
-  --accent-border: #fde68a;
-  --green: #16a34a;
-  --green-bg: #f0fdf4;
-  --teal: #0d9488;
-  --blue: #2563eb;
-  --blue-bg: #eff6ff;
-  --purple: #7c3aed;
-  --purple-bg: #f5f3ff;
-  --nav-h: 58px;
-  --max-w: 1100px;
+  --bg:           #faf9f7;
+  --bg-card:      #ffffff;
+  --bg-hover:     #f5f3ef;
+  --bg-tag:       #f0ede8;
+  --border:       #e8e4de;
+  --border-dark:  #d5cfc8;
+  --text:         #1c1917;
+  --text-2:       #57534e;
+  --text-muted:   #a8a29e;
+  --accent:       #E8A84C;
+  --accent-dark:  #c97d2a;
+  --accent-bg:    #fef3e2;
+  --accent-border:#fde68a;
+  --green:        #16a34a;
+  --green-bg:     #f0fdf4;
+  --teal:         #0d9488;
+  --blue:         #2563eb;
+  --blue-bg:      #eff6ff;
+  --purple:       #7c3aed;
+  --purple-bg:    #f5f3ff;
+  --nav-h:        58px;
+  --max-w:        1100px;
+  --ease:         cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 [data-theme="dark"] {
-  --bg: #0f1117;
-  --bg-card: #181c26;
-  --bg-hover: #1f2333;
-  --bg-tag: #1a1f2e;
-  --border: #242b3d;
-  --border-dark: #2e3650;
-  --text: #e2e8f0;
-  --text-2: #94a3b8;
-  --text-muted: #475569;
-  --accent: #f59e0b;
-  --accent-dark: #d97706;
-  --accent-bg: rgba(245,158,11,.08);
-  --accent-border: rgba(245,158,11,.2);
-  --green: #22c55e;
-  --green-bg: rgba(34,197,94,.08);
-  --teal: #14b8a6;
-  --blue: #60a5fa;
-  --blue-bg: rgba(96,165,250,.08);
-  --purple: #a78bfa;
-  --purple-bg: rgba(167,139,250,.08);
+  --bg:           #0f1117;
+  --bg-card:      #181c26;
+  --bg-hover:     #1f2333;
+  --bg-tag:       #1a1f2e;
+  --border:       #242b3d;
+  --border-dark:  #2e3650;
+  --text:         #e2e8f0;
+  --text-2:       #94a3b8;
+  --text-muted:   #475569;
+  --accent:       #f59e0b;
+  --accent-dark:  #d97706;
+  --accent-bg:    rgba(245,158,11,.08);
+  --accent-border:rgba(245,158,11,.2);
+  --green:        #22c55e;
+  --green-bg:     rgba(34,197,94,.08);
+  --teal:         #14b8a6;
+  --blue:         #60a5fa;
+  --blue-bg:      rgba(96,165,250,.08);
+  --purple:       #a78bfa;
+  --purple-bg:    rgba(167,139,250,.08);
 }
 
-body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
 
-/* NAV */
-.nav { position: sticky; top: 0; z-index: 100; height: var(--nav-h); background: rgba(250,249,247,.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; }
-[data-theme="dark"] .nav { background: rgba(15,17,23,.92); }
-.nav-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
-.nav-brand { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--text); text-decoration: none; }
+/* ── ANIMATIONS ──────────────────────────────────────────── */
+@keyframes fadeup {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .55s var(--ease), transform .55s var(--ease);
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ── SIDE LINKS ───────────────────────────────────────────── */
+.side {
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.side::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 80px;
+  background: var(--text-muted);
+  margin-top: 4px;
+}
+.side-left  { left: 30px; }
+.side-right { right: 30px; }
+
+.side-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: color .2s, transform .2s;
+}
+.side-link:hover { color: var(--accent); transform: translateY(-3px); }
+.side-link svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  display: block;
+}
+
+.side-email {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .7rem;
+  letter-spacing: .12em;
+  color: var(--text-muted);
+  text-decoration: none;
+  writing-mode: vertical-rl;
+  transition: color .2s, transform .2s;
+  margin-bottom: 4px;
+}
+.side-email:hover { color: var(--accent); transform: translateY(-3px); }
+
+@media (max-width: 980px) { .side { display: none; } }
+
+/* ── NAV ──────────────────────────────────────────────────── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--nav-h);
+  background: rgba(250,249,247,.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  transition: background .2s, border-color .2s;
+}
+[data-theme="dark"] .nav { background: rgba(15,17,23,.9); }
+
+.nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.nav-brand {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -.01em;
+}
 .nav-brand span { color: var(--accent); }
+
 .nav-links { display: flex; gap: 1.5rem; align-items: center; }
-.nav-links a { font-size: 0.875rem; color: var(--text-2); text-decoration: none; font-weight: 500; transition: color .15s; }
-.nav-links a:hover, .nav-links a.active { color: var(--text); }
-.theme-btn { background: none; border: 1px solid var(--border-dark); color: var(--text-2); width: 32px; height: 32px; border-radius: 7px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; transition: .15s; flex-shrink: 0; }
+.nav-links a {
+  font-size: .875rem;
+  color: var(--text-2);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color .15s;
+}
+.nav-links a:hover,
+.nav-links a.active { color: var(--text); }
+
+/* Theme button */
+.theme-btn {
+  background: none;
+  border: 1px solid var(--border-dark);
+  color: var(--text-2);
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color .15s, color .15s;
+  flex-shrink: 0;
+  padding: 0;
+}
 .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+.theme-btn svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  display: block;
+}
+.icon-sun  { display: none; }
+.icon-moon { display: block; }
+[data-theme="dark"] .icon-sun  { display: block; }
+[data-theme="dark"] .icon-moon { display: none; }
 
-/* HERO */
-.hero { max-width: var(--max-w); margin: 0 auto; padding: 3.5rem 2rem 2.5rem; }
-.hero-label { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: .75rem; }
-.hero h1 { font-family: 'Outfit', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -.03em; line-height: 1.15; margin-bottom: 1rem; }
-.hero p { font-size: 1.05rem; color: var(--text-2); max-width: 640px; line-height: 1.75; margin-bottom: 1.5rem; }
-.hero-stats { display: flex; gap: 2rem; flex-wrap: wrap; }
+/* ── HERO ─────────────────────────────────────────────────── */
+.hero {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 5.5rem 2rem 4rem;
+}
+
+.hero-greeting {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .82rem;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: .1em;
+  margin-bottom: .9rem;
+  animation: fadeup .6s var(--ease) .1s both;
+}
+.hero-greeting::after {
+  content: '_';
+  animation: blink 1.1s step-end infinite;
+  margin-left: 1px;
+}
+
+.hero h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2.2rem, 5.5vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -.035em;
+  line-height: 1.1;
+  margin-bottom: .6rem;
+  background: linear-gradient(
+    120deg,
+    var(--text) 0%,
+    var(--text) 30%,
+    var(--accent) 50%,
+    var(--text) 70%,
+    var(--text) 100%
+  );
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeup .6s var(--ease) .2s both, shimmer 7s linear 1.5s infinite;
+}
+
+.hero-tagline {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.35rem, 3vw, 2.1rem);
+  font-weight: 600;
+  color: var(--text-2);
+  letter-spacing: -.02em;
+  line-height: 1.25;
+  margin-bottom: 1.4rem;
+  animation: fadeup .6s var(--ease) .3s both;
+}
+
+.hero-bio {
+  font-size: 1.025rem;
+  color: var(--text-2);
+  max-width: 600px;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  animation: fadeup .6s var(--ease) .4s both;
+}
+
+.hero-actions {
+  display: flex;
+  gap: .75rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+  animation: fadeup .6s var(--ease) .5s both;
+}
+
+.btn-primary {
+  font-family: 'Inter', sans-serif;
+  font-size: .875rem;
+  font-weight: 600;
+  padding: .65rem 1.5rem;
+  border-radius: 7px;
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  transition: background .2s, border-color .2s, transform .2s var(--ease), box-shadow .2s;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(232,168,76,.3);
+}
+[data-theme="dark"] .btn-primary { color: #0f1117; }
+[data-theme="dark"] .btn-primary:hover { box-shadow: 0 6px 20px rgba(245,158,11,.25); }
+
+.btn-outline {
+  font-family: 'Inter', sans-serif;
+  font-size: .875rem;
+  font-weight: 600;
+  padding: .65rem 1.5rem;
+  border-radius: 7px;
+  background: none;
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  transition: background .2s, transform .2s var(--ease);
+}
+.btn-outline:hover {
+  background: var(--accent-bg);
+  transform: translateY(-2px);
+}
+
+.hero-stats {
+  display: flex;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  animation: fadeup .6s var(--ease) .6s both;
+}
 .stat { text-align: left; }
-.stat-n { font-family: 'Outfit', sans-serif; font-size: 1.6rem; font-weight: 800; color: var(--text); }
-.stat-l { font-size: 0.78rem; color: var(--text-muted); margin-top: .1rem; }
+.stat-n {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1;
+}
+.stat-n sup {
+  font-size: .6em;
+  color: var(--accent);
+  font-weight: 700;
+  vertical-align: top;
+  margin-top: .2em;
+  display: inline-block;
+}
+.stat-l {
+  font-size: .75rem;
+  color: var(--text-muted);
+  margin-top: .3rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
 
-/* FILTERS */
-.filters-bar { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem 1.5rem; display: flex; gap: .5rem; flex-wrap: wrap; }
-.filter-btn { font-size: 0.8rem; font-weight: 600; padding: .3rem .9rem; border-radius: 20px; border: 1px solid var(--border-dark); background: none; color: var(--text-2); cursor: pointer; transition: .15s; }
+/* ── SECTION HEADING ──────────────────────────────────────── */
+.section-wrap {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-heading {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: 2.5rem;
+  white-space: nowrap;
+}
+.section-heading::after {
+  content: '';
+  display: block;
+  height: 1px;
+  background: var(--border);
+  flex: 1;
+  min-width: 40px;
+}
+.heading-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .85em;
+  color: var(--accent);
+  font-weight: 400;
+}
+
+/* ── FEATURED SECTION ─────────────────────────────────────── */
+.featured-section {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+}
+
+.featured-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5.5rem;
+  list-style: none;
+}
+
+.fi {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+.fi:nth-child(even) { flex-direction: row-reverse; }
+
+.fi-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+.fi:nth-child(even) .fi-content { text-align: right; align-items: flex-end; }
+
+.fi-overline {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.fi-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.25rem, 2.5vw, 1.65rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+.fi-title a {
+  color: var(--text);
+  text-decoration: none;
+  transition: color .15s;
+}
+.fi-title a:hover { color: var(--accent); }
+
+.fi-desc {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.4rem 1.6rem;
+  font-size: .9rem;
+  color: var(--text-2);
+  line-height: 1.75;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4px 24px rgba(0,0,0,.07);
+  transition: border-color .2s;
+}
+[data-theme="dark"] .fi-desc { box-shadow: 0 4px 24px rgba(0,0,0,.3); }
+.fi:hover .fi-desc { border-color: var(--accent-border); }
+
+.fi-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1rem;
+  list-style: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .72rem;
+  color: var(--text-muted);
+}
+.fi:nth-child(even) .fi-tech { justify-content: flex-end; }
+.fi-tech li::before { content: '▹ '; color: var(--accent); }
+
+.fi-links { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; }
+.fi:nth-child(even) .fi-links { justify-content: flex-end; }
+
+/* Featured visual panel */
+.fi-visual {
+  flex: 0 0 42%;
+  min-height: 270px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color .3s, box-shadow .3s;
+}
+.fi:hover .fi-visual {
+  border-color: var(--accent-border);
+  box-shadow: 0 12px 48px rgba(0,0,0,.1);
+}
+[data-theme="dark"] .fi:hover .fi-visual { box-shadow: 0 12px 48px rgba(0,0,0,.4); }
+
+.fi-bar {
+  padding: .6rem .85rem;
+  display: flex;
+  gap: .4rem;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-hover);
+}
+.fi-bar span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border-dark);
+}
+.fi-bar span:nth-child(1) { background: #ff5f57; }
+.fi-bar span:nth-child(2) { background: #febc2e; }
+.fi-bar span:nth-child(3) { background: #28c840; }
+
+.fi-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1rem;
+  padding: 2rem;
+  position: relative;
+}
+.fi-body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 35%, var(--accent-bg) 0%, transparent 68%);
+  pointer-events: none;
+}
+.fi-icon { font-size: 2.8rem; position: relative; z-index: 1; line-height: 1; }
+.fi-badge { position: relative; z-index: 1; }
+.fi-lines {
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  position: relative;
+  z-index: 1;
+}
+.fi-line {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border);
+}
+.fi-line--a { background: var(--accent); opacity: .55; width: 75%; }
+.fi-line--b { width: 100%; }
+.fi-line--c { width: 50%; }
+.fi-line--d { width: 85%; }
+
+@media (max-width: 768px) {
+  .fi, .fi:nth-child(even) { flex-direction: column; }
+  .fi-content, .fi:nth-child(even) .fi-content { text-align: left; align-items: flex-start; }
+  .fi:nth-child(even) .fi-tech  { justify-content: flex-start; }
+  .fi:nth-child(even) .fi-links { justify-content: flex-start; }
+  .fi-visual { min-height: 180px; width: 100%; flex: none; }
+  .featured-list { gap: 3.5rem; }
+}
+
+/* ── PROJECTS SECTION ─────────────────────────────────────── */
+.projects-section {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 1rem 2rem 5rem;
+}
+
+.filters-bar {
+  display: flex;
+  gap: .45rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+.filter-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: .78rem;
+  font-weight: 600;
+  padding: .3rem .95rem;
+  border-radius: 20px;
+  border: 1px solid var(--border-dark);
+  background: none;
+  color: var(--text-2);
+  cursor: pointer;
+  transition: border-color .15s, color .15s, background .15s;
+}
 .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
 .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+[data-theme="dark"] .filter-btn.active { color: #0f1117; }
 
-/* GRID */
-.grid-wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem 4rem; }
-.projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem; }
-.card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem; display: flex; flex-direction: column; gap: .9rem; transition: border-color .15s, transform .15s; }
-.card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.results-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .72rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  letter-spacing: .04em;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 1.25rem;
+}
+
+/* ── CARD ─────────────────────────────────────────────────── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: .9rem;
+  transition: border-color .2s, transform .25s var(--ease), box-shadow .25s;
+}
+.card:hover {
+  border-color: var(--accent-border);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 40px rgba(0,0,0,.09);
+}
+[data-theme="dark"] .card:hover { box-shadow: 0 10px 40px rgba(0,0,0,.35); }
+
 .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: .5rem; }
-.card-phase { font-family: 'JetBrains Mono', monospace; font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: .2rem .6rem; border-radius: 5px; white-space: nowrap; }
-.ph-api { color: var(--blue); background: var(--blue-bg); }
-.ph-sdk { color: var(--purple); background: var(--purple-bg); }
-.ph-onboard { color: var(--teal); background: var(--green-bg); }
-.ph-platform { color: var(--accent); background: var(--accent-bg); }
-.ph-training { color: var(--green); background: var(--green-bg); }
-.ph-portal { color: var(--purple); background: var(--purple-bg); }
-.card-icon { font-size: 1.4rem; flex-shrink: 0; }
-.card-title { font-family: 'Outfit', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--text); line-height: 1.3; }
-.card-desc { font-size: .875rem; color: var(--text-2); line-height: 1.65; flex: 1; }
+.card-phase {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .63rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .22rem .62rem;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+.ph-api     { color: var(--blue);   background: var(--blue-bg);   }
+.ph-sdk     { color: var(--purple); background: var(--purple-bg); }
+.ph-onboard { color: var(--teal);   background: var(--green-bg);  }
+.ph-platform{ color: var(--accent); background: var(--accent-bg); }
+.ph-training{ color: var(--green);  background: var(--green-bg);  }
+.ph-portal  { color: var(--purple); background: var(--purple-bg); }
+
+.card-icon { font-size: 1.5rem; flex-shrink: 0; line-height: 1; }
+.card-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.025rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.35;
+}
+.card-desc { font-size: .85rem; color: var(--text-2); line-height: 1.7; flex: 1; }
 .card-tags { display: flex; flex-wrap: wrap; gap: .35rem; }
-.tag { font-size: .72rem; font-weight: 600; padding: .18rem .55rem; border-radius: 4px; background: var(--bg-tag); color: var(--text-2); border: 1px solid var(--border); }
-.card-links { display: flex; gap: .6rem; margin-top: .25rem; }
-.card-link { font-size: .8rem; font-weight: 600; color: var(--accent); text-decoration: none; padding: .3rem .75rem; border: 1px solid var(--accent-border); border-radius: 6px; background: var(--accent-bg); transition: .15s; }
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .67rem;
+  font-weight: 600;
+  padding: .2rem .55rem;
+  border-radius: 4px;
+  background: var(--bg-tag);
+  color: var(--text-2);
+  border: 1px solid var(--border);
+}
+.card-links { display: flex; gap: .5rem; margin-top: .1rem; flex-wrap: wrap; }
+.card-link {
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  padding: .28rem .72rem;
+  border: 1px solid var(--accent-border);
+  border-radius: 6px;
+  background: var(--accent-bg);
+  transition: background .15s, color .15s, border-color .15s;
+}
 .card-link:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+[data-theme="dark"] .card-link:hover { color: #0f1117; }
 .card-link.secondary { color: var(--text-2); border-color: var(--border-dark); background: none; }
-.card-link.secondary:hover { color: var(--text); border-color: var(--border-dark); background: var(--bg-hover); }
+.card-link.secondary:hover { color: var(--text); background: var(--bg-hover); border-color: var(--border-dark); }
 
-/* FOOTER */
-.footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: .82rem; color: var(--text-muted); }
-.footer a { color: var(--text-2); text-decoration: none; }
-.footer a:hover { color: var(--accent); }
+/* ── FOOTER ───────────────────────────────────────────────── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 3.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  text-align: center;
+}
+.footer-links {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.footer-links a {
+  font-size: .875rem;
+  color: var(--text-2);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color .15s;
+}
+.footer-links a:hover { color: var(--accent); }
+.footer-divider {
+  color: var(--border-dark);
+  font-size: .75rem;
+  user-select: none;
+}
+.footer-copy {
+  font-size: .78rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.footer-copy a { color: var(--text-muted); text-decoration: none; }
+.footer-copy a:hover { color: var(--accent); }
+.footer-disclaimer {
+  font-size: .72rem;
+  color: var(--text-muted);
+  font-style: italic;
+  opacity: .7;
+  max-width: 560px;
+}
 
+/* ── RESPONSIVE ───────────────────────────────────────────── */
 @media (max-width: 640px) {
-  .hero h1 { font-size: 1.6rem; }
+  .hero h1      { font-size: 2rem; }
+  .hero-tagline { font-size: 1.2rem; }
+  .hero-stats   { gap: 1.5rem; }
   .projects-grid { grid-template-columns: 1fr; }
-  .nav-links a:not(:last-child) { display: none; }
+  .nav-links a:not(.active):not(:last-child) { display: none; }
+  .hero { padding: 3.5rem 1.25rem 3rem; }
+  .featured-section,
+  .projects-section { padding-left: 1.25rem; padding-right: 1.25rem; }
 }
 </style>
 </head>
 <body>
 
-<nav class="nav">
+<!-- ── SIDE LINKS ──────────────────────────────────────────── -->
+<aside class="side side-left" aria-label="Social links">
+  <a class="side-link" href="https://github.com/SulagnaSasmal" target="_blank" rel="noreferrer" aria-label="GitHub">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    </svg>
+  </a>
+  <a class="side-link" href="https://linkedin.com/in/sulagnasasmal" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+      <rect x="2" y="9" width="4" height="12"/>
+      <circle cx="4" cy="4" r="2"/>
+    </svg>
+  </a>
+</aside>
+
+<!-- ── NAV ────────────────────────────────────────────────── -->
+<nav class="nav" aria-label="Site navigation">
   <div class="nav-inner">
     <a class="nav-brand" href="index.html">Sulagna <span>Sasmal</span></a>
     <div class="nav-links">
@@ -137,199 +788,385 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
       <a href="portfolio.html" class="active">Portfolio</a>
       <a href="Sulagna-Sasmal-CV.pdf" target="_blank">CV</a>
     </div>
-    <button class="theme-btn" id="theme-btn" aria-label="Toggle theme">🌙</button>
+    <button class="theme-btn" id="theme-btn" aria-label="Toggle colour theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="5"/>
+        <line x1="12" y1="1"     x2="12" y2="3"/>
+        <line x1="12" y1="21"    x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22"  x2="5.64" y2="5.64"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1"  y1="12" x2="3"  y2="12"/>
+        <line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
   </div>
 </nav>
 
-<section class="hero">
-  <div class="hero-label">Technical Writing Portfolio</div>
-  <h1>15 live documentation<br>projects across 7 phases</h1>
-  <p>API references, SDK guides, onboarding kits, developer portals, compliance training, and Docs-as-Code methodology — all production-quality, all live.</p>
+<!-- ── HERO ───────────────────────────────────────────────── -->
+<section class="hero" id="hero" aria-labelledby="hero-heading">
+  <span class="hero-greeting">Hi, I'm</span>
+  <h1 id="hero-heading">Sulagna Sasmal.</h1>
+  <h2 class="hero-tagline">I craft documentation that ships.</h2>
+  <p class="hero-bio">Senior Technical Writer specialising in API references, SDK guides, developer onboarding, and documentation programs for FinTech and compliance-heavy products — all production-quality, all live on GitHub Pages.</p>
+  <div class="hero-actions">
+    <a href="#featured" class="btn-primary">See my work ↓</a>
+    <a href="Sulagna-Sasmal-CV.pdf" target="_blank" class="btn-outline">Download CV</a>
+  </div>
   <div class="hero-stats">
-    <div class="stat"><div class="stat-n">15</div><div class="stat-l">live documentation sites</div></div>
-    <div class="stat"><div class="stat-n">20+</div><div class="stat-l">years experience</div></div>
-    <div class="stat"><div class="stat-n">7</div><div class="stat-l">documentation phases</div></div>
-    <div class="stat"><div class="stat-n">3</div><div class="stat-l">regulated domains</div></div>
+    <div class="stat">
+      <div class="stat-n">15<sup>+</sup></div>
+      <div class="stat-l">live documentation sites</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">20<sup>+</sup></div>
+      <div class="stat-l">years experience</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">7</div>
+      <div class="stat-l">documentation phases</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">3</div>
+      <div class="stat-l">regulated domains</div>
+    </div>
   </div>
 </section>
 
-<div class="filters-bar">
-  <button class="filter-btn active" onclick="filter('all',this)">All</button>
-  <button class="filter-btn" onclick="filter('api',this)">API Reference</button>
-  <button class="filter-btn" onclick="filter('sdk',this)">SDK Docs</button>
-  <button class="filter-btn" onclick="filter('onboard',this)">Onboarding</button>
-  <button class="filter-btn" onclick="filter('platform',this)">Platform Docs</button>
-  <button class="filter-btn" onclick="filter('training',this)">Training</button>
-</div>
+<!-- ── FEATURED SECTION ───────────────────────────────────── -->
+<section class="featured-section" id="featured" aria-labelledby="featured-heading">
+  <h2 class="section-heading reveal" id="featured-heading">
+    <span class="heading-num">01.</span> Featured Work
+  </h2>
 
-<div class="grid-wrap">
+  <ul class="featured-list">
+
+    <!-- VaultPay -->
+    <li class="fi reveal">
+      <div class="fi-content">
+        <p class="fi-overline">Featured Project</p>
+        <h3 class="fi-title">
+          <a href="https://sulagnasasmal.github.io/vaultpay-api-docs/" target="_blank" rel="noreferrer">VaultPay Payment API</a>
+        </h3>
+        <div class="fi-desc">
+          <p>FinTech REST API reference covering ACH, wire transfers, instant payments, webhook events, and comprehensive error handling. Built to Stripe-style standards with tabbed code examples across Python, JavaScript, and cURL — the gold standard for payments API documentation.</p>
+        </div>
+        <ul class="fi-tech">
+          <li>REST API</li><li>FinTech</li><li>Webhooks</li><li>OpenAPI</li><li>ACH / SWIFT</li>
+        </ul>
+        <div class="fi-links">
+          <a href="https://sulagnasasmal.github.io/vaultpay-api-docs/" target="_blank" rel="noreferrer" class="btn-primary">Live Site ↗</a>
+          <a href="https://github.com/SulagnaSasmal/vaultpay-api-docs" target="_blank" rel="noreferrer" class="btn-outline">GitHub</a>
+        </div>
+      </div>
+      <div class="fi-visual" aria-hidden="true">
+        <div class="fi-bar"><span></span><span></span><span></span></div>
+        <div class="fi-body">
+          <span class="card-phase ph-api fi-badge">API Reference</span>
+          <div class="fi-icon">💳</div>
+          <div class="fi-lines">
+            <div class="fi-line fi-line--a"></div>
+            <div class="fi-line fi-line--b"></div>
+            <div class="fi-line fi-line--c"></div>
+            <div class="fi-line fi-line--d"></div>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <!-- Documentation Center Platform -->
+    <li class="fi reveal">
+      <div class="fi-content">
+        <p class="fi-overline">Featured Project</p>
+        <h3 class="fi-title">
+          <a href="https://sulagnasasmal.github.io/Documentation-Center-Platform/" target="_blank" rel="noreferrer">Documentation Center Platform</a>
+        </h3>
+        <div class="fi-desc">
+          <p>Capstone portfolio hub unifying all 7 documentation phases. Includes writing philosophy with MSTP compliance evidence, before/after examples, information architecture decisions per phase, and a full Docs-as-Code workflow — Vale linting, GitHub Actions CI, and automated deployment pipeline.</p>
+        </div>
+        <ul class="fi-tech">
+          <li>Portfolio Hub</li><li>MSTP Compliance</li><li>Docs-as-Code</li><li>GitHub Actions</li><li>Vale</li>
+        </ul>
+        <div class="fi-links">
+          <a href="https://sulagnasasmal.github.io/Documentation-Center-Platform/" target="_blank" rel="noreferrer" class="btn-primary">Live Site ↗</a>
+          <a href="https://github.com/SulagnaSasmal/Documentation-Center-Platform" target="_blank" rel="noreferrer" class="btn-outline">GitHub</a>
+        </div>
+      </div>
+      <div class="fi-visual" aria-hidden="true">
+        <div class="fi-bar"><span></span><span></span><span></span></div>
+        <div class="fi-body">
+          <span class="card-phase ph-portal fi-badge">Portfolio Hub</span>
+          <div class="fi-icon">🏛️</div>
+          <div class="fi-lines">
+            <div class="fi-line fi-line--a"></div>
+            <div class="fi-line fi-line--b"></div>
+            <div class="fi-line fi-line--c"></div>
+            <div class="fi-line fi-line--d"></div>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <!-- AI Documentation Tools -->
+    <li class="fi reveal">
+      <div class="fi-content">
+        <p class="fi-overline">Featured Project</p>
+        <h3 class="fi-title">
+          <a href="https://sulagnasasmal.github.io/ai-doc-tools/" target="_blank" rel="noreferrer">AI Documentation Tools Portal</a>
+        </h3>
+        <div class="fi-desc">
+          <p>Portal for five AI-powered documentation tools: DocCraft AI (auto-draft from specs), SpecFlow (OpenAPI → developer docs), DocQuery (RAG-powered doc chatbot), DocPulse (documentation analytics dashboard), and a PPT-to-MP4 narration automation pipeline.</p>
+        </div>
+        <ul class="fi-tech">
+          <li>AI / ML</li><li>RAG</li><li>OpenAPI</li><li>DocCraft</li><li>Automation</li>
+        </ul>
+        <div class="fi-links">
+          <a href="https://sulagnasasmal.github.io/ai-doc-tools/" target="_blank" rel="noreferrer" class="btn-primary">Live Site ↗</a>
+        </div>
+      </div>
+      <div class="fi-visual" aria-hidden="true">
+        <div class="fi-bar"><span></span><span></span><span></span></div>
+        <div class="fi-body">
+          <span class="card-phase ph-platform fi-badge">AI Tools</span>
+          <div class="fi-icon">🤖</div>
+          <div class="fi-lines">
+            <div class="fi-line fi-line--a"></div>
+            <div class="fi-line fi-line--b"></div>
+            <div class="fi-line fi-line--c"></div>
+            <div class="fi-line fi-line--d"></div>
+          </div>
+        </div>
+      </div>
+    </li>
+
+  </ul>
+</section>
+
+<!-- ── ALL PROJECTS ───────────────────────────────────────── -->
+<section class="projects-section" id="projects" aria-labelledby="projects-heading">
+  <h2 class="section-heading reveal" id="projects-heading">
+    <span class="heading-num">02.</span> All Projects
+  </h2>
+
+  <div class="filters-bar" role="group" aria-label="Filter projects">
+    <button class="filter-btn active" onclick="filter('all',this)">All</button>
+    <button class="filter-btn" onclick="filter('api',this)">API Reference</button>
+    <button class="filter-btn" onclick="filter('sdk',this)">SDK Docs</button>
+    <button class="filter-btn" onclick="filter('onboard',this)">Onboarding</button>
+    <button class="filter-btn" onclick="filter('platform',this)">Platform Docs</button>
+    <button class="filter-btn" onclick="filter('training',this)">Training</button>
+  </div>
+  <p class="results-label" id="results-count" aria-live="polite">15 projects</p>
+
   <div class="projects-grid" id="grid">
 
-    <div class="card" data-cat="api">
+    <div class="card reveal" data-cat="api">
       <div class="card-top"><span class="card-phase ph-api">API Reference</span><span class="card-icon">💳</span></div>
       <div class="card-title">VaultPay Payment API</div>
       <div class="card-desc">FinTech REST API reference covering ACH, wire, instant payments, webhook events, and error handling. Stripe-style layout with full code examples.</div>
       <div class="card-tags"><span class="tag">REST API</span><span class="tag">FinTech</span><span class="tag">Webhooks</span><span class="tag">OpenAPI</span></div>
-      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/vaultpay-api-docs/" target="_blank">Live Site ↗</a></div>
+      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/vaultpay-api-docs/" target="_blank" rel="noreferrer">Live Site ↗</a></div>
     </div>
 
-    <div class="card" data-cat="api">
+    <div class="card reveal" data-cat="api">
       <div class="card-top"><span class="card-phase ph-api">API Reference</span><span class="card-icon">🔐</span></div>
       <div class="card-title">CaseForge Case Management API</div>
       <div class="card-desc">AML/compliance platform REST API documentation. OAuth 2.0, entity endpoints, case management lifecycle, bulk operations, webhooks, and a full error catalog.</div>
       <div class="card-tags"><span class="tag">REST API</span><span class="tag">Compliance</span><span class="tag">OAuth 2.0</span><span class="tag">AML</span></div>
-      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/caseforge-api-docs/" target="_blank">Live Site ↗</a></div>
+      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/caseforge-api-docs/" target="_blank" rel="noreferrer">Live Site ↗</a></div>
     </div>
 
-    <div class="card" data-cat="platform">
+    <div class="card reveal" data-cat="platform">
       <div class="card-top"><span class="card-phase ph-platform">Platform Docs</span><span class="card-icon">🛡️</span></div>
       <div class="card-title">FraudShield AI Engine</div>
       <div class="card-desc">AI/ML fraud detection platform documentation covering deployment, rule configuration, model fine-tuning, and real-time monitoring dashboards.</div>
       <div class="card-tags"><span class="tag">AI/ML</span><span class="tag">Platform Docs</span><span class="tag">Fraud</span></div>
-      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/fraudshield-docs/" target="_blank">Live Site ↗</a></div>
+      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/fraudshield-docs/" target="_blank" rel="noreferrer">Live Site ↗</a></div>
     </div>
 
-    <div class="card" data-cat="api">
+    <div class="card reveal" data-cat="api">
       <div class="card-top"><span class="card-phase ph-api">Operations Reference</span><span class="card-icon">🏦</span></div>
       <div class="card-title">US Payments Hub</div>
       <div class="card-desc">Comprehensive US payments operations reference for ACH, SWIFT, wire, and instant rails. Covers cut-off times, exception handling, and regulatory requirements.</div>
       <div class="card-tags"><span class="tag">FinTech</span><span class="tag">ACH</span><span class="tag">SWIFT</span><span class="tag">Operations</span></div>
-      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/us-payments-hub/" target="_blank">Live Site ↗</a></div>
+      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/us-payments-hub/" target="_blank" rel="noreferrer">Live Site ↗</a></div>
     </div>
 
-    <div class="card" data-cat="platform">
+    <div class="card reveal" data-cat="platform">
       <div class="card-top"><span class="card-phase ph-platform">Platform Docs</span><span class="card-icon">📋</span></div>
       <div class="card-title">Docs-as-Code Portal</div>
       <div class="card-desc">A complete Docs-as-Code methodology guide: Git workflows, PR review process, CI/CD pipelines, Vale linting, and publishing automation for documentation teams.</div>
       <div class="card-tags"><span class="tag">Docs-as-Code</span><span class="tag">GitHub Actions</span><span class="tag">Vale</span><span class="tag">Methodology</span></div>
-      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/docs-as-code-portal/" target="_blank">Live Site ↗</a></div>
+      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/docs-as-code-portal/" target="_blank" rel="noreferrer">Live Site ↗</a></div>
     </div>
 
-    <div class="card" data-cat="platform">
+    <div class="card reveal" data-cat="platform">
       <div class="card-top"><span class="card-phase ph-platform">Platform Docs</span><span class="card-icon">📈</span></div>
       <div class="card-title">SunBridge Asset Atrium Manager</div>
       <div class="card-desc">Enterprise investment platform documentation — NAV batch processing, high-availability design, multi-timezone support, audit framework, and release governance.</div>
       <div class="card-tags"><span class="tag">Investment Platform</span><span class="tag">Enterprise</span><span class="tag">HA</span><span class="tag">Multi-TZ</span></div>
-      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/enterprise-investment-management-platform-docs/" target="_blank">Live Site ↗</a></div>
+      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/enterprise-investment-management-platform-docs/" target="_blank" rel="noreferrer">Live Site ↗</a></div>
     </div>
 
-    <div class="card" data-cat="onboard">
+    <div class="card reveal" data-cat="onboard">
       <div class="card-top"><span class="card-phase ph-onboard">Onboarding Kit</span><span class="card-icon">🚀</span></div>
       <div class="card-title">CaseForge Customer Onboarding Kit</div>
       <div class="card-desc">Post-sale enterprise onboarding package. 30-day time-boxed program with role-based checklists, environment provisioning, data migration, user training tracks, and go-live validation.</div>
       <div class="card-tags"><span class="tag">Enterprise</span><span class="tag">AML</span><span class="tag">Checklists</span><span class="tag">Go-live</span></div>
       <div class="card-links">
-        <a class="card-link" href="https://sulagnasasmal.github.io/caseforge-onboarding/" target="_blank">Live Site ↗</a>
-        <a class="card-link secondary" href="https://github.com/SulagnaSasmal/caseforge-onboarding" target="_blank">GitHub</a>
+        <a class="card-link" href="https://sulagnasasmal.github.io/caseforge-onboarding/" target="_blank" rel="noreferrer">Live Site ↗</a>
+        <a class="card-link secondary" href="https://github.com/SulagnaSasmal/caseforge-onboarding" target="_blank" rel="noreferrer">GitHub</a>
       </div>
     </div>
 
-    <div class="card" data-cat="sdk">
+    <div class="card reveal" data-cat="sdk">
       <div class="card-top"><span class="card-phase ph-sdk">SDK Docs</span><span class="card-icon">🐍</span></div>
       <div class="card-title">CaseForge SDK Documentation</div>
       <div class="card-desc">Python and Node.js SDK guide for the CaseForge AML API. Quickstart, auth (API keys + OAuth 2.0), exception hierarchy, code-sample library, versioned changelog, and v1→v2 migration guide.</div>
       <div class="card-tags"><span class="tag">Python</span><span class="tag">Node.js</span><span class="tag">OAuth 2.0</span><span class="tag">Migration Guide</span></div>
       <div class="card-links">
-        <a class="card-link" href="https://sulagnasasmal.github.io/caseforge-sdk-docs/" target="_blank">Live Site ↗</a>
-        <a class="card-link secondary" href="https://github.com/SulagnaSasmal/caseforge-sdk-docs" target="_blank">GitHub</a>
+        <a class="card-link" href="https://sulagnasasmal.github.io/caseforge-sdk-docs/" target="_blank" rel="noreferrer">Live Site ↗</a>
+        <a class="card-link secondary" href="https://github.com/SulagnaSasmal/caseforge-sdk-docs" target="_blank" rel="noreferrer">GitHub</a>
       </div>
     </div>
 
-    <div class="card" data-cat="sdk">
+    <div class="card reveal" data-cat="sdk">
       <div class="card-top"><span class="card-phase ph-sdk">SDK Docs</span><span class="card-icon">📦</span></div>
       <div class="card-title">NexaFlow SDK Documentation</div>
       <div class="card-desc">Full developer reference for a workflow automation SDK — installation, core concepts, authentication, error handling with retry policies, complete API reference, and v1→v2 migration guide.</div>
       <div class="card-tags"><span class="tag">SDK</span><span class="tag">API Reference</span><span class="tag">Node.js</span><span class="tag">Python</span><span class="tag">Migration</span></div>
       <div class="card-links">
-        <a class="card-link secondary" href="https://github.com/SulagnaSasmal/nexaflow-sdk-docs" target="_blank">GitHub ↗</a>
+        <a class="card-link secondary" href="https://github.com/SulagnaSasmal/nexaflow-sdk-docs" target="_blank" rel="noreferrer">GitHub ↗</a>
       </div>
     </div>
 
-    <div class="card" data-cat="training">
+    <div class="card reveal" data-cat="training">
       <div class="card-top"><span class="card-phase ph-training">Compliance Training</span><span class="card-icon">📚</span></div>
       <div class="card-title">AML Compliance Training Program</div>
       <div class="card-desc">BSA/AML regulatory scenario-based training with interactive quiz engine. Covers SAR filing, CDD, transaction monitoring, OFAC screening, and FinCEN requirements.</div>
       <div class="card-tags"><span class="tag">AML</span><span class="tag">Compliance</span><span class="tag">FinCEN</span><span class="tag">Training</span></div>
-      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/aml-compliance-training/" target="_blank">Live Site ↗</a></div>
+      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/aml-compliance-training/" target="_blank" rel="noreferrer">Live Site ↗</a></div>
     </div>
 
-    <div class="card" data-cat="onboard">
+    <div class="card reveal" data-cat="onboard">
       <div class="card-top"><span class="card-phase ph-onboard">Developer Onboarding</span><span class="card-icon">👩‍💻</span></div>
       <div class="card-title">Developer Onboarding Experience</div>
       <div class="card-desc">5-step interactive Payments API onboarding with checklist-gated navigation. Guides developers from sandbox setup through first payment transaction.</div>
       <div class="card-tags"><span class="tag">Developer</span><span class="tag">Payments API</span><span class="tag">Onboarding</span><span class="tag">Interactive</span></div>
-      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/developer-onboarding/" target="_blank">Live Site ↗</a></div>
+      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/developer-onboarding/" target="_blank" rel="noreferrer">Live Site ↗</a></div>
     </div>
 
-    <div class="card" data-cat="platform">
+    <div class="card reveal" data-cat="platform">
       <div class="card-top"><span class="card-phase ph-platform">Content Strategy</span><span class="card-icon">🗂️</span></div>
       <div class="card-title">Technical Documentation Content Strategy</div>
       <div class="card-desc">Complete documentation program framework: style guide, information architecture methodology, doc type taxonomy, audience analysis, metrics program, four templates, audit checklist, and content health scorecard.</div>
       <div class="card-tags"><span class="tag">Content Strategy</span><span class="tag">Style Guide</span><span class="tag">IA</span><span class="tag">Metrics</span></div>
       <div class="card-links">
-        <a class="card-link secondary" href="https://github.com/SulagnaSasmal/docs-content-strategy" target="_blank">GitHub ↗</a>
+        <a class="card-link" href="https://sulagnasasmal.github.io/docs-content-strategy/" target="_blank" rel="noreferrer">Live Site ↗</a>
+        <a class="card-link secondary" href="https://github.com/SulagnaSasmal/docs-content-strategy" target="_blank" rel="noreferrer">GitHub</a>
       </div>
     </div>
 
-    <div class="card" data-cat="portal">
+    <div class="card reveal" data-cat="portal">
       <div class="card-top"><span class="card-phase ph-portal">Portfolio Hub</span><span class="card-icon">🏛️</span></div>
       <div class="card-title">Documentation Center Platform</div>
       <div class="card-desc">Capstone portfolio hub bringing all 7 phases together. Meta-documentation on writing philosophy (MSTP compliance, before/after examples), IA decisions per phase, and full doc-as-code workflow with Vale, GitHub Actions CI, and deployment pipeline.</div>
       <div class="card-tags"><span class="tag">Portfolio Hub</span><span class="tag">MSTP</span><span class="tag">Doc-as-Code</span><span class="tag">GitHub Actions</span></div>
       <div class="card-links">
-        <a class="card-link" href="https://sulagnasasmal.github.io/Documentation-Center-Platform/" target="_blank">Live Site ↗</a>
-        <a class="card-link secondary" href="https://github.com/SulagnaSasmal/Documentation-Center-Platform" target="_blank">GitHub</a>
+        <a class="card-link" href="https://sulagnasasmal.github.io/Documentation-Center-Platform/" target="_blank" rel="noreferrer">Live Site ↗</a>
+        <a class="card-link secondary" href="https://github.com/SulagnaSasmal/Documentation-Center-Platform" target="_blank" rel="noreferrer">GitHub</a>
       </div>
     </div>
 
-    <div class="card" data-cat="platform">
+    <div class="card reveal" data-cat="platform">
       <div class="card-top"><span class="card-phase ph-platform">AI Tools</span><span class="card-icon">🤖</span></div>
       <div class="card-title">AI Documentation Tools Portal</div>
       <div class="card-desc">Portal for all AI-powered documentation tools: DocCraft AI, SpecFlow (OpenAPI → developer docs), DocQuery (RAG chatbot), DocPulse (analytics), and PPT→MP4 automation pipeline.</div>
       <div class="card-tags"><span class="tag">AI/ML</span><span class="tag">DocCraft</span><span class="tag">OpenAPI</span><span class="tag">RAG</span><span class="tag">Automation</span></div>
-      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/ai-doc-tools/" target="_blank">Live Site ↗</a></div>
+      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/ai-doc-tools/" target="_blank" rel="noreferrer">Live Site ↗</a></div>
     </div>
 
-    <div class="card" data-cat="training">
+    <div class="card reveal" data-cat="training">
       <div class="card-top"><span class="card-phase ph-training">Learning Portal</span><span class="card-icon">🎓</span></div>
       <div class="card-title">FinTech Learning Academy</div>
       <div class="card-desc">LMS-style tutorial site covering payments infrastructure, regulatory compliance, and financial technology fundamentals — structured learning paths for technical and non-technical audiences.</div>
       <div class="card-tags"><span class="tag">LMS</span><span class="tag">FinTech</span><span class="tag">Tutorial</span><span class="tag">Learning Paths</span></div>
-      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/fintech-learning-academy/" target="_blank">Live Site ↗</a></div>
+      <div class="card-links"><a class="card-link" href="https://sulagnasasmal.github.io/fintech-learning-academy/" target="_blank" rel="noreferrer">Live Site ↗</a></div>
     </div>
 
   </div>
-</div>
+</section>
 
+<!-- ── FOOTER ──────────────────────────────────────────────── -->
 <footer class="footer">
-  <p><a href="index.html">sulagnasasmal.com</a> · <a href="https://github.com/SulagnaSasmal" target="_blank">GitHub</a> · <a href="Sulagna-Sasmal-CV.pdf" target="_blank">Download CV</a></p>
-  <p style="margin-top:.5rem;">&copy; 2026 Sulagna Sasmal. All rights reserved.</p>
-  <p style="margin-top:.25rem;font-size:0.8em;font-style:italic;">Personal portfolio project for demonstration purposes only. Not affiliated with any organisation.</p>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <span class="footer-divider">·</span>
+    <a href="samples.html">Samples</a>
+    <span class="footer-divider">·</span>
+    <a href="https://github.com/SulagnaSasmal" target="_blank" rel="noreferrer">GitHub</a>
+    <span class="footer-divider">·</span>
+    <a href="Sulagna-Sasmal-CV.pdf" target="_blank">Download CV</a>
+  </div>
+  <p class="footer-copy">&copy; 2026 <a href="index.html">Sulagna Sasmal</a>. All rights reserved.</p>
+  <p class="footer-disclaimer">Personal portfolio project for demonstration purposes only. Not affiliated with any organisation.</p>
 </footer>
 
 <script>
-// Theme toggle
+// ── Theme toggle ──────────────────────────────────────────
 const btn = document.getElementById('theme-btn');
 function setTheme(t) {
   document.documentElement.setAttribute('data-theme', t);
   localStorage.setItem('ss-theme', t);
-  if (btn) btn.textContent = t === 'dark' ? '☀️' : '🌙';
 }
 if (btn) {
-  const cur = document.documentElement.getAttribute('data-theme') || 'light';
-  btn.textContent = cur === 'dark' ? '☀️' : '🌙';
   btn.addEventListener('click', () => {
     const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     setTheme(next);
   });
 }
-// Category filter
+
+// ── Scroll reveal ─────────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+// Stagger cards in each grid row
+document.querySelectorAll('.card.reveal').forEach((el, i) => {
+  el.style.transitionDelay = `${(i % 3) * 75}ms`;
+  observer.observe(el);
+});
+
+// Stagger featured items
+document.querySelectorAll('.fi.reveal').forEach((el, i) => {
+  el.style.transitionDelay = `${i * 100}ms`;
+  observer.observe(el);
+});
+
+// Section headings — no stagger needed
+document.querySelectorAll('.section-heading.reveal').forEach(el => observer.observe(el));
+
+// ── Category filter ───────────────────────────────────────
 function filter(cat, el) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   el.classList.add('active');
+  let count = 0;
   document.querySelectorAll('.card').forEach(c => {
-    c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
+    const show = cat === 'all' || c.dataset.cat === cat;
+    c.style.display = show ? '' : 'none';
+    if (show) count++;
   });
+  const label = document.getElementById('results-count');
+  if (label) label.textContent = `${count} project${count !== 1 ? 's' : ''}`;
 }
 </script>
 </body>
