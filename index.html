@@ -556,11 +556,10 @@ body {
   border-radius: var(--radius-lg); padding: 1.3rem 1.4rem; border-left: 3px solid var(--amber);
 }
 .skill-group-title { font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-3); margin-bottom: 0.75rem; }
-.skill-list { display: flex; flex-direction: column; gap: 0.55rem; }
-.skill-row  { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-.skill-name { font-size: 0.82rem; color: var(--text-2); flex-shrink: 0; }
-.skill-bar  { flex: 1; height: 5px; background: var(--bg-hover); border-radius: 3px; overflow: hidden; }
-.skill-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--amber), var(--amber-light)); width: 0; transition: width 1s var(--ease); }
+.skill-chips { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.85rem; }
+.skill-chip  { font-size: 0.75rem; font-weight: 600; padding: 0.25rem 0.6rem; border-radius: 5px; background: var(--bg-tag); color: var(--text-2); border: 1px solid var(--border); transition: border-color 0.15s, color 0.15s; }
+.skill-chip:hover { border-color: var(--amber-border); color: var(--amber); }
+.skill-proof { font-size: 0.8rem; color: var(--text-3); line-height: 1.55; border-top: 1px solid var(--border); padding-top: 0.7rem; margin-top: 0.1rem; }
 
 /* ── EDUCATION ── */
 .edu-list { display: flex; flex-direction: column; }
@@ -1255,44 +1254,60 @@ body {
   <h2>Core competencies</h2>
   <div class="skills-columns">
     <div class="skill-group">
-      <div class="skill-group-title">Documentation strategy</div>
-      <div class="skill-list">
-        <div class="skill-row"><span class="skill-name">Information Architecture</span><div class="skill-bar"><div class="skill-fill" data-w="97%"></div></div></div>
-        <div class="skill-row"><span class="skill-name">Content Lifecycle</span>      <div class="skill-bar"><div class="skill-fill" data-w="95%"></div></div></div>
-        <div class="skill-row"><span class="skill-name">Taxonomy &amp; Metadata</span>   <div class="skill-bar"><div class="skill-fill" data-w="90%"></div></div></div>
-        <div class="skill-row"><span class="skill-name">Docs-as-Code / DocOps</span>  <div class="skill-bar"><div class="skill-fill" data-w="92%"></div></div></div>
-        <div class="skill-row"><span class="skill-name">CI/CD Integration</span>      <div class="skill-bar"><div class="skill-fill" data-w="85%"></div></div></div>
+      <div class="skill-group-title">AI &amp; automation</div>
+      <div class="skill-chips">
+        <span class="skill-chip">Claude API</span>
+        <span class="skill-chip">GPT-4o</span>
+        <span class="skill-chip">Prompt Engineering</span>
+        <span class="skill-chip">GitHub Actions</span>
+        <span class="skill-chip">Next.js</span>
+        <span class="skill-chip">TypeScript</span>
+        <span class="skill-chip">Python</span>
+        <span class="skill-chip">FastAPI</span>
+        <span class="skill-chip">Azure TTS</span>
       </div>
+      <p class="skill-proof">Built 7 production tools including RepoDocs AI (Claude API) and DocCraft AI (GPT-4o); shipped automated doc validation pipelines with GitHub Actions.</p>
     </div>
     <div class="skill-group">
       <div class="skill-group-title">API &amp; developer docs</div>
-      <div class="skill-list">
-        <div class="skill-row"><span class="skill-name">OpenAPI / Swagger</span>      <div class="skill-bar"><div class="skill-fill" data-w="92%"></div></div></div>
-        <div class="skill-row"><span class="skill-name">REST API References</span>    <div class="skill-bar"><div class="skill-fill" data-w="95%"></div></div></div>
-        <div class="skill-row"><span class="skill-name">Developer Portals</span>      <div class="skill-bar"><div class="skill-fill" data-w="90%"></div></div></div>
-        <div class="skill-row"><span class="skill-name">SDK Documentation</span>      <div class="skill-bar"><div class="skill-fill" data-w="80%"></div></div></div>
-        <div class="skill-row"><span class="skill-name">Postman / Redoc</span>        <div class="skill-bar"><div class="skill-fill" data-w="85%"></div></div></div>
+      <div class="skill-chips">
+        <span class="skill-chip">REST API References</span>
+        <span class="skill-chip">OpenAPI / Swagger</span>
+        <span class="skill-chip">Developer Portals</span>
+        <span class="skill-chip">SDK Documentation</span>
+        <span class="skill-chip">Webhooks</span>
+        <span class="skill-chip">OAuth 2.0</span>
+        <span class="skill-chip">Error Reference Libraries</span>
+        <span class="skill-chip">Postman / Redoc</span>
       </div>
+      <p class="skill-proof">8 live API references at Stripe/Plaid quality bar, covering OAuth 2.0 flows, webhook catalogs, and multi-language code samples across Python, Node.js, Java, and C#.</p>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Documentation strategy</div>
+      <div class="skill-chips">
+        <span class="skill-chip">Information Architecture</span>
+        <span class="skill-chip">Content Lifecycle Management</span>
+        <span class="skill-chip">Taxonomy &amp; Metadata</span>
+        <span class="skill-chip">Docs-as-Code / DocOps</span>
+        <span class="skill-chip">CI/CD Integration</span>
+        <span class="skill-chip">MSTP Compliance</span>
+        <span class="skill-chip">Style Guide Authoring</span>
+      </div>
+      <p class="skill-proof">Designed documentation systems for 5 enterprise platforms across FinTech, compliance, and investment management — 20 years at regulated-industry scale.</p>
     </div>
     <div class="skill-group">
       <div class="skill-group-title">Tooling &amp; platforms</div>
-      <div class="skill-list">
-        <div class="skill-row"><span class="skill-name">MadCap Flare</span>           <div class="skill-bar"><div class="skill-fill" data-w="98%"></div></div></div>
-        <div class="skill-row"><span class="skill-name">Git / GitHub</span>           <div class="skill-bar"><div class="skill-fill" data-w="92%"></div></div></div>
-        <div class="skill-row"><span class="skill-name">DITA / XML</span>             <div class="skill-bar"><div class="skill-fill" data-w="85%"></div></div></div>
-        <div class="skill-row"><span class="skill-name">MkDocs / Docusaurus</span>    <div class="skill-bar"><div class="skill-fill" data-w="82%"></div></div></div>
-        <div class="skill-row"><span class="skill-name">Vale linting</span>           <div class="skill-bar"><div class="skill-fill" data-w="80%"></div></div></div>
+      <div class="skill-chips">
+        <span class="skill-chip">MadCap Flare</span>
+        <span class="skill-chip">MkDocs</span>
+        <span class="skill-chip">Docusaurus</span>
+        <span class="skill-chip">DITA / XML</span>
+        <span class="skill-chip">Vale Linting</span>
+        <span class="skill-chip">Git / GitHub</span>
+        <span class="skill-chip">Confluence</span>
+        <span class="skill-chip">Notion</span>
       </div>
-    </div>
-    <div class="skill-group">
-      <div class="skill-group-title">AI &amp; automation</div>
-      <div class="skill-list">
-        <div class="skill-row"><span class="skill-name">Claude / GPT-4o / Prompting</span>  <div class="skill-bar"><div class="skill-fill" data-w="90%"></div></div></div>
-        <div class="skill-row"><span class="skill-name">Python / FastAPI</span>       <div class="skill-bar"><div class="skill-fill" data-w="78%"></div></div></div>
-        <div class="skill-row"><span class="skill-name">Next.js / TypeScript</span>   <div class="skill-bar"><div class="skill-fill" data-w="75%"></div></div></div>
-        <div class="skill-row"><span class="skill-name">Azure TTS / FFmpeg</span>     <div class="skill-bar"><div class="skill-fill" data-w="72%"></div></div></div>
-        <div class="skill-row"><span class="skill-name">GitHub Actions</span>         <div class="skill-bar"><div class="skill-fill" data-w="85%"></div></div></div>
-      </div>
+      <p class="skill-proof">Shipped across MadCap Flare, MkDocs, Docusaurus, Confluence, and GitHub Pages pipelines; integrated Vale linting into CI/CD for automated MSTP compliance checks.</p>
     </div>
   </div>
 
@@ -1590,19 +1605,6 @@ function countUp(el) {
   })(start);
 }
 
-// ── SKILL BARS ────────────────────────────────────────
-var skillObs = new IntersectionObserver(function(entries) {
-  entries.forEach(function(e) {
-    if (e.isIntersecting) {
-      e.target.querySelectorAll('.skill-fill').forEach(function(fill, i) {
-        setTimeout(function() { fill.style.width = fill.dataset.w; }, i * 80);
-      });
-      skillObs.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.3 });
-
-document.querySelectorAll('.skill-group').forEach(function(el) { skillObs.observe(el); });
 </script>
 
 </body>
