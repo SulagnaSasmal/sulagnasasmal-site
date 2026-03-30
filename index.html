@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sulagna Sasmal — Documentation Engineer · Information Architect · AI Tools Builder</title>
-<meta name="description" content="Portfolio of Sulagna Sasmal — Documentation Engineer and Information Architect with 20 years of enterprise software documentation experience. Builder of AI-powered documentation tools including DocCraft AI, CaseForge, and SpecFlow.">
+<meta name="description" content="Portfolio of Sulagna Sasmal — Documentation Engineer and Information Architect with 20 years of enterprise software documentation experience. Builder of AI-powered documentation tools including RepoDocs AI, DocCraft AI, CaseForge, and SpecFlow.">
 <meta name="keywords" content="technical writer, documentation engineer, information architect, API documentation, docs-as-code, AI tools, portfolio, Sulagna Sasmal">
 <meta name="author" content="Sulagna Sasmal">
 <meta name="robots" content="index, follow">
@@ -12,7 +12,7 @@
 
 <!-- Open Graph -->
 <meta property="og:title" content="Sulagna Sasmal — Documentation Engineer &amp; AI Tools Builder">
-<meta property="og:description" content="20 years of enterprise documentation experience. Builder of AI-powered doc tools including DocCraft AI, CaseForge, and SpecFlow.">
+<meta property="og:description" content="20 years of enterprise documentation experience. Builder of AI-powered doc tools including RepoDocs AI, DocCraft AI, CaseForge, and SpecFlow.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://sulagnasasmal.com">
 <meta property="og:image" content="https://sulagnasasmal.com/og-image.png">
@@ -447,9 +447,24 @@ body {
 
 /* ── TOOL GRID ── */
 .tool-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 1rem; margin-bottom: 2rem;
 }
+
+/* ── TECH STACK GRID ── */
+.tech-stack { margin-top: 2.25rem; }
+.stack-grid { display: flex; flex-wrap: wrap; gap: 0.55rem; align-items: center; }
+.stack-item {
+  width: 46px; height: 46px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--radius); border: 1px solid var(--border);
+  background: var(--bg-card); padding: 7px;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  position: relative; cursor: default;
+}
+.stack-item:hover { transform: translateY(-3px); border-color: var(--amber-border); box-shadow: var(--shadow); }
+.stack-icon { width: 28px; height: 28px; display: block; object-fit: contain; }
+[data-theme="dark"] .si-invert { filter: invert(0.88) brightness(1.2); }
 .tool-card {
   background: var(--bg-card); border: 1px solid var(--border);
   border-radius: var(--radius-lg); padding: 1.4rem;
@@ -614,6 +629,10 @@ body {
 .footer-copy { font-size: 0.76rem; color: var(--text-4); }
 
 /* ── RESPONSIVE ── */
+@media (max-width: 1100px) {
+  .nav-link { font-size: 0.81rem; padding: 5px 8px; }
+  .nav-link-portal { display: none; }
+}
 @media (max-width: 1024px) {
   .hero { grid-template-columns: 1fr; gap: 2.5rem; }
   .hero-panel { max-width: 460px; }
@@ -626,11 +645,14 @@ body {
   .metric:last-child { border-bottom: none; }
   .skills-columns { grid-template-columns: 1fr; }
   .tool-grid { grid-template-columns: repeat(2, 1fr); }
+  .stack-grid { gap: 0.45rem; }
+  .stack-item { width: 42px; height: 42px; }
 }
 @media (max-width: 640px) {
   .nav-links { display: none; }
   .hero { padding: 3rem 1.5rem 2.5rem; }
   .tool-grid, .work-grid { grid-template-columns: 1fr; }
+  .stack-item { width: 40px; height: 40px; padding: 6px; }
   .exp-item  { grid-template-columns: 1fr; }
   .exp-years { display: none; }
   .edu-item  { grid-template-columns: 1fr; }
@@ -718,13 +740,13 @@ body {
       <a href="https://github.com/SulagnaSasmal" target="_blank" rel="noopener" class="btn btn-ghost">GitHub ↗</a>
     </div>
     <div class="hero-featured">
-      <div class="hero-featured-label">Featured project</div>
-      <div class="hero-featured-title">DocForge · Docs-as-Code Platform</div>
+      <div class="hero-featured-label">Latest project · 2026</div>
+      <div class="hero-featured-title">RepoDocs AI · Claude-powered Docs-as-Code</div>
       <p class="hero-featured-desc">
-        Interactive docs infrastructure prototype with a live editor, DITA mapping,
-        Vale/MSTP linting, multi-format builds, and pipeline observability.
+        AI-prompt-powered documentation framework for SaaS API teams — reusable templates,
+        Claude API drafting prompts, automated GitHub Actions validation, and multi-platform export.
       </p>
-      <a href="https://sulagnasasmal.github.io/Documentation-Center-Platform/" class="btn btn-ghost" target="_blank" rel="noopener">Explore DocForge ↗</a>
+      <a href="https://sulagnasasmal.github.io/repodocs-ai/" class="btn btn-ghost" target="_blank" rel="noopener">Explore RepoDocs AI ↗</a>
     </div>
   </div>
 
@@ -849,10 +871,11 @@ body {
         adopted across the team.
       </p>
       <p>
-        Outside my day job, I build documentation tooling: DocCraft AI converts raw
-        inputs into polished documentation using GPT-4o, and my PPT-to-Video pipeline
-        automates narrated documentation with Azure TTS and FFmpeg. I treat
-        documentation as a product capability, not a deliverable that follows the release.
+        Outside my day job, I build documentation tooling: RepoDocs AI is an AI-prompt-powered
+        docs-as-code framework for SaaS API teams using Claude; DocCraft AI converts raw inputs
+        into polished documentation with GPT-4o; and my PPT-to-Video pipeline automates narrated
+        documentation with Azure TTS and FFmpeg. I treat documentation as a product capability,
+        not a deliverable that follows the release.
       </p>
     </div>
     <div class="about-sidebar">
@@ -917,6 +940,16 @@ body {
       <div class="achievement-icon">🤖</div>
       <div>
         <div class="achievement-metric">Solo-built</div>
+        <div class="achievement-title">RepoDocs AI: Claude-powered docs-as-code framework</div>
+        <div class="achievement-text">Built and shipped RepoDocs AI — an AI-prompt-powered documentation system for SaaS API teams. Provides reusable templates, Claude API drafting prompts, automated GitHub Actions validation, OpenAPI-to-Markdown generation, and multi-platform export (Notion, Confluence, PDF).</div>
+        <div class="achievement-org">Independent project · 2026</div>
+      </div>
+    </div>
+
+    <div class="achievement-item">
+      <div class="achievement-icon">✍️</div>
+      <div>
+        <div class="achievement-metric">Solo-built</div>
         <div class="achievement-title">DocCraft AI: full-stack documentation generator</div>
         <div class="achievement-text">Built and launched DocCraft AI (Next.js + GPT-4o) — a full-stack tool that converts raw inputs into polished documentation with compliance checking, Mermaid diagram generation, and multi-format export (HTML, Markdown, DOCX, PDF).</div>
         <div class="achievement-org">Independent project · 2024</div>
@@ -969,11 +1002,11 @@ body {
 <div class="divider"><hr></div>
 
 <!-- ═══ AI TOOLS ═══ -->
-<section class="section" id="tools">
+<section class="section-wide" id="tools">
   <div class="section-label">Built tools</div>
   <h2>Documentation tools I build and ship</h2>
   <p style="color:var(--text-2);font-size:0.95rem;margin-bottom:1.75rem;">
-    Six production tools covering docs-as-code infrastructure, documentation generation, RAG search, analytics, OpenAPI rendering, and video automation. Not demos — each solves a real workflow problem.
+    Seven production tools covering docs-as-code infrastructure, AI-prompt frameworks, documentation generation, RAG search, analytics, OpenAPI rendering, and video automation. Not demos — each solves a real workflow problem.
   </p>
   <div class="tool-grid">
 
@@ -987,10 +1020,20 @@ body {
       <span class="tool-cta">Live prototype ↗</span>
     </a>
 
+    <a class="tool-card" href="https://sulagnasasmal.github.io/repodocs-ai/" target="_blank" rel="noopener">
+      <span class="tool-icon">🤖</span>
+      <div class="tool-name">RepoDocs AI</div>
+      <div class="tool-desc">AI-prompt-powered docs-as-code system for SaaS API teams. Reusable templates, Claude-powered drafting prompts, automated validation, OpenAPI-to-Markdown generation, and multi-platform export (Notion, Confluence, PDF).</div>
+      <div class="tool-tags">
+        <span class="tool-tag">Claude API</span><span class="tool-tag">Node.js</span><span class="tool-tag">GitHub Actions</span><span class="tool-tag">OpenAPI</span>
+      </div>
+      <span class="tool-cta">Live site ↗</span>
+    </a>
+
     <a class="tool-card" href="https://doccraft-ten.vercel.app/" target="_blank" rel="noopener">
       <span class="tool-icon">✍️</span>
       <div class="tool-name">DocCraft AI</div>
-      <div class="tool-desc">Full-stack documentation generator. Converts raw inputs into polished docs with GPT-4o, compliance checking, Mermaid diagrams, and multi-format export.</div>
+      <div class="tool-desc">Full-stack documentation generator. Converts raw inputs into polished docs with GPT-4o, compliance checking, Mermaid diagrams, and multi-format export (HTML, Markdown, DOCX, PDF).</div>
       <div class="tool-tags">
         <span class="tool-tag">Next.js</span><span class="tool-tag">GPT-4o</span><span class="tool-tag">FastAPI</span><span class="tool-tag">DOCX · PDF</span>
       </div>
@@ -1244,12 +1287,71 @@ body {
     <div class="skill-group">
       <div class="skill-group-title">AI &amp; automation</div>
       <div class="skill-list">
-        <div class="skill-row"><span class="skill-name">GPT-4o / Prompt Eng.</span>  <div class="skill-bar"><div class="skill-fill" data-w="90%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Claude / GPT-4o / Prompting</span>  <div class="skill-bar"><div class="skill-fill" data-w="90%"></div></div></div>
         <div class="skill-row"><span class="skill-name">Python / FastAPI</span>       <div class="skill-bar"><div class="skill-fill" data-w="78%"></div></div></div>
         <div class="skill-row"><span class="skill-name">Next.js / TypeScript</span>   <div class="skill-bar"><div class="skill-fill" data-w="75%"></div></div></div>
         <div class="skill-row"><span class="skill-name">Azure TTS / FFmpeg</span>     <div class="skill-bar"><div class="skill-fill" data-w="72%"></div></div></div>
         <div class="skill-row"><span class="skill-name">GitHub Actions</span>         <div class="skill-bar"><div class="skill-fill" data-w="85%"></div></div></div>
       </div>
+    </div>
+  </div>
+
+  <!-- ── TECH STACK ICONS ── -->
+  <div class="tech-stack reveal">
+    <div class="section-label" style="margin-bottom:0.75rem;">Tech stack</div>
+    <div class="stack-grid">
+
+      <div class="stack-item" title="Next.js">
+        <img class="stack-icon si-invert" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" alt="Next.js" loading="lazy">
+      </div>
+      <div class="stack-item" title="TypeScript">
+        <img class="stack-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" alt="TypeScript" loading="lazy">
+      </div>
+      <div class="stack-item" title="Python">
+        <img class="stack-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" loading="lazy">
+      </div>
+      <div class="stack-item" title="Node.js">
+        <img class="stack-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" alt="Node.js" loading="lazy">
+      </div>
+      <div class="stack-item" title="React">
+        <img class="stack-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React" loading="lazy">
+      </div>
+      <div class="stack-item" title="FastAPI">
+        <img class="stack-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg" alt="FastAPI" loading="lazy">
+      </div>
+
+      <div class="stack-item" title="Git">
+        <img class="stack-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git" loading="lazy">
+      </div>
+      <div class="stack-item" title="GitHub">
+        <img class="stack-icon si-invert" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub" loading="lazy">
+      </div>
+      <div class="stack-item" title="GitHub Actions">
+        <img class="stack-icon" src="https://cdn.simpleicons.org/githubactions/2088FF" alt="GitHub Actions" loading="lazy">
+      </div>
+      <div class="stack-item" title="Docker">
+        <img class="stack-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg" alt="Docker" loading="lazy">
+      </div>
+      <div class="stack-item" title="VS Code">
+        <img class="stack-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt="VS Code" loading="lazy">
+      </div>
+      <div class="stack-item" title="Azure">
+        <img class="stack-icon" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" alt="Azure" loading="lazy">
+      </div>
+
+      <div class="stack-item" title="OpenAI">
+        <img class="stack-icon" src="https://cdn.simpleicons.org/openai/d97706" alt="OpenAI" loading="lazy">
+      </div>
+      <div class="stack-item" title="Anthropic Claude">
+        <img class="stack-icon" src="https://cdn.simpleicons.org/anthropic/d97706" alt="Anthropic" loading="lazy">
+      </div>
+      <div class="stack-item" title="Markdown">
+        <img class="stack-icon si-invert" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/markdown/markdown-original.svg" alt="Markdown" loading="lazy">
+      </div>
+      <div class="stack-item" title="YAML">
+        <img class="stack-icon si-invert" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/yaml/yaml-plain.svg" alt="YAML" loading="lazy">
+      </div>
+
     </div>
   </div>
 </section>
@@ -1400,6 +1502,8 @@ body {
     <div class="footer-links">
       <a href="https://sulagnasasmal.github.io/blog/" target="_blank" rel="noopener">Blog ↗</a>
       <a href="https://sulagnasasmal.github.io/doc-portal/" target="_blank" rel="noopener">DOC Portal</a>
+      <a href="https://sulagnasasmal.github.io/ai-doc-tools/" target="_blank" rel="noopener">AI Tools ↗</a>
+      <a href="https://sulagnasasmal.github.io/repodocs-ai/" target="_blank" rel="noopener">RepoDocs AI ↗</a>
       <a href="https://github.com/SulagnaSasmal" target="_blank">GitHub</a>
       <a href="https://www.linkedin.com/in/sulagnasasmal/" target="_blank">LinkedIn</a>
       <a href="mailto:sulagna.sasmal@gmail.com">Email</a>
