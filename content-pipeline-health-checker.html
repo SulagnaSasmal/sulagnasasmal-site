@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Pipeline Health Checker — Sulagna Sasmal</title>
+<meta name="description" content="Diagnose where your documentation pipeline breaks across delivery surfaces. Based on Despopoulos's source-to-delivery model and Iantosca's two-gate quality framework.">
+<link rel="canonical" href="https://sulagnasasmal.com/content-pipeline-health-checker.html">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Content Pipeline Health Checker — Sulagna Sasmal">
+<meta property="og:description" content="Interactive diagnostic tool: identify where your docs pipeline breaks across source formats, delivery surfaces, and transformation layers. Based on Despopoulos & Iantosca frameworks.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sulagnasasmal.com/content-pipeline-health-checker.html">
+<meta property="og:image" content="https://sulagnasasmal.com/og-image.png">
+<meta property="og:site_name" content="Sulagna Sasmal">
+
+<!-- Twitter/X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Content Pipeline Health Checker — Sulagna Sasmal">
+<meta name="twitter:description" content="Diagnose where your documentation pipeline breaks. Interactive 4-step diagnostic tool.">
+<meta name="twitter:creator" content="@SulagnaSasmal">
+<meta name="twitter:image" content="https://sulagnasasmal.com/og-image.png">
+
+<link rel="icon" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>(function(){var t=localStorage.getItem('ss-theme');if(t){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia('(prefers-color-scheme:dark)').matches){document.documentElement.setAttribute('data-theme','dark');}})();</script>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 15px; scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+:root {
+  --bg:           #faf9f7;
+  --bg-card:      #ffffff;
+  --bg-hover:     #f5f3ef;
+  --bg-tag:       #f0ede8;
+  --border:       #e8e4de;
+  --border-dark:  #d5cfc8;
+  --text:         #1c1917;
+  --text-2:       #57534e;
+  --text-muted:   #a8a29e;
+  --accent:       #E8A84C;
+  --accent-dark:  #c97d2a;
+  --accent-bg:    #fef3e2;
+  --accent-border:#fde68a;
+  --green:        #16a34a;
+  --green-bg:     #f0fdf4;
+  --nav-h:        58px;
+  --max-w:        1100px;
+  --ease:         cubic-bezier(0.645, 0.045, 0.355, 1);
+  --dur:          180ms;
+  --risk-high:    #dc2626;
+  --risk-medium:  #d97706;
+  --risk-low:     #16a34a;
+}
+
+[data-theme="dark"] {
+  --bg:           #0f1117;
+  --bg-card:      #181c26;
+  --bg-hover:     #1f2333;
+  --bg-tag:       #1a1f2e;
+  --border:       #242b3d;
+  --border-dark:  #2e3650;
+  --text:         #e2e8f0;
+  --text-2:       #94a3b8;
+  --text-muted:   #475569;
+  --accent:       #f59e0b;
+  --accent-dark:  #d97706;
+  --accent-bg:    rgba(245,158,11,.08);
+  --accent-border:rgba(245,158,11,.2);
+  --green:        #22c55e;
+  --green-bg:     rgba(34,197,94,.08);
+  --risk-high:    #f87171;
+  --risk-medium:  #fbbf24;
+  --risk-low:     #4ade80;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; color: var(--accent-dark); }
+
+/* ── NAV ── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--nav-h);
+  background: rgba(250,249,247,.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  transition: background .2s, border-color .2s;
+}
+[data-theme="dark"] .nav { background: rgba(15,17,23,.9); }
+
+.nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.nav-brand {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -.01em;
+  flex-shrink: 0;
+}
+.nav-brand span { color: var(--accent); }
+.nav-brand:hover { text-decoration: none; color: var(--text); }
+
+.nav-links { display: flex; gap: 1.5rem; align-items: center; }
+.nav-links a {
+  font-size: .875rem;
+  color: var(--text-2);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color .15s;
+}
+.nav-links a:hover,
+.nav-links a.active { color: var(--text); text-decoration: none; }
+
+.theme-btn {
+  background: none;
+  border: 1px solid var(--border-dark);
+  color: var(--text-2);
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color .15s, color .15s;
+  flex-shrink: 0;
+  padding: 0;
+}
+.theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+.theme-btn svg {
+  width: 15px; height: 15px;
+  fill: none; stroke: currentColor;
+  stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+  display: block;
+}
+.icon-sun  { display: none; }
+.icon-moon { display: block; }
+[data-theme="dark"] .icon-sun  { display: block; }
+[data-theme="dark"] .icon-moon { display: none; }
+
+/* ── LAYOUT ── */
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+}
+
+/* ── TOOL HEADER ── */
+.tool-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+.tool-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  color: var(--accent);
+  margin-bottom: .6rem;
+  display: block;
+}
+.tool-header h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -.025em;
+  margin-bottom: .6rem;
+  color: var(--text);
+}
+.tool-header p {
+  font-size: .9rem;
+  color: var(--text-2);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+/* ── PROGRESS ── */
+.progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 2.5rem;
+}
+.progress-step { display: flex; align-items: center; }
+.progress-dot {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--border-dark);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .75rem; font-weight: 600;
+  color: var(--text-muted);
+  transition: all var(--dur) var(--ease);
+  flex-shrink: 0;
+  background: var(--bg-card);
+}
+.progress-dot.active { border-color: var(--text); color: var(--text); background: var(--bg-hover); }
+.progress-dot.done   { border-color: var(--accent); color: var(--bg); background: var(--accent); }
+.progress-line {
+  width: 48px; height: 2px;
+  background: var(--border-dark);
+  transition: background var(--dur) var(--ease);
+}
+.progress-line.done { background: var(--accent); }
+
+/* ── STEPS ── */
+.step { display: none; }
+.step.active { display: block; }
+.step h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.15rem; font-weight: 700;
+  margin-bottom: .25rem; color: var(--text);
+  letter-spacing: -.01em;
+}
+.step .step-desc { font-size: .875rem; color: var(--text-2); margin-bottom: 1.5rem; }
+
+/* ── OPTION CARDS ── */
+.option-group { display: flex; flex-direction: column; gap: .625rem; }
+.option-card {
+  position: relative;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: .875rem 1rem;
+  cursor: pointer;
+  transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease);
+  -webkit-user-select: none;
+  user-select: none;
+  background: var(--bg-card);
+}
+.option-card:hover { border-color: var(--border-dark); background: var(--bg-hover); }
+.option-card.selected { border-color: var(--accent); background: var(--accent-bg); }
+.option-card input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.option-label { font-size: .9375rem; font-weight: 500; color: var(--text); }
+.option-sub   { font-size: .8125rem; color: var(--text-2); margin-top: 2px; }
+
+/* ── BUTTONS ── */
+.btn-row { display: flex; gap: .75rem; margin-top: 2rem; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: .625rem 1.5rem;
+  border-radius: 7px;
+  font-family: 'Inter', sans-serif;
+  font-size: .875rem; font-weight: 600;
+  border: none; cursor: pointer;
+  transition: background var(--dur) var(--ease), opacity var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.btn:disabled { opacity: .38; cursor: not-allowed; }
+.btn-primary  { background: var(--accent); color: #fff; }
+.btn-primary:hover:not(:disabled) { background: var(--accent-dark); }
+.btn-secondary {
+  background: var(--bg-card); color: var(--text);
+  border: 1.5px solid var(--border-dark);
+}
+.btn-secondary:hover { border-color: var(--accent); background: var(--bg-hover); }
+
+/* ── RESULTS ── */
+.results-section { margin-bottom: 2rem; }
+.results-section h3 {
+  font-size: .95rem; font-weight: 600;
+  margin-bottom: .75rem; padding-bottom: .5rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+.risk-card, .gate-card, .fix-card {
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem 1.125rem;
+  margin-bottom: .75rem;
+  background: var(--bg-card);
+  box-shadow: 0 1px 4px rgba(0,0,0,.05);
+}
+.risk-header { display: flex; align-items: center; gap: .625rem; margin-bottom: .5rem; flex-wrap: wrap; }
+.risk-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-size: .7rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .05em;
+}
+.risk-high   { background: #fef2f2; color: var(--risk-high); border: 1px solid #fecaca; }
+.risk-medium { background: #fffbeb; color: var(--risk-medium); border: 1px solid #fde68a; }
+.risk-low    { background: #f0fdf4; color: var(--risk-low); border: 1px solid #bbf7d0; }
+[data-theme="dark"] .risk-high   { background: #450a0a; border-color: #7f1d1d; }
+[data-theme="dark"] .risk-medium { background: #422006; border-color: #78350f; }
+[data-theme="dark"] .risk-low    { background: #052e16; border-color: #14532d; }
+
+.risk-surface  { font-weight: 600; font-size: .9375rem; color: var(--text); }
+.risk-detail   { font-size: .8125rem; color: var(--text-2); line-height: 1.55; }
+.risk-detail strong { color: var(--text); font-weight: 600; }
+
+.gate-title   { font-weight: 600; font-size: .9375rem; margin-bottom: .375rem; color: var(--text); }
+.gate-verdict {
+  display: inline-block; padding: 2px 10px;
+  border-radius: 4px; font-size: .7rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .05em; margin-bottom: .375rem;
+}
+.gate-pass    { background: #f0fdf4; color: var(--risk-low); border: 1px solid #bbf7d0; }
+.gate-partial { background: #fffbeb; color: var(--risk-medium); border: 1px solid #fde68a; }
+.gate-fail    { background: #fef2f2; color: var(--risk-high); border: 1px solid #fecaca; }
+[data-theme="dark"] .gate-pass    { background: #052e16; border-color: #14532d; }
+[data-theme="dark"] .gate-partial { background: #422006; border-color: #78350f; }
+[data-theme="dark"] .gate-fail    { background: #450a0a; border-color: #7f1d1d; }
+
+.gate-explanation { font-size: .8125rem; color: var(--text-2); line-height: 1.55; }
+.gate-failures    { margin-top: .5rem; padding-left: 1.125rem; }
+.gate-failures li { font-size: .8125rem; color: var(--text-2); margin-bottom: .25rem; line-height: 1.5; }
+
+.fixes-list { counter-reset: fix; }
+.fix-card { counter-increment: fix; }
+.fix-card::before {
+  content: counter(fix);
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--accent); color: #fff;
+  font-size: .6875rem; font-weight: 700;
+  margin-right: .5rem; vertical-align: middle;
+}
+.fix-title { font-weight: 600; font-size: .9375rem; display: inline; vertical-align: middle; color: var(--text); }
+.fix-desc  { font-size: .8125rem; color: var(--text-2); margin-top: .375rem; line-height: 1.55; }
+
+/* ── SHARE ── */
+.share-section {
+  margin-top: 2.5rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 1.25rem;
+  background: var(--bg-card);
+}
+.share-section h3 { font-size: .95rem; font-weight: 600; margin-bottom: .75rem; color: var(--text); }
+.share-textarea {
+  width: 100%; border: 1.5px solid var(--border); border-radius: 6px;
+  padding: .75rem; font-family: 'JetBrains Mono', monospace;
+  font-size: .8rem; line-height: 1.55; color: var(--text);
+  resize: vertical; min-height: 140px; background: var(--bg-hover);
+  transition: background var(--dur), color var(--dur), border-color var(--dur);
+}
+.share-textarea:focus { outline: none; border-color: var(--accent); }
+.share-copy-row { display: flex; align-items: center; margin-top: .625rem; }
+.copied-msg { font-size: .8125rem; color: var(--accent); margin-left: .75rem; opacity: 0; transition: opacity .2s; }
+.copied-msg.show { opacity: 1; }
+
+/* ── SUMMARY BAR ── */
+.summary-bar { display: flex; gap: .75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.summary-chip {
+  font-size: .8rem; background: var(--bg-tag);
+  border: 1px solid var(--border-dark); border-radius: 6px;
+  padding: .35rem .75rem; color: var(--text-2);
+}
+.summary-chip strong { color: var(--text); }
+
+/* ── TOOL FOOTER ── */
+.tool-footer {
+  text-align: center; margin-top: 3rem;
+  padding-top: 1.5rem; border-top: 1px solid var(--border);
+  font-size: .75rem; color: var(--text-muted);
+}
+.tool-footer a { color: var(--text-2); }
+.tool-footer a:hover { color: var(--accent); text-decoration: none; }
+
+.btn-row-flush { margin-bottom: 0; }
+
+/* ── SITE FOOTER ── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 2rem;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 1rem; text-align: center;
+}
+.footer-links {
+  display: flex; gap: 2rem; flex-wrap: wrap;
+  justify-content: center; align-items: center;
+}
+.footer-links a {
+  font-size: .875rem; color: var(--text-2);
+  text-decoration: none; font-weight: 500; transition: color .15s;
+}
+.footer-links a:hover { color: var(--accent); }
+.footer-divider { color: var(--border-dark); font-size: .75rem; user-select: none; }
+.footer-copy { font-size: .78rem; color: var(--text-muted); }
+.footer-copy a { color: var(--text-muted); text-decoration: none; }
+.footer-copy a:hover { color: var(--accent); }
+
+/* ── PRINT ── */
+@media print {
+  .btn-row, .share-section, .progress, .nav, .tool-header p { display: none; }
+  .container { max-width: 100%; padding: 1rem; }
+  .step { display: none !important; }
+  .step.results-step { display: block !important; }
+  body { font-size: 12pt; }
+}
+
+/* ── MOBILE ── */
+@media (max-width: 600px) {
+  .container { padding: 1.5rem 1rem 3rem; }
+  .tool-header h1 { font-size: 1.35rem; }
+  .progress-line { width: 28px; }
+  .progress-dot { width: 28px; height: 28px; font-size: .6875rem; }
+  .btn-row { flex-direction: column; }
+  .btn { width: 100%; }
+  .summary-bar { flex-direction: column; gap: .5rem; }
+  .nav-links a:not(.active):not(:last-child) { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav" aria-label="Site navigation">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">Sulagna <span>Sasmal</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="content-pipeline-health-checker.html" class="active">Health Checker</a>
+    </div>
+    <button type="button" class="theme-btn" id="theme-btn" aria-label="Toggle color theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="5"/>
+        <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="tool-header">
+    <span class="tool-eyebrow">Diagnostic Tool</span>
+    <h1>Content Pipeline Health Checker</h1>
+    <p>Diagnose where your documentation pipeline breaks across delivery surfaces — based on Despopoulos's source-to-delivery model and Iantosca's two-gate quality framework.</p>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress" id="progress" aria-label="Progress indicator">
+    <div class="progress-step">
+      <div class="progress-dot active" data-step="1" aria-label="Step 1: Source format">1</div>
+      <div class="progress-line" data-line="1"></div>
+    </div>
+    <div class="progress-step">
+      <div class="progress-dot" data-step="2" aria-label="Step 2: Delivery surfaces">2</div>
+      <div class="progress-line" data-line="2"></div>
+    </div>
+    <div class="progress-step">
+      <div class="progress-dot" data-step="3" aria-label="Step 3: Transformation layer">3</div>
+      <div class="progress-line" data-line="3"></div>
+    </div>
+    <div class="progress-step">
+      <div class="progress-dot" data-step="4" aria-label="Step 4: Results">4</div>
+    </div>
+  </div>
+
+  <!-- Step 1: Source Format -->
+  <div class="step active" id="step1">
+    <h2>Step 1: Source Format</h2>
+    <p class="step-desc">What format is your documentation authored in?</p>
+    <div class="option-group" id="sourceGroup">
+      <label class="option-card">
+        <input type="radio" name="source" value="dita">
+        <div class="option-label">DITA XML</div>
+        <div class="option-sub">Structured, topic-based authoring with semantic tags</div>
+      </label>
+      <label class="option-card">
+        <input type="radio" name="source" value="markdown">
+        <div class="option-label">Markdown</div>
+        <div class="option-sub">Lightweight markup — GitHub, docs-as-code workflows</div>
+      </label>
+      <label class="option-card">
+        <input type="radio" name="source" value="html">
+        <div class="option-label">HTML</div>
+        <div class="option-sub">Direct HTML authoring or WYSIWYG CMS output</div>
+      </label>
+      <label class="option-card">
+        <input type="radio" name="source" value="unstructured">
+        <div class="option-label">Unstructured Word / PDF</div>
+        <div class="option-sub">Binary formats without semantic structure</div>
+      </label>
+    </div>
+    <div class="btn-row">
+      <button type="button" class="btn btn-primary" id="btn1next" disabled>Continue</button>
+    </div>
+  </div>
+
+  <!-- Step 2: Delivery Surfaces -->
+  <div class="step" id="step2">
+    <h2>Step 2: Delivery Surfaces</h2>
+    <p class="step-desc">Select all surfaces you deliver documentation to.</p>
+    <div class="option-group" id="surfaceGroup">
+      <label class="option-card">
+        <input type="checkbox" name="surface" value="docs-site">
+        <div class="option-label">Docs site (static)</div>
+        <div class="option-sub">Hugo, Docusaurus, MkDocs, GitBook, or custom static site</div>
+      </label>
+      <label class="option-card">
+        <input type="checkbox" name="surface" value="in-app">
+        <div class="option-label">In-app help / tooltips</div>
+        <div class="option-sub">Contextual help embedded inside the product UI</div>
+      </label>
+      <label class="option-card">
+        <input type="checkbox" name="surface" value="ai-chatbot">
+        <div class="option-label">AI chatbot / LLM assistant</div>
+        <div class="option-sub">RAG-powered support, docs-trained chatbots</div>
+      </label>
+      <label class="option-card">
+        <input type="checkbox" name="surface" value="api-ref">
+        <div class="option-label">API reference (OpenAPI / Swagger)</div>
+        <div class="option-sub">Auto-generated or hand-authored API documentation</div>
+      </label>
+      <label class="option-card">
+        <input type="checkbox" name="surface" value="pdf">
+        <div class="option-label">PDF / print</div>
+        <div class="option-sub">Printable manuals, regulatory filings, offline docs</div>
+      </label>
+    </div>
+    <div class="btn-row">
+      <button type="button" class="btn btn-secondary" id="btn2back">Back</button>
+      <button type="button" class="btn btn-primary" id="btn2next" disabled>Continue</button>
+    </div>
+  </div>
+
+  <!-- Step 3: Transformation Layer -->
+  <div class="step" id="step3">
+    <h2>Step 3: Transformation Layer</h2>
+    <p class="step-desc">What sits between your source content and delivery surfaces?</p>
+    <div class="option-group" id="transformGroup">
+      <label class="option-card">
+        <input type="radio" name="transform" value="direct">
+        <div class="option-label">Direct publish (no transformation)</div>
+        <div class="option-sub">Source files are deployed as-is to the delivery surface</div>
+      </label>
+      <label class="option-card">
+        <input type="radio" name="transform" value="ssg">
+        <div class="option-label">Static site generator</div>
+        <div class="option-sub">Hugo, Docusaurus, MkDocs, Eleventy, Jekyll</div>
+      </label>
+      <label class="option-card">
+        <input type="radio" name="transform" value="ccms">
+        <div class="option-label">CCMS / structured CMS</div>
+        <div class="option-sub">MadCap Flare, Ixiasoft, Paligo, Tridion Docs</div>
+      </label>
+      <label class="option-card">
+        <input type="radio" name="transform" value="custom">
+        <div class="option-label">Custom pipeline / scripts</div>
+        <div class="option-sub">CI/CD scripts, custom build tooling, bespoke transforms</div>
+      </label>
+      <label class="option-card">
+        <input type="radio" name="transform" value="none">
+        <div class="option-label">No defined process</div>
+        <div class="option-sub">Ad-hoc, manual, or undefined workflow</div>
+      </label>
+    </div>
+    <div class="btn-row">
+      <button type="button" class="btn btn-secondary" id="btn3back">Back</button>
+      <button type="button" class="btn btn-primary" id="btn3next" disabled>Run Diagnosis</button>
+    </div>
+  </div>
+
+  <!-- Step 4: Results -->
+  <div class="step results-step" id="step4">
+    <h2>Pipeline Health Report</h2>
+    <p class="step-desc">Based on Despopoulos's source-to-delivery transformation model and Iantosca's two-gate quality model.</p>
+
+    <div class="summary-bar" id="summaryBar"></div>
+
+    <div class="results-section">
+      <h3>A. Break-point Analysis</h3>
+      <div id="breakpoints"></div>
+    </div>
+
+    <div class="results-section">
+      <h3>B. Two-Gate Assessment</h3>
+      <div id="gates"></div>
+    </div>
+
+    <div class="results-section">
+      <h3>C. Top 3 Fixes</h3>
+      <div class="fixes-list" id="fixes"></div>
+    </div>
+
+    <div class="btn-row btn-row-flush">
+      <button type="button" class="btn btn-secondary" id="btn4back">Back</button>
+      <button type="button" class="btn btn-secondary" id="btn4restart">Start Over</button>
+      <button type="button" class="btn btn-primary" onclick="window.print()">Print Report</button>
+    </div>
+
+    <div class="share-section" id="shareSection">
+      <h3>Share Your Results</h3>
+      <textarea class="share-textarea" id="shareText" readonly></textarea>
+      <div class="share-copy-row">
+        <button type="button" class="btn btn-secondary" id="copyBtn">Copy to clipboard</button>
+        <span class="copied-msg" id="copiedMsg">Copied!</span>
+      </div>
+    </div>
+
+    <footer class="tool-footer">
+      Built by <a href="https://sulagnasasmal.com">Sulagna Sasmal</a> ·
+      Frameworks: Despopoulos source-to-delivery model &amp; Iantosca two-gate quality model ·
+      <a href="portfolio.html">Portfolio</a>
+    </footer>
+  </div>
+
+</div><!-- /.container -->
+
+<footer class="footer">
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <span class="footer-divider">·</span>
+    <a href="portfolio.html">Portfolio</a>
+    <span class="footer-divider">·</span>
+    <a href="https://github.com/SulagnaSasmal" target="_blank" rel="noreferrer">GitHub</a>
+    <span class="footer-divider">·</span>
+    <a href="Sulagna-Sasmal-CV.pdf" target="_blank">Download CV</a>
+  </div>
+  <p class="footer-copy">&copy; 2026 <a href="index.html">Sulagna Sasmal</a>. All rights reserved.</p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ── Theme toggle ── */
+  var btn = document.getElementById('theme-btn');
+  if (btn) {
+    btn.addEventListener('click', function () {
+      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('ss-theme', next);
+    });
+  }
+
+  /* ── State ── */
+  var currentStep = 1;
+  var source = "";
+  var surfaces = [];
+  var transform = "";
+
+  /* ── DOM refs ── */
+  var steps = [null, el("step1"), el("step2"), el("step3"), el("step4")];
+  var dots  = document.querySelectorAll(".progress-dot");
+  var lines = document.querySelectorAll(".progress-line");
+
+  function el(id){ return document.getElementById(id); }
+
+  /* ── Navigation ── */
+  function goTo(step){
+    steps[currentStep].classList.remove("active");
+    currentStep = step;
+    steps[currentStep].classList.add("active");
+    updateProgress();
+    window.scrollTo({top:0,behavior:"smooth"});
+    if(step === 4) generateReport();
+  }
+
+  function updateProgress(){
+    dots.forEach(function(d){
+      var s = +d.dataset.step;
+      d.classList.toggle("active", s === currentStep);
+      d.classList.toggle("done", s < currentStep);
+    });
+    lines.forEach(function(l){
+      var s = +l.dataset.line;
+      l.classList.toggle("done", s < currentStep);
+    });
+  }
+
+  /* ── Option card bindings ── */
+  function bindRadio(groupId, btnId, setter){
+    var group = el(groupId);
+    var btn   = el(btnId);
+    group.addEventListener("click", function(e){
+      var card = e.target.closest(".option-card");
+      if(!card) return;
+      group.querySelectorAll(".option-card").forEach(function(c){ c.classList.remove("selected"); });
+      card.classList.add("selected");
+      card.querySelector("input").checked = true;
+      setter(card.querySelector("input").value);
+      btn.disabled = false;
+    });
+  }
+
+  function bindCheckbox(groupId, btnId, setter){
+    var group = el(groupId);
+    var btn   = el(btnId);
+    group.addEventListener("change", function(e){
+      var cb = e.target;
+      if(cb.type !== "checkbox") return;
+      var card = cb.closest(".option-card");
+      if(!card) return;
+      card.classList.toggle("selected", cb.checked);
+      var vals = [];
+      group.querySelectorAll("input:checked").forEach(function(c){ vals.push(c.value); });
+      setter(vals);
+      btn.disabled = vals.length === 0;
+    });
+  }
+
+  bindRadio("sourceGroup",    "btn1next", function(v){ source    = v; });
+  bindCheckbox("surfaceGroup","btn2next", function(v){ surfaces  = v; });
+  bindRadio("transformGroup", "btn3next", function(v){ transform = v; });
+
+  el("btn1next").addEventListener("click", function(){ goTo(2); });
+  el("btn2next").addEventListener("click", function(){ goTo(3); });
+  el("btn3next").addEventListener("click", function(){ goTo(4); });
+  el("btn2back").addEventListener("click", function(){ goTo(1); });
+  el("btn3back").addEventListener("click", function(){ goTo(2); });
+  el("btn4back").addEventListener("click", function(){ goTo(3); });
+  el("btn4restart").addEventListener("click", function(){
+    source = ""; surfaces = []; transform = "";
+    document.querySelectorAll(".option-card").forEach(function(c){ c.classList.remove("selected"); });
+    document.querySelectorAll(".option-card input").forEach(function(i){ i.checked = false; });
+    ["btn1next","btn2next","btn3next"].forEach(function(id){ el(id).disabled = true; });
+    goTo(1);
+  });
+
+  el("copyBtn").addEventListener("click", function(){
+    var ta = el("shareText");
+    navigator.clipboard.writeText(ta.value).then(function(){
+      el("copiedMsg").classList.add("show");
+      setTimeout(function(){ el("copiedMsg").classList.remove("show"); }, 2000);
+    });
+  });
+
+  /* ── Labels ── */
+  var sourceLabels    = {dita:"DITA XML",markdown:"Markdown",html:"HTML",unstructured:"Unstructured Word/PDF"};
+  var surfaceLabels   = {"docs-site":"Docs site (static)","in-app":"In-app help / tooltips","ai-chatbot":"AI chatbot / LLM assistant","api-ref":"API reference (OpenAPI/Swagger)",pdf:"PDF / print"};
+  var transformLabels = {direct:"Direct publish",ssg:"Static site generator",ccms:"CCMS / structured CMS",custom:"Custom pipeline / scripts",none:"No defined process"};
+
+  /* ── Diagnostic Engine ── */
+  function riskFor(surf){
+    if(source === "unstructured"){
+      if(surf === "pdf") return {level:"LOW",where:"Source",why:"PDF delivery from Word/PDF source is natively compatible — no structural transformation required."};
+      return {level:"HIGH",where:"Source",why:"Unstructured binary content has no semantic markup. Transformation layers cannot reliably extract headings, steps, or relationships."};
+    }
+    if(transform === "direct" && surf === "ai-chatbot"){
+      return {level:"HIGH",where:"Transformation",why:"Direct publish has no semantic preservation layer. AI/LLM ingestion requires structured metadata, topic boundaries, and relationship maps that raw source cannot provide."};
+    }
+    if(transform === "none" && surfaces.length >= 3){
+      return {level:"HIGH",where:"Transformation",why:"No defined transformation process across " + surfaces.length + " surfaces means each output is manually assembled. Inconsistency, drift, and broken cross-references are inevitable."};
+    }
+    if(source === "markdown" && surf === "ai-chatbot"){
+      return {level:"MEDIUM",where:"Source → Transformation",why:"Markdown lacks semantic disambiguation. Headings, lists, and code blocks have no topic-type metadata. AI systems chunk incorrectly without frontmatter schema and taxonomy signals."};
+    }
+    if(source === "dita"){
+      if(surf === "ai-chatbot") return {level:"MEDIUM",where:"Delivery",why:"DITA's structure is excellent for AI readiness, but most LLM ingestion pipelines don't natively parse DITA maps. Requires DITA-to-JSON/Markdown transform before RAG indexing."};
+      if(surf === "in-app") return {level:"MEDIUM",where:"Transformation",why:"DITA content is well-structured but verbose. In-app tooltips need micro-content extraction — conref and filtering must be configured per UI context."};
+      return {level:"LOW",where:"Minimal risk",why:"DITA's semantic structure, topic typing, and map-based relationships provide clean transformation paths. Operational complexity (toolchain, specialization) is the main risk."};
+    }
+    if(source === "html"){
+      if(surf === "ai-chatbot") return {level:"MEDIUM",where:"Source → Delivery",why:"HTML may have semantic tags (article, section) but typically lacks topic-type metadata and relationship maps needed for reliable AI chunking and retrieval."};
+      if(surf === "pdf") return {level:"MEDIUM",where:"Transformation",why:"HTML-to-PDF conversion frequently breaks page layout, headers/footers, and cross-references. Requires dedicated print stylesheet or PDF generation tool (Paged.js, Prince)."};
+      if(surf === "api-ref") return {level:"MEDIUM",where:"Source",why:"Hand-authored HTML and OpenAPI specs are separate artifacts. Keeping descriptions, examples, and error catalogs in sync requires explicit binding or generation from a single source."};
+      if(surf === "in-app") return {level:"MEDIUM",where:"Transformation",why:"HTML content must be stripped, fragmented, and re-contextualized for tooltip delivery. Without a micro-content extraction layer, full-page content leaks into UI surfaces."};
+      if(surf === "docs-site") return {level:"LOW",where:"Minimal risk",why:"HTML source to static docs site is a natural fit. Main risk is lack of templating consistency if pages are hand-authored rather than generated."};
+    }
+    if(source === "markdown"){
+      if(surf === "api-ref") return {level:"MEDIUM",where:"Source → Delivery",why:"Markdown cannot express OpenAPI schemas natively. API reference requires either spec-first generation or careful manual sync between .md files and openapi.yaml."};
+      if(surf === "in-app") return {level:"MEDIUM",where:"Transformation",why:"Markdown has no micro-content model. Extracting tooltip-sized snippets requires custom parsing, frontmatter conventions, and possibly a headless CMS layer."};
+      if(surf === "pdf") return {level:"MEDIUM",where:"Transformation",why:"Markdown-to-PDF pipelines (Pandoc, md-to-pdf) produce acceptable output but struggle with complex layouts, page breaks, headers/footers, and cross-references."};
+      if(surf === "docs-site") return {level:"LOW",where:"Minimal risk",why:"Markdown is the native format for most SSGs. Low structural risk when used with consistent frontmatter and folder conventions."};
+    }
+    if(transform === "ccms"){
+      if(surf === "ai-chatbot") return {level:"MEDIUM",where:"Delivery",why:"CCMS output is well-structured but most AI ingestion pipelines expect Markdown or JSON. Requires an export adapter to preserve metadata during RAG indexing."};
+      return {level:"LOW",where:"Minimal risk",why:"CCMS provides structured content management with reuse, filtering, and multi-channel publishing. This is the strongest path for this delivery surface."};
+    }
+    if(transform === "none"){
+      return {level:"MEDIUM",where:"Transformation",why:"No formal transformation process adds manual overhead and inconsistency risk, even when source format and delivery surface are compatible."};
+    }
+    if(transform === "direct"){
+      if(surf === "api-ref") return {level:"MEDIUM",where:"Transformation",why:"Direct publish to API reference works only if source is already OpenAPI spec. Any narrative content requires a separate process."};
+      return {level:"LOW",where:"Minimal risk",why:"Source-to-surface path is relatively direct. Monitor for drift as content scales."};
+    }
+    return {level:"LOW",where:"Minimal risk",why:"This source-surface-transform combination has manageable structural risk. Standard tooling and conventions should handle the transformation."};
+  }
+
+  function gateAssessment(){
+    var g1 = {};
+    if(source === "unstructured"){
+      g1 = {verdict:"No",css:"gate-fail",explanation:"Unstructured Word/PDF has no semantic markup, no topic boundaries, no metadata schema. Content cannot be reliably parsed by any automated system without manual restructuring."};
+    } else if(source === "dita"){
+      g1 = {verdict:"Yes",css:"gate-pass",explanation:"DITA's topic types, semantic tags, and map relationships provide machine-readable structure that passes automated pre-input validation."};
+    } else if(source === "markdown"){
+      if(transform === "ccms") g1 = {verdict:"Partial",css:"gate-partial",explanation:"Markdown gains structure from CCMS metadata and taxonomy, but the source format itself lacks native semantic disambiguation."};
+      else g1 = {verdict:"Partial",css:"gate-partial",explanation:"Markdown has basic structure (headings, lists, code) but lacks topic-type semantics, relationship metadata, and taxonomy signals without explicit frontmatter conventions."};
+    } else if(source === "html"){
+      g1 = {verdict:"Partial",css:"gate-partial",explanation:"HTML can be semantic (article, section, nav) but typically lacks the topic-type schema and content-model enforcement needed for full structural AI-readiness."};
+    } else {
+      g1 = {verdict:"Partial",css:"gate-partial",explanation:"Source structure provides partial AI-readiness. Additional metadata and schema enforcement would improve automated processing."};
+    }
+
+    var g2failures = [];
+    surfaces.forEach(function(surf){
+      if(source === "unstructured" && surf !== "pdf"){
+        g2failures.push("" + surfaceLabels[surf] + ": Content renders but semantic integrity is lost — broken heading hierarchy, missing cross-references, no topic boundaries.");
+      }
+      if(surf === "ai-chatbot"){
+        if(transform === "direct") g2failures.push("AI chatbot: No metadata preservation. LLM retrieves raw content without context boundaries, producing hallucinated or irrelevant answers.");
+        else if(source === "markdown" && transform !== "ccms") g2failures.push("AI chatbot: Chunk boundaries misaligned with topic boundaries. Retrieval returns partial topics or blended content from adjacent sections.");
+      }
+      if(surf === "pdf" && source !== "unstructured" && source !== "dita"){
+        g2failures.push("PDF: Page breaks inside code blocks; missing running headers/footers; cross-reference links become dead text.");
+      }
+      if(surf === "in-app" && source !== "dita"){
+        g2failures.push("In-app help: Full-length content appears in tooltip context. No micro-content extraction — users see paragraph-level text in a 200px popover.");
+      }
+      if(surf === "api-ref" && source !== "html"){
+        g2failures.push("API reference: Narrative descriptions and OpenAPI spec drift apart. Endpoint examples reference deprecated parameters or missing schemas.");
+      }
+    });
+    if(transform === "none" && surfaces.length >= 3){
+      g2failures.push("Multi-surface: No validation scripts means each surface ships with different content versions, broken links, and inconsistent terminology.");
+    }
+    if(transform === "ccms"){
+      g2failures.push("CCMS output: Structured content publishes cleanly but output validation scripts are needed to catch rendering regressions, broken conrefs, and filter condition conflicts post-build.");
+    }
+    if(g2failures.length === 0){
+      g2failures.push("No critical Go-Live failures detected for this combination. Standard QA review recommended before launch.");
+    }
+    return {gate1: g1, gate2failures: g2failures};
+  }
+
+  function topFixes(){
+    var fixes = [];
+    if(source === "unstructured"){
+      fixes.push({title:"Migrate to structured authoring",desc:"Convert Word/PDF content to Markdown (minimum) or DITA (ideal). Use Pandoc for bulk conversion, then manually add frontmatter metadata, topic-type tags, and heading hierarchy. This unblocks every downstream surface."});
+    }
+    if(transform === "none"){
+      fixes.push({title:"Define a transformation pipeline",desc:"Implement a reproducible build step between source and delivery. Even a simple SSG (Hugo, MkDocs) or CI script that validates and transforms content eliminates manual inconsistency across " + surfaces.length + " surface(s)."});
+    }
+    if(transform === "direct" && surfaces.indexOf("ai-chatbot") !== -1){
+      fixes.push({title:"Add a semantic enrichment layer before AI ingestion",desc:"Insert a preprocessing step that generates JSON-LD or structured frontmatter from your source content. Include topic-type tags, section IDs, and relationship metadata so the LLM retrieval pipeline can chunk and cite accurately."});
+    }
+    if(source === "markdown" && surfaces.indexOf("ai-chatbot") !== -1){
+      fixes.push({title:"Implement frontmatter schema + topic-type taxonomy",desc:"Add required frontmatter fields (type: concept|task|reference, audience, product, version) to every Markdown file. Create a taxonomy YAML that maps topics to product areas. This gives AI chunking the semantic signals Markdown lacks natively."});
+    }
+    if(surfaces.indexOf("in-app") !== -1 && source !== "dita"){
+      fixes.push({title:"Create a micro-content extraction layer",desc:"Build a content API or script that extracts the first paragraph or a designated \"summary\" field from each topic. Map these micro-content snippets to UI element IDs for tooltip delivery, rather than embedding full docs in the product."});
+    }
+    if(surfaces.indexOf("api-ref") !== -1){
+      fixes.push({title:"Adopt spec-first API documentation",desc:"Make the OpenAPI spec the single source of truth for API reference content. Generate narrative pages from the spec using Redoc or Stoplight, rather than maintaining parallel Markdown files that drift from the actual API contract."});
+    }
+    if(surfaces.indexOf("pdf") !== -1 && source === "markdown"){
+      fixes.push({title:"Add a dedicated PDF build with print stylesheet",desc:"Use a purpose-built Markdown-to-PDF toolchain (Pandoc + LaTeX, or Paged.js) with a custom print CSS that handles page breaks, running headers, code block overflow, and cross-reference resolution."});
+    }
+    if(transform === "ccms"){
+      fixes.push({title:"Add automated output validation scripts",desc:"Create post-build validation that checks for broken conrefs, unresolved filter conditions, rendering regressions, and link integrity across all published outputs. CCMS structure is only as reliable as the output verification."});
+    }
+    if(source === "dita" && surfaces.indexOf("ai-chatbot") !== -1){
+      fixes.push({title:"Build a DITA-to-JSON export for RAG pipelines",desc:"Create a DITA Open Toolkit plugin or script that exports topics as JSON with preserved metadata (topic type, parent map, related links, audience). Feed this to your AI ingestion pipeline instead of raw XML or flattened HTML."});
+    }
+    if(source === "html" && surfaces.indexOf("docs-site") !== -1){
+      fixes.push({title:"Introduce a templating layer for consistency",desc:"Move from hand-authored HTML pages to a template-driven SSG or component system. This enforces consistent navigation, metadata, and layout across all docs site pages."});
+    }
+    if(fixes.length < 3){
+      if(surfaces.length >= 2){
+        fixes.push({title:"Implement cross-surface link and terminology validation",desc:"Run automated checks that verify internal links resolve across all delivery surfaces, and that terminology is consistent (same term, same definition) between docs site, in-app help, and API reference outputs."});
+      }
+      fixes.push({title:"Add output-stage regression testing",desc:"Before each publish cycle, run a diff-based check comparing the new build output to the previous version. Flag deleted sections, changed anchors, and modified code examples for manual review."});
+      fixes.push({title:"Document your content pipeline as code",desc:"Create a pipeline definition file (YAML or Makefile) that explicitly declares source → transform → delivery relationships, with validation steps at each stage. Treat the pipeline as a first-class engineering artifact."});
+    }
+    return fixes.slice(0,3);
+  }
+
+  /* ── Report Generation ── */
+  function generateReport(){
+    var sb = el("summaryBar");
+    sb.innerHTML = "<div class=\"summary-chip\"><strong>Source:</strong>&nbsp;" + esc(sourceLabels[source]) +
+      "</div><div class=\"summary-chip\"><strong>Surfaces:</strong>&nbsp;" + surfaces.map(function(s){return esc(surfaceLabels[s]);}).join(", ") +
+      "</div><div class=\"summary-chip\"><strong>Transform:</strong>&nbsp;" + esc(transformLabels[transform]) + "</div>";
+
+    var bpHTML = "";
+    surfaces.forEach(function(surf){
+      var r = riskFor(surf);
+      var bc = r.level === "HIGH" ? "risk-high" : r.level === "MEDIUM" ? "risk-medium" : "risk-low";
+      bpHTML += "<div class=\"risk-card\">" +
+        "<div class=\"risk-header\"><span class=\"risk-badge " + bc + "\">" + r.level + "</span><span class=\"risk-surface\">" + esc(surfaceLabels[surf]) + "</span></div>" +
+        "<div class=\"risk-detail\"><strong>Break location:</strong> " + esc(r.where) + "</div>" +
+        "<div class=\"risk-detail\"><strong>Why:</strong> " + esc(r.why) + "</div>" +
+      "</div>";
+    });
+    el("breakpoints").innerHTML = bpHTML;
+
+    var gates = gateAssessment();
+    el("gates").innerHTML =
+      "<div class=\"gate-card\"><div class=\"gate-title\">Gate 1 — Pre-input Structural Assessment</div>" +
+      "<div class=\"gate-verdict " + gates.gate1.css + "\">" + gates.gate1.verdict + "</div>" +
+      "<div class=\"gate-explanation\">" + esc(gates.gate1.explanation) + "</div></div>" +
+      "<div class=\"gate-card\"><div class=\"gate-title\">Gate 2 — Go-Live Validation</div>" +
+      "<ul class=\"gate-failures\">" + gates.gate2failures.map(function(f){ return "<li>" + esc(f) + "</li>"; }).join("") + "</ul></div>";
+
+    var fixData = topFixes();
+    el("fixes").innerHTML = fixData.map(function(f){
+      return "<div class=\"fix-card\"><span class=\"fix-title\">" + esc(f.title) + "</span><div class=\"fix-desc\">" + esc(f.desc) + "</div></div>";
+    }).join("");
+
+    var highCount=0, medCount=0, lowCount=0;
+    surfaces.forEach(function(s){ var r=riskFor(s); if(r.level==="HIGH") highCount++; else if(r.level==="MEDIUM") medCount++; else lowCount++; });
+
+    var shareLines = [
+      "I just ran my documentation pipeline through the Content Pipeline Health Checker — and the results were eye-opening.",
+      "",
+      "My setup: " + sourceLabels[source] + " source → " + transformLabels[transform] + " → " + surfaces.length + " delivery surface(s).",
+      "",
+      "Results:"
+    ];
+    if(highCount) shareLines.push("🔴 " + highCount + " HIGH-risk break point" + (highCount>1?"s":""));
+    if(medCount)  shareLines.push("🟡 " + medCount  + " MEDIUM-risk break point" + (medCount>1?"s":""));
+    if(lowCount)  shareLines.push("🟢 " + lowCount  + " LOW-risk surface" + (lowCount>1?"s":""));
+    shareLines.push("","Gate 1 (structural AI-readiness): " + gates.gate1.verdict,"",
+      "The gap between \"we have docs\" and \"our docs work across every surface\" is where most pipelines silently break.","",
+      "Based on Despopoulos's source-to-delivery transformation model and Iantosca's two-gate quality framework.","",
+      "Try it yourself → https://sulagnasasmal.com/content-pipeline-health-checker.html","",
+      "#TechnicalWriting #ContentStrategy #DocsAsCode #AI #DocumentationEngineering");
+    el("shareText").value = shareLines.join("\n");
+  }
+
+  function esc(s){
+    var d = document.createElement("div");
+    d.appendChild(document.createTextNode(s));
+    return d.innerHTML;
+  }
+})();
+</script>
+</body>
+</html>
