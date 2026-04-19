@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Content Pipeline Health Checker — Sulagna Sasmal</title>
+<title>Content Pipeline Health Checker | Sulagna Sasmal</title>
 <meta name="description" content="Diagnose where your documentation pipeline breaks across delivery surfaces. Based on Despopoulos's source-to-delivery model and Iantosca's two-gate quality framework.">
 <link rel="canonical" href="https://sulagnasasmal.com/content-pipeline-health-checker.html">
 
 <!-- Open Graph -->
-<meta property="og:title" content="Content Pipeline Health Checker — Sulagna Sasmal">
+<meta property="og:title" content="Content Pipeline Health Checker | Sulagna Sasmal">
 <meta property="og:description" content="Interactive diagnostic tool: identify where your docs pipeline breaks across source formats, delivery surfaces, and transformation layers. Based on Despopoulos & Iantosca frameworks.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://sulagnasasmal.com/content-pipeline-health-checker.html">
@@ -17,7 +17,7 @@
 
 <!-- Twitter/X Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Content Pipeline Health Checker — Sulagna Sasmal">
+<meta name="twitter:title" content="Content Pipeline Health Checker | Sulagna Sasmal">
 <meta name="twitter:description" content="Diagnose where your documentation pipeline breaks. Interactive 4-step diagnostic tool.">
 <meta name="twitter:creator" content="@SulagnaSasmal">
 <meta name="twitter:image" content="https://sulagnasasmal.com/og-image.png">
@@ -465,7 +465,7 @@ a:hover { text-decoration: underline; color: var(--accent-dark); }
   <div class="tool-header">
     <span class="tool-eyebrow">Diagnostic Tool</span>
     <h1>Content Pipeline Health Checker</h1>
-    <p>Diagnose where your documentation pipeline breaks across delivery surfaces — based on Despopoulos's source-to-delivery model and Iantosca's two-gate quality framework.</p>
+    <p>Diagnose where your documentation pipeline breaks across delivery surfaces, based on Despopoulos's source-to-delivery model and Iantosca's two-gate quality framework.</p>
   </div>
 
   <!-- Progress -->
@@ -500,7 +500,7 @@ a:hover { text-decoration: underline; color: var(--accent-dark); }
       <label class="option-card">
         <input type="radio" name="source" value="markdown">
         <div class="option-label">Markdown</div>
-        <div class="option-sub">Lightweight markup — GitHub, docs-as-code workflows</div>
+        <div class="option-sub">Lightweight markup: GitHub, docs-as-code workflows</div>
       </label>
       <label class="option-card">
         <input type="radio" name="source" value="html">
@@ -765,7 +765,7 @@ a:hover { text-decoration: underline; color: var(--accent-dark); }
   /* ── Diagnostic Engine ── */
   function riskFor(surf){
     if(source === "unstructured"){
-      if(surf === "pdf") return {level:"LOW",where:"Source",why:"PDF delivery from Word/PDF source is natively compatible — no structural transformation required."};
+      if(surf === "pdf") return {level:"LOW",where:"Source",why:"PDF delivery from Word/PDF source is natively compatible, with no structural transformation required."};
       return {level:"HIGH",where:"Source",why:"Unstructured binary content has no semantic markup. Transformation layers cannot reliably extract headings, steps, or relationships."};
     }
     if(transform === "direct" && surf === "ai-chatbot"){
@@ -779,7 +779,7 @@ a:hover { text-decoration: underline; color: var(--accent-dark); }
     }
     if(source === "dita"){
       if(surf === "ai-chatbot") return {level:"MEDIUM",where:"Delivery",why:"DITA's structure is excellent for AI readiness, but most LLM ingestion pipelines don't natively parse DITA maps. Requires DITA-to-JSON/Markdown transform before RAG indexing."};
-      if(surf === "in-app") return {level:"MEDIUM",where:"Transformation",why:"DITA content is well-structured but verbose. In-app tooltips need micro-content extraction — conref and filtering must be configured per UI context."};
+      if(surf === "in-app") return {level:"MEDIUM",where:"Transformation",why:"DITA content is well-structured but verbose. In-app tooltips need micro-content extraction; conref and filtering must be configured per UI context."};
       return {level:"LOW",where:"Minimal risk",why:"DITA's semantic structure, topic typing, and map-based relationships provide clean transformation paths. Operational complexity (toolchain, specialization) is the main risk."};
     }
     if(source === "html"){
@@ -827,7 +827,7 @@ a:hover { text-decoration: underline; color: var(--accent-dark); }
     var g2failures = [];
     surfaces.forEach(function(surf){
       if(source === "unstructured" && surf !== "pdf"){
-        g2failures.push("" + surfaceLabels[surf] + ": Content renders but semantic integrity is lost — broken heading hierarchy, missing cross-references, no topic boundaries.");
+        g2failures.push("" + surfaceLabels[surf] + ": Content renders but semantic integrity is lost: broken heading hierarchy, missing cross-references, no topic boundaries.");
       }
       if(surf === "ai-chatbot"){
         if(transform === "direct") g2failures.push("AI chatbot: No metadata preservation. LLM retrieves raw content without context boundaries, producing hallucinated or irrelevant answers.");
@@ -837,7 +837,7 @@ a:hover { text-decoration: underline; color: var(--accent-dark); }
         g2failures.push("PDF: Page breaks inside code blocks; missing running headers/footers; cross-reference links become dead text.");
       }
       if(surf === "in-app" && source !== "dita"){
-        g2failures.push("In-app help: Full-length content appears in tooltip context. No micro-content extraction — users see paragraph-level text in a 200px popover.");
+        g2failures.push("In-app help: Full-length content appears in tooltip context. No micro-content extraction; users see paragraph-level text in a 200px popover.");
       }
       if(surf === "api-ref" && source !== "html"){
         g2failures.push("API reference: Narrative descriptions and OpenAPI spec drift apart. Endpoint examples reference deprecated parameters or missing schemas.");
@@ -918,10 +918,10 @@ a:hover { text-decoration: underline; color: var(--accent-dark); }
 
     var gates = gateAssessment();
     el("gates").innerHTML =
-      "<div class=\"gate-card\"><div class=\"gate-title\">Gate 1 — Pre-input Structural Assessment</div>" +
+      "<div class=\"gate-card\"><div class=\"gate-title\">Gate 1: Pre-input Structural Assessment</div>" +
       "<div class=\"gate-verdict " + gates.gate1.css + "\">" + gates.gate1.verdict + "</div>" +
       "<div class=\"gate-explanation\">" + esc(gates.gate1.explanation) + "</div></div>" +
-      "<div class=\"gate-card\"><div class=\"gate-title\">Gate 2 — Go-Live Validation</div>" +
+      "<div class=\"gate-card\"><div class=\"gate-title\">Gate 2: Go-Live Validation</div>" +
       "<ul class=\"gate-failures\">" + gates.gate2failures.map(function(f){ return "<li>" + esc(f) + "</li>"; }).join("") + "</ul></div>";
 
     var fixData = topFixes();
@@ -933,7 +933,7 @@ a:hover { text-decoration: underline; color: var(--accent-dark); }
     surfaces.forEach(function(s){ var r=riskFor(s); if(r.level==="HIGH") highCount++; else if(r.level==="MEDIUM") medCount++; else lowCount++; });
 
     var shareLines = [
-      "I just ran my documentation pipeline through the Content Pipeline Health Checker — and the results were eye-opening.",
+      "I just ran my documentation pipeline through the Content Pipeline Health Checker, and the results were eye-opening.",
       "",
       "My setup: " + sourceLabels[source] + " source → " + transformLabels[transform] + " → " + surfaces.length + " delivery surface(s).",
       "",
