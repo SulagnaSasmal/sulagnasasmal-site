@@ -691,6 +691,27 @@ body {
 .skill-chip:hover { border-color: var(--amber-border); color: var(--amber); }
 .skill-proof { font-size: 0.8rem; color: var(--text-3); line-height: 1.55; border-top: 1px solid var(--border); padding-top: 0.7rem; margin-top: 0.1rem; }
 
+/* ── HERO AVATAR ── */
+.hero-avatar { width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--border); object-fit: cover; display: block; margin-bottom: 1.1rem; }
+
+/* ── AUDIENCE GRID ── */
+.audience-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.65rem; margin: 1.2rem 0 1.4rem; }
+.audience-card { background: var(--bg-tag); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.7rem 0.9rem; transition: border-color 0.15s; }
+.audience-card:hover { border-color: var(--amber-border); }
+.audience-role { font-size: 0.76rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+.audience-desc { font-size: 0.73rem; color: var(--text-3); line-height: 1.5; }
+@media (max-width: 640px) { .audience-grid { grid-template-columns: 1fr; } }
+
+/* ── TESTIMONIAL ── */
+.testimonial-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+.testimonial-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+.testimonial-quote { font-size: 0.92rem; color: var(--text-2); line-height: 1.75; font-style: italic; flex: 1; }
+.testimonial-quote::before { content: '\201C'; font-size: 1.5rem; color: var(--amber); line-height: 0; vertical-align: -0.4em; margin-right: 2px; }
+.testimonial-attr { font-size: 0.78rem; color: var(--text-3); border-top: 1px solid var(--border); padding-top: 0.75rem; display: flex; align-items: center; justify-content: space-between; }
+.testimonial-attr strong { color: var(--text); }
+.testimonial-source { color: var(--amber); text-decoration: none; font-size: 0.73rem; }
+@media (max-width: 768px) { .testimonial-grid { grid-template-columns: 1fr; } }
+
 /* ── CASE STUDY ── */
 .case-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow); }
 .case-header { margin-bottom: 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
@@ -854,10 +875,11 @@ body {
 <!-- ═══ HERO ═══ -->
 <section class="hero">
   <div class="hero-left">
-    <div class="hero-eyebrow">Available · Open to new roles</div>
+    <div class="hero-eyebrow">Available · Open to new roles · Jun 2026</div>
+    <img class="hero-avatar" src="https://github.com/SulagnaSasmal.png" alt="Sulagna Sasmal" loading="lazy">
     <h1>Sulagna Sasmal</h1>
     <p class="hero-role">
-      Information Architect<span>·</span>Content Strategist<span>·</span>Documentation Engineer
+      Documentation Engineer<span>·</span>Information Architect<span>·</span>Content Strategist
     </p>
     <p class="hero-pitch">
       I build documentation systems that engineers actually ship — and that <strong>stay accurate when the product changes.</strong>
@@ -910,42 +932,38 @@ body {
   <h2>Documentation that thinks like engineering.</h2>
   <div class="about-body">
     <div>
-      <p>
-        I'm a Documentation Engineer and Information Architect based in Bengaluru, India.
-        My career spans 20 years across various domains including payment technology
-        (Fundtech), asset management (SunGard), enterprise communications (Avaya),
-        and financial crime prevention (NICE Actimize), where I led documentation for
-        five enterprise platform solutions across on-prem and cloud deployments.
+      <p style="font-size:1rem;line-height:1.8;">
+        Engineering teams at my clients ship documentation alongside code — not after it — because I build the systems that make that possible. I'm a Documentation Engineer and Information Architect with 20 years across enterprise software, developer platforms, and regulated industries: payment systems (Fundtech), asset management (SunGard), enterprise communications (Avaya), and financial crime prevention (NICE Actimize).
       </p>
+      <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-3);margin-top:1.2rem;margin-bottom:0;">I write for every audience in the room</p>
+      <div class="audience-grid">
+        <div class="audience-card">
+          <div class="audience-role">Engineers &amp; developers</div>
+          <div class="audience-desc">REST API references, SDK guides, OAuth flows, webhook catalogs, multi-language code samples</div>
+        </div>
+        <div class="audience-card">
+          <div class="audience-role">System administrators</div>
+          <div class="audience-desc">Deployment guides, configuration runbooks, upgrade and migration procedures</div>
+        </div>
+        <div class="audience-card">
+          <div class="audience-role">Business &amp; end users</div>
+          <div class="audience-desc">Task-based workflows, UI reference, narrated video walkthroughs</div>
+        </div>
+        <div class="audience-card">
+          <div class="audience-role">Data &amp; compliance teams</div>
+          <div class="audience-desc">Field reference guides, audit-ready documentation, regulatory evidence packs</div>
+        </div>
+        <div class="audience-card">
+          <div class="audience-role">Professional services</div>
+          <div class="audience-desc">Implementation playbooks, post-sale onboarding kits, integration guides</div>
+        </div>
+        <div class="audience-card">
+          <div class="audience-role">Documentation teams</div>
+          <div class="audience-desc">Git workflows, JIRA, structured authoring standards, AI governance frameworks</div>
+        </div>
+      </div>
       <p>
-        My documentation practice serves the full spectrum of enterprise software audiences.
-        For engineers and developers, I produce REST API references built to OpenAPI specification,
-        SDK integration guides with multi-language code samples, authentication and onboarding
-        tutorials, webhook event catalogs, and error reference libraries, written not just to
-        describe what an endpoint does, but why it exists, what can go wrong, and how to validate
-        it end to end. For system administrators, I write deployment guides, configuration
-        runbooks, and upgrade procedures. For front-end and business users, I produce task-based
-        workflow documentation and UI reference material. For data and compliance analysts, I
-        develop field reference guides and audit-ready documentation. For professional services
-        consultants and client-side implementers, I build implementation playbooks and post-sale
-        onboarding documentation. Delivery extends beyond written reference to include structured
-        knowledge bases and narrated video walkthroughs that contextualise product functionality
-        within real operational scenarios.
-      </p>
-      <p>
-        Beyond writing, I architect documentation ecosystems, embed docs into CI/CD
-        pipelines, and shape developer portal roadmaps covering search, navigation, and
-        content discoverability. I mentor teams on Git workflows, JIRA, and structured
-        authoring. At NICE Actimize, I led the evaluation of seven AI and productivity
-        tools, building governance controls that resulted in four tools being formally
-        adopted across the team.
-      </p>
-      <p>
-        Outside my day job, I build documentation tooling: RepoDocs AI is an AI-prompt-powered
-        docs-as-code framework for SaaS API teams using Claude; DocCraft AI converts raw inputs
-        into polished documentation with GPT-4o; and my PPT-to-Video pipeline automates narrated
-        documentation with Azure TTS and FFmpeg. I treat documentation as a product capability,
-        not a deliverable that follows the release.
+        Beyond writing, I architect documentation ecosystems, embed docs into CI/CD pipelines, and shape developer portal information architecture. At NICE Actimize, I evaluated seven AI and productivity tools and built a governance framework that resulted in four being formally adopted across a team of eight writers.
       </p>
     </div>
     <div class="about-sidebar">
@@ -1219,48 +1237,6 @@ body {
 
 <div class="divider-wide"><hr></div>
 
-<!-- ═══ LATEST WRITING ═══ -->
-<section class="section" id="writing">
-  <div class="section-label">Latest writing</div>
-  <h2>From the blog</h2>
-  <p style="color:var(--text-2);font-size:0.95rem;margin-bottom:1.75rem;">
-    Thoughts on documentation engineering, API writing, and the tools I build and ship.
-  </p>
-  <div class="work-grid">
-
-    <a class="work-card" href="https://sulagnasasmal.github.io/blog/posts/the-docs-page-is-the-backend-now/" target="_blank" rel="noopener">
-      <div class="work-card-top">
-        <span class="badge badge-amber">Jun 2026</span>
-        <svg class="work-card-arrow" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-      </div>
-      <div class="work-card-name">Docs as Interface, Part 3: The Docs Page Is the Backend Now</div>
-      <div class="work-card-sub">How language models interact with your documentation sources</div>
-    </a>
-
-    <a class="work-card" href="https://sulagnasasmal.github.io/blog/posts/progressive-disclosure-documentation-ux/" target="_blank" rel="noopener">
-      <div class="work-card-top">
-        <span class="badge badge-blue">Apr 2026</span>
-        <svg class="work-card-arrow" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-      </div>
-      <div class="work-card-name">Progressive Disclosure Is Not What You Think</div>
-      <div class="work-card-sub">Documentation UX and the art of revealing complexity</div>
-    </a>
-
-    <a class="work-card" href="https://sulagnasasmal.github.io/blog/posts/repodocs-ai-documentation-system-for-api-teams/" target="_blank" rel="noopener">
-      <div class="work-card-top">
-        <span class="badge badge-teal">Apr 2026</span>
-        <svg class="work-card-arrow" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-      </div>
-      <div class="work-card-name">I Built a Documentation System for API Teams. Here Is Why Templates Were Not Enough.</div>
-      <div class="work-card-sub">Behind the build: RepoDocs AI</div>
-    </a>
-
-  </div>
-  <a href="https://sulagnasasmal.github.io/blog/" target="_blank" rel="noopener" class="btn btn-ghost">Read all posts ↗</a>
-</section>
-
-<div class="divider"><hr></div>
-
 <!-- ═══ WRITING PORTFOLIO ═══ -->
 <section class="section" id="portfolio">
   <div class="section-label">Portfolio</div>
@@ -1348,6 +1324,48 @@ body {
     <a href="portfolio.html" class="btn btn-primary">Full portfolio →</a>
     <a href="https://sulagnasasmal.github.io/doc-portal/" target="_blank" rel="noopener" class="btn btn-ghost">All 15 at DOC Portal ↗</a>
   </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══ LATEST WRITING ═══ -->
+<section class="section" id="writing">
+  <div class="section-label">Latest writing</div>
+  <h2>From the blog</h2>
+  <p style="color:var(--text-2);font-size:0.95rem;margin-bottom:1.75rem;">
+    Thoughts on documentation engineering, API writing, and the tools I build and ship.
+  </p>
+  <div class="work-grid">
+
+    <a class="work-card" href="https://sulagnasasmal.github.io/blog/posts/the-docs-page-is-the-backend-now/" target="_blank" rel="noopener">
+      <div class="work-card-top">
+        <span class="badge badge-amber">Jun 2026</span>
+        <svg class="work-card-arrow" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </div>
+      <div class="work-card-name">Docs as Interface, Part 3: The Docs Page Is the Backend Now</div>
+      <div class="work-card-sub">How language models interact with your documentation sources</div>
+    </a>
+
+    <a class="work-card" href="https://sulagnasasmal.github.io/blog/posts/progressive-disclosure-documentation-ux/" target="_blank" rel="noopener">
+      <div class="work-card-top">
+        <span class="badge badge-blue">Apr 2026</span>
+        <svg class="work-card-arrow" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </div>
+      <div class="work-card-name">Progressive Disclosure Is Not What You Think</div>
+      <div class="work-card-sub">Documentation UX and the art of revealing complexity</div>
+    </a>
+
+    <a class="work-card" href="https://sulagnasasmal.github.io/blog/posts/repodocs-ai-documentation-system-for-api-teams/" target="_blank" rel="noopener">
+      <div class="work-card-top">
+        <span class="badge badge-teal">Apr 2026</span>
+        <svg class="work-card-arrow" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </div>
+      <div class="work-card-name">I Built a Documentation System for API Teams. Here Is Why Templates Were Not Enough.</div>
+      <div class="work-card-sub">Behind the build: RepoDocs AI</div>
+    </a>
+
+  </div>
+  <a href="https://sulagnasasmal.github.io/blog/" target="_blank" rel="noopener" class="btn btn-ghost">Read all posts ↗</a>
 </section>
 
 <div class="divider"><hr></div>
@@ -1713,13 +1731,42 @@ body {
 
 <div class="divider"><hr></div>
 
+<!--
+  ═══ TESTIMONIALS ═══
+  To activate: paste 1–2 LinkedIn recommendation excerpts into the quotes below, then remove
+  the outer HTML comment tags. Go to linkedin.com/in/sulagnasasmal → More → Recommendations.
+-->
+<!--
+<div class="divider"><hr></div>
+<section class="section reveal" id="testimonials">
+  <div class="section-label">What people say</div>
+  <h2>Recommendations</h2>
+  <div class="testimonial-grid">
+    <blockquote class="testimonial-card">
+      <p class="testimonial-quote">Paste first recommendation excerpt here (3–4 sentences). Look for quotes that speak to impact, leadership, or documentation quality.</p>
+      <footer class="testimonial-attr">
+        <span><strong>Name, Title</strong> · Company</span>
+        <a href="https://www.linkedin.com/in/sulagnasasmal/details/recommendations/" target="_blank" rel="noopener" class="testimonial-source">LinkedIn ↗</a>
+      </footer>
+    </blockquote>
+    <blockquote class="testimonial-card">
+      <p class="testimonial-quote">Paste second recommendation excerpt here (3–4 sentences).</p>
+      <footer class="testimonial-attr">
+        <span><strong>Name, Title</strong> · Company</span>
+        <a href="https://www.linkedin.com/in/sulagnasasmal/details/recommendations/" target="_blank" rel="noopener" class="testimonial-source">LinkedIn ↗</a>
+      </footer>
+    </blockquote>
+  </div>
+</section>
+-->
+
 <!-- ═══ CONTACT ═══ -->
 <section class="section" id="contact">
   <div class="contact-box">
     <h2>Let's work together</h2>
     <p>
-      I'm open to senior documentation engineering, information architecture, and content strategy roles
-      at companies building complex developer-facing products.
+      Open to full-time, contract, and fractional engagements in senior documentation engineering,
+      information architecture, and content strategy — at companies building complex developer-facing products.
     </p>
     <div class="contact-actions">
       <a href="mailto:sulagna.sasmal@gmail.com" class="contact-btn primary">✉ sulagna.sasmal@gmail.com</a>
@@ -1749,7 +1796,7 @@ body {
       <a href="mailto:sulagna.sasmal@gmail.com">Email</a>
     </div>
     <div class="footer-copy">Information Architect &middot; Content Strategist &middot; Documentation Engineer</div>
-    <div class="footer-copy" style="margin-top:0.5rem;font-style:italic;">&copy; 2026 Sulagna Sasmal. All rights reserved. This site and all portfolio projects are personal work created for demonstration purposes only. Not affiliated with any organization.</div>
+    <div class="footer-copy" style="margin-top:0.5rem;font-style:italic;">&copy; 2026 Sulagna Sasmal. All rights reserved. Portfolio writing samples use representative and anonymised data; not sourced from or affiliated with any current or former employer.</div>
   </div>
 </footer>
 
