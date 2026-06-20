@@ -391,6 +391,21 @@ a:hover { text-decoration: underline; color: var(--accent-dark); }
 
 .btn-row-flush { margin-bottom: 0; }
 
+/* ── ACCESSIBILITY ── */
+.skip-link {
+  position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;
+  background: var(--accent); color: #fff; font-size: 0.875rem; font-weight: 600;
+  padding: 8px 18px; border-radius: 7px; text-decoration: none; z-index: 9999;
+}
+.skip-link:focus {
+  position: fixed; left: 16px; top: 16px; width: auto; height: auto; overflow: visible; outline: none;
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
 /* ── SITE FOOTER ── */
 .footer {
   border-top: 1px solid var(--border);
@@ -411,6 +426,7 @@ a:hover { text-decoration: underline; color: var(--accent-dark); }
 .footer-copy { font-size: .78rem; color: var(--text-muted); }
 .footer-copy a { color: var(--text-muted); text-decoration: none; }
 .footer-copy a:hover { color: var(--accent); }
+.footer-disclaimer { font-size: .72rem; color: var(--text-muted); font-style: italic; opacity: .75; max-width: 560px; }
 
 /* ── PRINT ── */
 @media print {
@@ -436,6 +452,8 @@ a:hover { text-decoration: underline; color: var(--accent-dark); }
 </head>
 <body>
 
+<a href="#tool-main" class="skip-link">Skip to main content</a>
+
 <!-- ── NAV ── -->
 <nav class="nav" aria-label="Site navigation">
   <div class="nav-inner">
@@ -460,7 +478,7 @@ a:hover { text-decoration: underline; color: var(--accent-dark); }
   </div>
 </nav>
 
-<div class="container">
+<div class="container" id="tool-main">
 
   <div class="tool-header">
     <span class="tool-eyebrow">Diagnostic Tool</span>
@@ -644,11 +662,20 @@ a:hover { text-decoration: underline; color: var(--accent-dark); }
     <span class="footer-divider">·</span>
     <a href="portfolio.html">Portfolio</a>
     <span class="footer-divider">·</span>
-    <a href="https://github.com/SulagnaSasmal" target="_blank" rel="noreferrer">GitHub</a>
+    <a href="https://sulagnasasmal.github.io/blog/" target="_blank" rel="noopener noreferrer">Blog ↗</a>
+    <span class="footer-divider">·</span>
+    <a href="https://sulagnasasmal.github.io/doc-portal/" target="_blank" rel="noopener noreferrer">DOC Portal</a>
+    <span class="footer-divider">·</span>
+    <a href="https://github.com/SulagnaSasmal" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <span class="footer-divider">·</span>
+    <a href="https://www.linkedin.com/in/sulagnasasmal/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    <span class="footer-divider">·</span>
+    <a href="mailto:sulagna.sasmal@gmail.com">Email</a>
     <span class="footer-divider">·</span>
     <a href="Sulagna-Sasmal-CV.pdf" target="_blank">Download CV</a>
   </div>
   <p class="footer-copy">&copy; 2026 <a href="index.html">Sulagna Sasmal</a>. All rights reserved.</p>
+  <p class="footer-disclaimer">Portfolio writing samples use representative and anonymised data; not sourced from or affiliated with any current or former employer.</p>
 </footer>
 
 <script>

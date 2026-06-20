@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://sulagnasasmal.com/portfolio.html">
 <meta property="og:image" content="https://sulagnasasmal.com/og-image.png">
-<meta property="og:image:alt" content="Portfolio of Sulagna Sasmal — Documentation Engineer">
+<meta property="og:image:alt" content="Portfolio of Sulagna Sasmal, Documentation Engineer">
 <meta property="og:site_name" content="Sulagna Sasmal">
 
 <!-- Twitter/X Card -->
@@ -26,7 +26,7 @@
 <meta name="twitter:creator" content="@SulagnaSasmal">
 <meta name="twitter:site" content="@SulagnaSasmal">
 <meta name="twitter:image" content="https://sulagnasasmal.com/og-image.png">
-<meta name="twitter:image:alt" content="Portfolio of Sulagna Sasmal — Documentation Engineer">
+<meta name="twitter:image:alt" content="Portfolio of Sulagna Sasmal, Documentation Engineer">
 
 <!-- Identity -->
 <link rel="me" href="https://www.linkedin.com/in/sulagnasasmal/">
@@ -43,7 +43,7 @@
 {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "name": "Portfolio — Sulagna Sasmal",
+  "name": "Portfolio: Sulagna Sasmal",
   "description": "15 live documentation projects: API references, SDK guides, admin docs, onboarding kits, and developer portals for FinTech and compliance platforms.",
   "url": "https://sulagnasasmal.com/portfolio.html",
   "author": {
@@ -133,6 +133,21 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+/* ── ACCESSIBILITY ───────────────────────────────────────── */
+.skip-link {
+  position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;
+  background: var(--accent); color: #fff; font-size: 0.875rem; font-weight: 600;
+  padding: 8px 18px; border-radius: 7px; text-decoration: none; z-index: 9999;
+}
+.skip-link:focus {
+  position: fixed; left: 16px; top: 16px; width: auto; height: auto; overflow: visible; outline: none;
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
 }
 
 /* ── ANIMATIONS ──────────────────────────────────────────── */
@@ -670,7 +685,7 @@ body {
 
 .results-label {
   font-family: 'JetBrains Mono', monospace;
-  font-size: .72rem;
+  font-size: .75rem;
   color: var(--text-muted);
   margin-bottom: 1.5rem;
   letter-spacing: .04em;
@@ -703,7 +718,7 @@ body {
 .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: .5rem; }
 .card-phase {
   font-family: 'JetBrains Mono', monospace;
-  font-size: .63rem;
+  font-size: .7rem;
   font-weight: 700;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -814,6 +829,8 @@ body {
 </style>
 </head>
 <body>
+
+<a href="#featured" class="skip-link">Skip to main content</a>
 
 <!-- ── SIDE LINKS ──────────────────────────────────────────── -->
 <aside class="side side-left" aria-label="Social links">
@@ -1213,10 +1230,14 @@ body {
     <span class="footer-divider">·</span>
     <a href="https://github.com/SulagnaSasmal" target="_blank" rel="noopener noreferrer">GitHub</a>
     <span class="footer-divider">·</span>
+    <a href="https://www.linkedin.com/in/sulagnasasmal/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    <span class="footer-divider">·</span>
+    <a href="mailto:sulagna.sasmal@gmail.com">Email</a>
+    <span class="footer-divider">·</span>
     <a href="Sulagna-Sasmal-CV.pdf" target="_blank">Download CV</a>
   </div>
   <p class="footer-copy">&copy; 2026 <a href="index.html">Sulagna Sasmal</a>. All rights reserved.</p>
-  <p class="footer-disclaimer">Personal portfolio project for demonstration purposes only. Not affiliated with any organization.</p>
+  <p class="footer-disclaimer">Portfolio writing samples use representative and anonymised data; not sourced from or affiliated with any current or former employer.</p>
 </footer>
 
 <script>
@@ -1255,7 +1276,7 @@ document.querySelectorAll('.fi.reveal').forEach((el, i) => {
   observer.observe(el);
 });
 
-// Section headings — no stagger needed
+// Section headings, no stagger needed
 document.querySelectorAll('.section-heading.reveal').forEach(el => observer.observe(el));
 
 // ── Category filter ───────────────────────────────────────

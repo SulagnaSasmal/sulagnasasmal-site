@@ -165,7 +165,7 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { font-size: 15px; scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--border-dark) var(--bg); }
 
-/* ── TOKENS — LIGHT ── */
+/* ── TOKENS: LIGHT ── */
 :root {
   --bg:           #f9f7f4;
   --bg-card:      #ffffff;
@@ -176,7 +176,7 @@ html { font-size: 15px; scroll-behavior: smooth; scrollbar-width: thin; scrollba
   --text:         #1c1814;
   --text-2:       #4a4540;
   --text-3:       #7a726a;
-  --text-4:       #a89f95;
+  --text-4:       #78706a;
   --amber:        #d97706;
   --amber-light:  #f59e0b;
   --amber-bg:     #fffbeb;
@@ -201,7 +201,7 @@ html { font-size: 15px; scroll-behavior: smooth; scrollbar-width: thin; scrollba
   --ease:         cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-/* ── TOKENS — DARK ── */
+/* ── TOKENS: DARK ── */
 [data-theme="dark"] {
   --bg:           #0c0e14;
   --bg-card:      #12151e;
@@ -212,7 +212,7 @@ html { font-size: 15px; scroll-behavior: smooth; scrollbar-width: thin; scrollba
   --text:         #e4e8f0;
   --text-2:       #8892a8;
   --text-3:       #5a6480;
-  --text-4:       #3a4260;
+  --text-4:       #5a6280;
   --amber:        #f59e0b;
   --amber-light:  #fbbf24;
   --amber-bg:     rgba(245,158,11,0.08);
@@ -248,6 +248,21 @@ body {
 ::-webkit-scrollbar-thumb { background: var(--border-dark); border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--amber); }
 ::selection { background: var(--amber-bg); color: var(--amber); }
+
+/* ── ACCESSIBILITY ── */
+.skip-link {
+  position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden;
+  background: var(--amber); color: #fff; font-size: 0.875rem; font-weight: 600;
+  padding: 8px 18px; border-radius: var(--radius); text-decoration: none; z-index: 9999;
+}
+.skip-link:focus {
+  position: fixed; left: 16px; top: 16px; width: auto; height: auto; overflow: visible; outline: none;
+}
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
 
 /* ── ANIMATIONS ── */
 @keyframes fadeup {
@@ -527,7 +542,7 @@ body {
 .section      { max-width: var(--content-w); margin: 0 auto; padding: 3.5rem 2rem; }
 .section-wide { max-width: var(--wide-w);    margin: 0 auto; padding: 3.5rem 2rem; }
 .section-label {
-  font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; font-weight: 500;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 500;
   letter-spacing: 0.15em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.4rem;
 }
 .section h2, .section-wide h2 {
@@ -617,9 +632,9 @@ body {
 .tool-desc { font-size: 0.83rem; color: var(--text-2); line-height: 1.65; margin-bottom: 0.8rem; flex: 1; }
 .tool-tags { display: flex; flex-wrap: wrap; gap: 4px; }
 .tool-tag {
-  font-family: 'JetBrains Mono', monospace; font-size: 0.63rem;
+  font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
   color: var(--text-3); background: var(--bg-tag); border: 1px solid var(--border);
-  padding: 2px 6px; border-radius: 4px;
+  padding: 2px 7px; border-radius: 4px;
 }
 .tool-cta {
   font-size: 0.78rem; font-weight: 600; color: var(--amber); margin-top: 0.9rem;
@@ -784,7 +799,7 @@ body {
 .footer-links { display: flex; gap: 1.5rem; }
 .footer-links a { font-size: 0.8rem; color: var(--text-4); text-decoration: none; transition: color 0.15s; }
 .footer-links a:hover { color: var(--amber); }
-.footer-copy { font-size: 0.76rem; color: var(--text-4); }
+.footer-copy { font-size: 0.76rem; color: var(--text-4); width: 100%; text-align: center; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 1100px) {
@@ -822,6 +837,8 @@ body {
 </head>
 <body>
 
+<a href="#main" class="skip-link">Skip to main content</a>
+
 <!-- ═══ SIDE LINKS ═══ -->
 <aside class="side side-left" aria-hidden="true">
   <a class="side-link" href="https://github.com/SulagnaSasmal" target="_blank" rel="noopener me" aria-label="GitHub">
@@ -840,7 +857,7 @@ body {
 </aside>
 
 <!-- ═══ NAV ═══ -->
-<nav class="nav">
+<nav class="nav" aria-label="Site navigation">
   <div class="nav-inner">
     <a href="#" class="nav-brand">Sulagna<span>.</span></a>
     <div class="nav-links">
@@ -882,8 +899,8 @@ body {
       Documentation Engineer<span>·</span>Information Architect<span>·</span>Content Strategist
     </p>
     <p class="hero-pitch">
-      I build documentation systems that engineers actually ship — and that <strong>stay accurate when the product changes.</strong>
-      API references, developer portals, and AI-powered tooling — from one writer who also builds the infrastructure.
+      I build documentation systems that engineers actually ship, ones that <strong>stay accurate when the product changes.</strong>
+      API references, developer portals, and AI-powered tooling. One writer who also builds the infrastructure.
     </p>
     <div class="hero-actions">
       <a href="#portfolio" class="btn btn-primary">View my work ↓</a>
@@ -905,7 +922,7 @@ body {
 </section>
 
 <!-- ═══ METRICS STRIP ═══ -->
-<div class="metrics-strip">
+<div class="metrics-strip" id="main">
   <div class="metrics-inner">
     <div class="metric">
       <div class="metric-num" data-target="20" data-suffix="+">20+</div>
@@ -933,7 +950,7 @@ body {
   <div class="about-body">
     <div>
       <p style="font-size:1rem;line-height:1.8;">
-        Engineering teams at my clients ship documentation alongside code — not after it — because I build the systems that make that possible. I'm a Documentation Engineer and Information Architect with 20 years across enterprise software, developer platforms, and regulated industries: payment systems (Fundtech), asset management (SunGard), enterprise communications (Avaya), and financial crime prevention (NICE Actimize).
+        Engineering teams at my clients ship documentation alongside code, not after it, because I build the systems that make that possible. I'm a Documentation Engineer and Information Architect with 20 years across enterprise software, developer platforms, and regulated industries: payment systems (Fundtech), asset management (SunGard), enterprise communications (Avaya), and financial crime prevention (NICE Actimize).
       </p>
       <p style="font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-3);margin-top:1.2rem;margin-bottom:0;">I write for every audience in the room</p>
       <div class="audience-grid">
@@ -1464,7 +1481,7 @@ body {
 <!-- ═══ CASE STUDY ═══ -->
 <section class="section reveal" id="case-study">
   <div class="section-label">Case study</div>
-  <h2>Scaling documentation for five financial crime platforms — simultaneously</h2>
+  <h2>Scaling documentation for five financial crime platforms, simultaneously</h2>
   <div class="case-card reveal">
     <div class="case-header">
       <span class="badge badge-amber">NICE Actimize · 9 years</span>
@@ -1474,11 +1491,11 @@ body {
     <div class="case-grid">
       <div class="case-step">
         <div class="case-step-label">Challenge</div>
-        <p>Five enterprise financial crime platforms — on-prem and SaaS cloud — each with separate release trains, Agile teams, and strict regulatory documentation standards. One team, no unified toolchain, and growing release velocity.</p>
+        <p>Five enterprise financial crime platforms (on-prem and SaaS cloud), each with separate release trains, Agile teams, and strict regulatory documentation standards. One team, no unified toolchain, and growing release velocity.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Approach</div>
-        <p>Migrated four GitLab workflows to GitHub with a branching model aligned to release milestones. Designed an AI governance framework — evaluated seven tools, formally adopted four with prompt standards and compliance controls. Built information architecture for the DOCenter customer-facing documentation portal.</p>
+        <p>Migrated four GitLab workflows to GitHub with a branching model aligned to release milestones. Designed an AI governance framework: evaluated seven tools, formally adopted four with prompt standards and compliance controls. Built information architecture for the DOCenter customer-facing documentation portal.</p>
       </div>
       <div class="case-step">
         <div class="case-step-label">Results</div>
@@ -1761,7 +1778,7 @@ body {
     <h2>Let's work together</h2>
     <p>
       Open to full-time, contract, and fractional engagements in senior documentation engineering,
-      information architecture, and content strategy — at companies building complex developer-facing products.
+      information architecture, and content strategy, at companies building complex developer-facing products.
     </p>
     <div class="contact-actions">
       <a href="mailto:sulagna.sasmal@gmail.com" class="contact-btn primary">✉ sulagna.sasmal@gmail.com</a>
@@ -1782,12 +1799,12 @@ body {
     <div class="footer-brand">Sulagna<span>.</span></div>
     <div class="footer-links">
       <a href="#writing">Latest Writing</a>
-      <a href="https://sulagnasasmal.github.io/blog/" target="_blank" rel="noopener">Blog ↗</a>
-      <a href="https://sulagnasasmal.github.io/doc-portal/" target="_blank" rel="noopener">DOC Portal</a>
-      <a href="https://sulagnasasmal.github.io/ai-doc-tools/" target="_blank" rel="noopener">AI Tools ↗</a>
-      <a href="https://sulagnasasmal.github.io/repodocs-ai/" target="_blank" rel="noopener">RepoDocs AI ↗</a>
-      <a href="https://github.com/SulagnaSasmal" target="_blank">GitHub</a>
-      <a href="https://www.linkedin.com/in/sulagnasasmal/" target="_blank">LinkedIn</a>
+      <a href="https://sulagnasasmal.github.io/blog/" target="_blank" rel="noopener noreferrer">Blog ↗</a>
+      <a href="https://sulagnasasmal.github.io/doc-portal/" target="_blank" rel="noopener noreferrer">DOC Portal</a>
+      <a href="https://sulagnasasmal.github.io/ai-doc-tools/" target="_blank" rel="noopener noreferrer">AI Tools ↗</a>
+      <a href="https://sulagnasasmal.github.io/repodocs-ai/" target="_blank" rel="noopener noreferrer">RepoDocs AI ↗</a>
+      <a href="https://github.com/SulagnaSasmal" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/sulagnasasmal/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       <a href="mailto:sulagna.sasmal@gmail.com">Email</a>
     </div>
     <div class="footer-copy">Information Architect &middot; Content Strategist &middot; Documentation Engineer</div>
