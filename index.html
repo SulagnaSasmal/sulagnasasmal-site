@@ -801,6 +801,79 @@ body {
 .footer-links a:hover { color: var(--amber); }
 .footer-copy { font-size: 0.76rem; color: #6b7494; width: 100%; text-align: center; }
 
+/* ── DOT NAV ── */
+.dot-nav {
+  position: fixed; right: 1.25rem; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 0.55rem;
+  z-index: 800; margin: 0; padding: 0.5rem 0;
+}
+.dot-nav-item {
+  position: relative; display: flex; align-items: center; justify-content: flex-end; text-decoration: none;
+}
+.dot-nav-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--border-dark); transition: background 0.2s, transform 0.2s; display: block; flex-shrink: 0;
+}
+.dot-nav-item.active .dot-nav-dot { background: var(--amber); transform: scale(1.5); }
+.dot-nav-item:hover .dot-nav-dot { background: var(--amber); transform: scale(1.3); }
+.dot-nav-label {
+  position: absolute; right: calc(100% + 10px);
+  background: #1e2330; color: #e4e8f0;
+  font-family: 'Outfit', sans-serif; font-size: 0.68rem; font-weight: 500;
+  padding: 3px 9px; border-radius: 5px; white-space: nowrap;
+  opacity: 0; pointer-events: none; transition: opacity 0.15s;
+}
+.dot-nav-item:hover .dot-nav-label { opacity: 1; }
+
+/* ── CHAT WIDGET ── */
+.chat-widget { position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 1000; font-family: 'Outfit', sans-serif; }
+.chat-btn {
+  display: flex; align-items: center; gap: 0.45rem;
+  background: #1e2330; color: #e4e8f0;
+  border: 1px solid rgba(255,255,255,0.14); border-radius: 2rem;
+  padding: 0.6rem 1.1rem; font-size: 0.8rem; font-weight: 600;
+  cursor: pointer; letter-spacing: 0.01em;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25); transition: all 0.2s;
+}
+.chat-btn:hover { background: #252d40; transform: translateY(-2px); box-shadow: 0 6px 26px rgba(0,0,0,0.3); }
+.chat-btn-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--amber); animation: chat-pulse 2.2s infinite; }
+@keyframes chat-pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.55; transform:scale(1.35); } }
+.chat-panel {
+  position: absolute; bottom: calc(100% + 0.75rem); right: 0;
+  width: 340px; background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 14px; box-shadow: 0 12px 48px rgba(0,0,0,0.18);
+  display: none; flex-direction: column; overflow: hidden;
+}
+@keyframes chat-in { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+.chat-panel.open { display: flex; animation: chat-in 0.18s ease; }
+.chat-header {
+  background: #1e2330; padding: 0.8rem 1rem;
+  display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+}
+.chat-header-info .chat-header-title { color: #e4e8f0; font-size: 0.85rem; font-weight: 700; }
+.chat-header-info .chat-header-sub { color: #9aa0b8; font-size: 0.68rem; margin-top: 1px; }
+.chat-close { background: none; border: none; cursor: pointer; color: #9aa0b8; font-size: 1rem; line-height: 1; padding: 2px 4px; transition: color 0.15s; }
+.chat-close:hover { color: #e4e8f0; }
+.chat-disclaimer { font-size: 0.68rem; color: var(--text-4); background: var(--bg-tag); border-bottom: 1px solid var(--border); padding: 0.45rem 1rem; line-height: 1.45; flex-shrink: 0; }
+.chat-disclaimer a { color: var(--amber); }
+.chat-messages { flex: 1; overflow-y: auto; padding: 0.75rem 1rem; max-height: 260px; display: flex; flex-direction: column; gap: 0.5rem; }
+.chat-msg { max-width: 90%; padding: 0.5rem 0.75rem; border-radius: 10px; font-size: 0.79rem; line-height: 1.5; word-break: break-word; }
+.chat-msg.user { background: var(--amber); color: #fff; align-self: flex-end; border-bottom-right-radius: 3px; }
+.chat-msg.bot { background: var(--bg-tag); color: var(--text); border: 1px solid var(--border); align-self: flex-start; border-bottom-left-radius: 3px; }
+.chat-msg.thinking { color: var(--text-3); font-style: italic; }
+.chat-form { display: flex; border-top: 1px solid var(--border); padding: 0.6rem; gap: 0.45rem; flex-shrink: 0; }
+.chat-input {
+  flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+  padding: 0.45rem 0.7rem; font-size: 0.79rem; color: var(--text); outline: none; font-family: inherit; transition: border-color 0.15s;
+}
+.chat-input:focus { border-color: var(--amber); }
+.chat-send {
+  background: var(--amber); color: #fff; border: none; border-radius: 8px;
+  padding: 0.45rem 0.8rem; cursor: pointer; font-size: 0.9rem; font-weight: 700; transition: background 0.15s; flex-shrink: 0;
+}
+.chat-send:hover { background: var(--amber-light); }
+.chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 1100px) {
   .nav-link { font-size: 0.81rem; padding: 5px 8px; }
@@ -819,6 +892,8 @@ body {
   .stack-grid { gap: 0.45rem; }
   .stack-item { width: 42px; height: 42px; }
 }
+@media (max-width: 1100px) { .dot-nav { display: none; } }
+@media (max-width: 480px) { .chat-panel { width: calc(100vw - 2rem); right: -0.5rem; } }
 @media (max-width: 640px) {
   .nav-links { display: none; }
   .hero { padding: 2rem 1.5rem 1.5rem; }
@@ -1823,6 +1898,50 @@ body {
   </div>
 </footer>
 
+<!-- ═══ DOT NAV ═══ -->
+<nav class="dot-nav" aria-label="Jump to section">
+  <a class="dot-nav-item" href="#" data-target=""><span class="dot-nav-label">Top</span><span class="dot-nav-dot"></span></a>
+  <a class="dot-nav-item" href="#about" data-target="about"><span class="dot-nav-label">About</span><span class="dot-nav-dot"></span></a>
+  <a class="dot-nav-item" href="#achievements" data-target="achievements"><span class="dot-nav-label">Impact</span><span class="dot-nav-dot"></span></a>
+  <a class="dot-nav-item" href="#tools" data-target="tools"><span class="dot-nav-label">Tools</span><span class="dot-nav-dot"></span></a>
+  <a class="dot-nav-item" href="#portfolio" data-target="portfolio"><span class="dot-nav-label">Portfolio</span><span class="dot-nav-dot"></span></a>
+  <a class="dot-nav-item" href="#writing" data-target="writing"><span class="dot-nav-label">Writing</span><span class="dot-nav-dot"></span></a>
+  <a class="dot-nav-item" href="#experience" data-target="experience"><span class="dot-nav-label">Experience</span><span class="dot-nav-dot"></span></a>
+  <a class="dot-nav-item" href="#case-study" data-target="case-study"><span class="dot-nav-label">Case Study</span><span class="dot-nav-dot"></span></a>
+  <a class="dot-nav-item" href="#skills" data-target="skills"><span class="dot-nav-label">Skills</span><span class="dot-nav-dot"></span></a>
+  <a class="dot-nav-item" href="#education" data-target="education"><span class="dot-nav-label">Education</span><span class="dot-nav-dot"></span></a>
+  <a class="dot-nav-item" href="#certifications" data-target="certifications"><span class="dot-nav-label">Certs</span><span class="dot-nav-dot"></span></a>
+  <a class="dot-nav-item" href="#testimonials" data-target="testimonials"><span class="dot-nav-label">Reviews</span><span class="dot-nav-dot"></span></a>
+  <a class="dot-nav-item" href="#contact" data-target="contact"><span class="dot-nav-label">Contact</span><span class="dot-nav-dot"></span></a>
+</nav>
+
+<!-- ═══ CHAT WIDGET ═══ -->
+<div class="chat-widget">
+  <div class="chat-panel" id="chat-panel" role="dialog" aria-label="Ask Sulagna">
+    <div class="chat-header">
+      <div class="chat-header-info">
+        <div class="chat-header-title">Ask Sulagna</div>
+        <div class="chat-header-sub">Answers from this portfolio only</div>
+      </div>
+      <button class="chat-close" id="chat-close" aria-label="Close">✕</button>
+    </div>
+    <div class="chat-disclaimer">
+      Grounded in portfolio content only. For anything beyond that → <a href="mailto:sulagna.sasmal@gmail.com">email Sulagna</a>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <div class="chat-msg bot">Hi! Ask me about Sulagna's experience, tools, certifications, or how to reach her.</div>
+    </div>
+    <form class="chat-form" id="chat-form">
+      <input class="chat-input" id="chat-input" type="text" placeholder="e.g. What tools has she built?" autocomplete="off" maxlength="400" required>
+      <button class="chat-send" id="chat-send" type="submit">↑</button>
+    </form>
+  </div>
+  <button class="chat-btn" id="chat-btn" aria-expanded="false" aria-controls="chat-panel">
+    <span class="chat-btn-dot"></span>
+    Ask Sulagna
+  </button>
+</div>
+
 <script>
 // ── THEME TOGGLE ──────────────────────────────────────
 document.getElementById('theme-btn').addEventListener('click', function() {
@@ -1899,6 +2018,90 @@ function countUp(el) {
     if (p < 1) requestAnimationFrame(run);
   })(start);
 }
+
+// ── DOT NAV ──────────────────────────────────────────
+(function() {
+  var items = document.querySelectorAll('.dot-nav-item[data-target]');
+  if (!items.length) return;
+  var sections = Array.prototype.map.call(items, function(el) {
+    var id = el.dataset.target;
+    return id ? document.getElementById(id) : null;
+  });
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var id = entry.target.id;
+        items.forEach(function(item) { item.classList.toggle('active', item.dataset.target === id); });
+      }
+    });
+  }, { rootMargin: '-30% 0px -65% 0px', threshold: 0 });
+  sections.forEach(function(sec) { if (sec) obs.observe(sec); });
+  items[0].classList.add('active');
+})();
+
+// ── CHAT WIDGET ──────────────────────────────────────
+(function() {
+  var btn   = document.getElementById('chat-btn');
+  var panel = document.getElementById('chat-panel');
+  var close = document.getElementById('chat-close');
+  var form  = document.getElementById('chat-form');
+  var input = document.getElementById('chat-input');
+  var msgs  = document.getElementById('chat-messages');
+  var send  = document.getElementById('chat-send');
+
+  // After Vercel deploy, update to your full URL, e.g. 'https://sulagnasasmal.vercel.app/api/chat'
+  var CHAT_API = '/api/chat';
+
+  var history = [];
+
+  btn.addEventListener('click', function() {
+    var open = !panel.classList.contains('open');
+    panel.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    if (open) input.focus();
+  });
+  close.addEventListener('click', function() {
+    panel.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  });
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var msg = input.value.trim();
+    if (!msg || send.disabled) return;
+    addMsg(msg, 'user');
+    input.value = '';
+    send.disabled = true;
+    var thinkEl = addMsg('Thinking…', 'bot thinking');
+    fetch(CHAT_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: msg, history: history.slice(-6) })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      thinkEl.remove();
+      var reply = data.reply || 'Sorry, no response. Email sulagna.sasmal@gmail.com';
+      addMsg(reply, 'bot');
+      history.push({ role: 'user', parts: [{ text: msg }] });
+      history.push({ role: 'model', parts: [{ text: reply }] });
+    })
+    .catch(function() {
+      thinkEl.remove();
+      addMsg('Network error. Email sulagna.sasmal@gmail.com or call +91 98902 67895.', 'bot');
+    })
+    .finally(function() { send.disabled = false; input.focus(); });
+  });
+
+  function addMsg(text, cls) {
+    var el = document.createElement('div');
+    el.className = 'chat-msg ' + cls;
+    el.textContent = text;
+    msgs.appendChild(el);
+    msgs.scrollTop = msgs.scrollHeight;
+    return el;
+  }
+})();
 
 </script>
 
