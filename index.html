@@ -383,8 +383,7 @@ body {
 
 /* ── HERO ── */
 .hero {
-  max-width: var(--wide-w); margin: 0 auto; padding: 5.5rem 2rem 4.5rem;
-  display: grid; grid-template-columns: 1fr 330px; gap: 4rem; align-items: start;
+  max-width: var(--content-w); margin: 0 auto; padding: 5.5rem 2rem 4.5rem;
   position: relative;
 }
 .hero::before {
@@ -471,7 +470,7 @@ body {
 .hero-panel {
   background: var(--bg-card); border: 1px solid var(--border);
   border-radius: var(--radius-lg); box-shadow: var(--shadow); overflow: hidden;
-  animation: fadeup 0.6s var(--ease) 0.4s both; transition: background 0.25s, border-color 0.25s;
+  transition: background 0.25s, border-color 0.25s;
 }
 [data-theme="dark"] .hero-panel {
   background: rgba(18,21,30,0.55);
@@ -543,7 +542,7 @@ body {
 .divider-wide hr { border: none; border-top: 1px solid var(--border); }
 
 /* ── ABOUT ── */
-.about-body { display: grid; grid-template-columns: 1fr 250px; gap: 3rem; align-items: start; }
+.about-body { display: grid; grid-template-columns: 1fr 270px; gap: 2rem; align-items: start; }
 .about-sidebar { display: flex; flex-direction: column; gap: 1rem; }
 .sidebar-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.2rem; }
 .sidebar-card-title {
@@ -692,6 +691,14 @@ body {
 .skill-chip:hover { border-color: var(--amber-border); color: var(--amber); }
 .skill-proof { font-size: 0.8rem; color: var(--text-3); line-height: 1.55; border-top: 1px solid var(--border); padding-top: 0.7rem; margin-top: 0.1rem; }
 
+/* ── CASE STUDY ── */
+.case-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow); }
+.case-header { margin-bottom: 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.case-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
+.case-step-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--amber); margin-bottom: 0.55rem; }
+.case-step p { font-size: 0.88rem; color: var(--text-2); line-height: 1.7; }
+@media (max-width: 768px) { .case-grid { grid-template-columns: 1fr; } }
+
 /* ── EDUCATION ── */
 .edu-list { display: flex; flex-direction: column; }
 .edu-item { display: grid; grid-template-columns: 120px 1fr; gap: 0 2rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
@@ -764,8 +771,6 @@ body {
   .nav-link-portal { display: none; }
 }
 @media (max-width: 1024px) {
-  .hero { grid-template-columns: 1fr; gap: 2.5rem; }
-  .hero-panel { max-width: 460px; }
   .work-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 900px) {
@@ -821,12 +826,9 @@ body {
       <a href="#about"      class="nav-link">About</a>
       <a href="#tools"      class="nav-link">Tools</a>
       <a href="portfolio.html" class="nav-link">Portfolio</a>
-      <a href="content-pipeline-health-checker.html" class="nav-link nav-link-portal">Health Checker</a>
       <a href="https://sulagnasasmal.github.io/blog/" target="_blank" rel="noopener" class="nav-link">Blog ↗</a>
       <a href="#experience" class="nav-link">Experience</a>
       <a href="#contact"    class="nav-link">Contact</a>
-      <a href="https://sulagnasasmal.github.io/doc-portal/"    target="_blank" rel="noopener" class="nav-link nav-link-portal">DOC Portal ↗</a>
-      <a href="https://sulagnasasmal.github.io/ai-doc-tools/"  target="_blank" rel="noopener" class="nav-link nav-link-portal">AI Tools ↗</a>
     </div>
     <div class="nav-actions">
       <a href="https://www.linkedin.com/in/sulagnasasmal/" target="_blank" rel="noopener me" class="nav-icon-btn" title="LinkedIn">in</a>
@@ -852,24 +854,19 @@ body {
 <!-- ═══ HERO ═══ -->
 <section class="hero">
   <div class="hero-left">
-    <div class="hero-eyebrow">Open to collaboration</div>
+    <div class="hero-eyebrow">Available · Open to new roles</div>
     <h1>Sulagna Sasmal</h1>
     <p class="hero-role">
       Information Architect<span>·</span>Content Strategist<span>·</span>Documentation Engineer
     </p>
     <p class="hero-pitch">
-      20 years designing documentation systems that <strong>scale with product complexity.</strong>
-      I embed docs into CI/CD pipelines, architect developer portals, and build AI-powered tooling
-      to keep documentation current, accurate, and genuinely useful.
-      Currently based in Bengaluru, India. Open to remote and relocation.
+      I build documentation systems that engineers actually ship — and that <strong>stay accurate when the product changes.</strong>
+      API references, developer portals, and AI-powered tooling — from one writer who also builds the infrastructure.
     </p>
     <div class="hero-actions">
       <a href="#portfolio" class="btn btn-primary">View my work ↓</a>
       <a href="https://sulagnasasmal.github.io/blog/" target="_blank" rel="noopener" class="btn btn-ghost">Read the blog ↗</a>
       <a href="./Sulagna-Sasmal-CV.pdf" download class="btn btn-ghost">Download CV ↓</a>
-      <a href="https://sulagnasasmal.github.io/doc-portal/" target="_blank" rel="noopener" class="btn btn-ghost">DOC Portal ↗</a>
-      <a href="https://github.com/SulagnaSasmal" target="_blank" rel="noopener" class="btn btn-ghost">GitHub ↗</a>
-      <a href="https://sulagnasasmal.github.io/SulagnaSasmal/" target="_blank" rel="noopener" class="btn btn-ghost">GitHub Analytics ↗</a>
     </div>
     <div class="hero-featured">
       <div class="hero-featured-label">Latest project · 2026</div>
@@ -882,66 +879,7 @@ body {
     </div>
   </div>
 
-  <div class="hero-panel">
-    <div class="hero-panel-header">
-      <div class="traffic-light">
-        <div class="tl tl-red"></div>
-        <div class="tl tl-amber"></div>
-        <div class="tl tl-green"></div>
-      </div>
-      <span class="panel-title">profile.json</span>
-    </div>
-    <div class="hero-panel-body">
-      <div>
-        <div class="stat-row">
-          <div class="stat-key">experience</div>
-          <div class="stat-val">20+</div>
-        </div>
-        <div class="stat-sub">years across enterprise software, developer platforms, and regulated domains</div>
-      </div>
-      <hr class="panel-divider">
-      <div>
-        <div class="stat-key" style="margin-bottom:6px;">content coverage</div>
-        <div class="lang-bar">
-          <div class="lang-seg" style="width:35%;background:#d97706;"></div>
-          <div class="lang-seg" style="width:20%;background:#2563eb;"></div>
-          <div class="lang-seg" style="width:28%;background:#0d9488;"></div>
-          <div class="lang-seg" style="width:11%;background:#7c3aed;"></div>
-          <div class="lang-seg" style="width:6%;background:#a89f95;"></div>
-        </div>
-        <div class="lang-row">
-          <span class="lang-dot lang-dot-amber">API Docs 35%</span>
-          <span class="lang-dot lang-dot-blue">Platform Docs 20%</span>
-          <span class="lang-dot lang-dot-teal">FinTech 28%</span>
-          <span class="lang-dot lang-dot-purple">AI Tools 11%</span>
-          <span class="lang-dot lang-dot-gray">Other 6%</span>
-        </div>
-      </div>
-      <hr class="panel-divider">
-      <div>
-        <div class="stat-key" style="margin-bottom:6px;">tools &amp; stack</div>
-        <div class="tool-chips">
-          <span class="badge badge-amber">MadCap Flare</span>
-          <span class="badge badge-blue">Next.js</span>
-          <span class="badge badge-teal">FastAPI</span>
-          <span class="badge badge-purple">GPT-4o</span>
-          <span class="badge badge-gray">GitHub Actions</span>
-          <span class="badge badge-gray">Vale</span>
-          <span class="badge badge-gray">OpenAPI</span>
-          <span class="badge badge-gray">DITA/XML</span>
-        </div>
-      </div>
-      <hr class="panel-divider">
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <span class="badge badge-green">
-          <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
-          Available
-        </span>
-        <span class="badge badge-gray">Remote / Hybrid / Relocation</span>
-        <span class="badge badge-gray">Bengaluru, India</span>
-      </div>
-    </div>
-  </div>
+
 </section>
 
 <!-- ═══ METRICS STRIP ═══ -->
@@ -1011,6 +949,66 @@ body {
       </p>
     </div>
     <div class="about-sidebar">
+      <div class="hero-panel">
+        <div class="hero-panel-header">
+          <div class="traffic-light">
+            <div class="tl tl-red"></div>
+            <div class="tl tl-amber"></div>
+            <div class="tl tl-green"></div>
+          </div>
+          <span class="panel-title">profile.json</span>
+        </div>
+        <div class="hero-panel-body">
+          <div>
+            <div class="stat-row">
+              <div class="stat-key">experience</div>
+              <div class="stat-val">20+</div>
+            </div>
+            <div class="stat-sub">years across enterprise software, developer platforms, and regulated domains</div>
+          </div>
+          <hr class="panel-divider">
+          <div>
+            <div class="stat-key" style="margin-bottom:6px;">content coverage</div>
+            <div class="lang-bar">
+              <div class="lang-seg" style="width:35%;background:#d97706;"></div>
+              <div class="lang-seg" style="width:20%;background:#2563eb;"></div>
+              <div class="lang-seg" style="width:28%;background:#0d9488;"></div>
+              <div class="lang-seg" style="width:11%;background:#7c3aed;"></div>
+              <div class="lang-seg" style="width:6%;background:#a89f95;"></div>
+            </div>
+            <div class="lang-row">
+              <span class="lang-dot lang-dot-amber">API Docs 35%</span>
+              <span class="lang-dot lang-dot-blue">Platform Docs 20%</span>
+              <span class="lang-dot lang-dot-teal">FinTech 28%</span>
+              <span class="lang-dot lang-dot-purple">AI Tools 11%</span>
+              <span class="lang-dot lang-dot-gray">Other 6%</span>
+            </div>
+          </div>
+          <hr class="panel-divider">
+          <div>
+            <div class="stat-key" style="margin-bottom:6px;">tools &amp; stack</div>
+            <div class="tool-chips">
+              <span class="badge badge-amber">MadCap Flare</span>
+              <span class="badge badge-blue">Next.js</span>
+              <span class="badge badge-teal">FastAPI</span>
+              <span class="badge badge-purple">GPT-4o</span>
+              <span class="badge badge-gray">GitHub Actions</span>
+              <span class="badge badge-gray">Vale</span>
+              <span class="badge badge-gray">OpenAPI</span>
+              <span class="badge badge-gray">DITA/XML</span>
+            </div>
+          </div>
+          <hr class="panel-divider">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <span class="badge badge-green">
+              <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
+              Available
+            </span>
+            <span class="badge badge-gray">Remote / Hybrid / Relocation</span>
+            <span class="badge badge-gray">Bengaluru, India</span>
+          </div>
+        </div>
+      </div>
       <div class="sidebar-card">
         <div class="sidebar-card-title">Core expertise</div>
         <div class="chip-group">
@@ -1024,7 +1022,6 @@ body {
           <span class="chip">Financial Crime</span>
           <span class="chip">MadCap Flare</span>
           <span class="chip">DITA / XML</span>
-          <span class="chip">Structured Authoring</span>
           <span class="chip">OpenAPI / Swagger</span>
           <span class="chip">AI Governance</span>
         </div>
@@ -1039,12 +1036,6 @@ body {
           <span class="chip">Enterprise SaaS</span>
           <span class="chip">Developer Portals</span>
         </div>
-      </div>
-      <div class="sidebar-card">
-        <div class="sidebar-card-title">Location</div>
-        <p style="font-size:0.82rem;color:var(--text-2);margin:0;line-height:1.6;">
-          Bengaluru, India<br>Open to remote, hybrid, or relocation.
-        </p>
       </div>
     </div>
   </div>
@@ -1138,7 +1129,7 @@ body {
   <div class="section-label">Built tools</div>
   <h2>Documentation tools I build and ship</h2>
   <p style="color:var(--text-2);font-size:0.95rem;margin-bottom:1.75rem;">
-    Seven production tools covering docs-as-code infrastructure, AI-prompt frameworks, documentation generation, RAG search, analytics, OpenAPI rendering, and video automation. Not demos; each solves a real workflow problem.
+    Eight production tools covering docs-as-code infrastructure, AI-prompt frameworks, documentation generation, RAG search, analytics, OpenAPI rendering, video automation, and CLI linting. Not demos; each solves a real workflow problem.
   </p>
   <div class="tool-grid">
 
@@ -1212,11 +1203,63 @@ body {
       <span class="tool-cta">GitHub ↗</span>
     </a>
 
+    <a class="tool-card" href="https://github.com/SulagnaSasmal/docforge-lint" target="_blank" rel="noopener">
+      <span class="tool-icon">🔍</span>
+      <h3 class="tool-name">@docforge/lint</h3>
+      <div class="tool-desc">CLI linter for documentation health. Runs static rules (style, structure, terminology) and an LLM semantic scoring layer across Markdown projects. 103 passing tests across two phases.</div>
+      <div class="tool-tags">
+        <span class="tool-tag">TypeScript</span><span class="tool-tag">Node.js</span><span class="tool-tag">LLM</span><span class="tool-tag">CLI</span>
+      </div>
+      <span class="tool-cta">GitHub ↗</span>
+    </a>
+
   </div>
   <a href="https://sulagnasasmal.github.io/ai-doc-tools/" target="_blank" rel="noopener" class="btn btn-primary">Explore all tools at AI Tools Portal ↗</a>
 </section>
 
 <div class="divider-wide"><hr></div>
+
+<!-- ═══ LATEST WRITING ═══ -->
+<section class="section" id="writing">
+  <div class="section-label">Latest writing</div>
+  <h2>From the blog</h2>
+  <p style="color:var(--text-2);font-size:0.95rem;margin-bottom:1.75rem;">
+    Thoughts on documentation engineering, API writing, and the tools I build and ship.
+  </p>
+  <div class="work-grid">
+
+    <a class="work-card" href="https://sulagnasasmal.github.io/blog/posts/the-docs-page-is-the-backend-now/" target="_blank" rel="noopener">
+      <div class="work-card-top">
+        <span class="badge badge-amber">Jun 2026</span>
+        <svg class="work-card-arrow" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </div>
+      <div class="work-card-name">Docs as Interface, Part 3: The Docs Page Is the Backend Now</div>
+      <div class="work-card-sub">How language models interact with your documentation sources</div>
+    </a>
+
+    <a class="work-card" href="https://sulagnasasmal.github.io/blog/posts/progressive-disclosure-documentation-ux/" target="_blank" rel="noopener">
+      <div class="work-card-top">
+        <span class="badge badge-blue">Apr 2026</span>
+        <svg class="work-card-arrow" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </div>
+      <div class="work-card-name">Progressive Disclosure Is Not What You Think</div>
+      <div class="work-card-sub">Documentation UX and the art of revealing complexity</div>
+    </a>
+
+    <a class="work-card" href="https://sulagnasasmal.github.io/blog/posts/repodocs-ai-documentation-system-for-api-teams/" target="_blank" rel="noopener">
+      <div class="work-card-top">
+        <span class="badge badge-teal">Apr 2026</span>
+        <svg class="work-card-arrow" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </div>
+      <div class="work-card-name">I Built a Documentation System for API Teams. Here Is Why Templates Were Not Enough.</div>
+      <div class="work-card-sub">Behind the build: RepoDocs AI</div>
+    </a>
+
+  </div>
+  <a href="https://sulagnasasmal.github.io/blog/" target="_blank" rel="noopener" class="btn btn-ghost">Read all posts ↗</a>
+</section>
+
+<div class="divider"><hr></div>
 
 <!-- ═══ WRITING PORTFOLIO ═══ -->
 <section class="section" id="portfolio">
@@ -1236,7 +1279,7 @@ body {
       <div class="work-card-sub">FinTech</div>
     </a>
 
-    <a class="work-card" href="https://sulagnasasmal.github.io/caseforge-api-docs/caseforge-api-docs.html" target="_blank" rel="noopener">
+    <a class="work-card" href="https://sulagnasasmal.github.io/caseforge-api-docs/index.html" target="_blank" rel="noopener">
       <div class="work-card-top">
         <span class="badge badge-amber">API Reference</span>
         <svg class="work-card-arrow" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
@@ -1395,6 +1438,35 @@ body {
       </div>
     </div>
 
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ═══ CASE STUDY ═══ -->
+<section class="section reveal" id="case-study">
+  <div class="section-label">Case study</div>
+  <h2>Scaling documentation for five financial crime platforms — simultaneously</h2>
+  <div class="case-card reveal">
+    <div class="case-header">
+      <span class="badge badge-amber">NICE Actimize · 9 years</span>
+      <span class="badge badge-gray">Team of 8 writers</span>
+      <span class="badge badge-gray">Star Performer ×3</span>
+    </div>
+    <div class="case-grid">
+      <div class="case-step">
+        <div class="case-step-label">Challenge</div>
+        <p>Five enterprise financial crime platforms — on-prem and SaaS cloud — each with separate release trains, Agile teams, and strict regulatory documentation standards. One team, no unified toolchain, and growing release velocity.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Approach</div>
+        <p>Migrated four GitLab workflows to GitHub with a branching model aligned to release milestones. Designed an AI governance framework — evaluated seven tools, formally adopted four with prompt standards and compliance controls. Built information architecture for the DOCenter customer-facing documentation portal.</p>
+      </div>
+      <div class="case-step">
+        <div class="case-step-label">Results</div>
+        <p>Zero release misalignment across five platforms post-migration. Reduced support escalations through targeted troubleshooting guides surfaced from ticket analysis. Eight writers trained on Git, JIRA, and MadCap Flare workflows. Star Performer recognition three consecutive times.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1667,6 +1739,7 @@ body {
   <div class="footer-inner">
     <div class="footer-brand">Sulagna<span>.</span></div>
     <div class="footer-links">
+      <a href="#writing">Latest Writing</a>
       <a href="https://sulagnasasmal.github.io/blog/" target="_blank" rel="noopener">Blog ↗</a>
       <a href="https://sulagnasasmal.github.io/doc-portal/" target="_blank" rel="noopener">DOC Portal</a>
       <a href="https://sulagnasasmal.github.io/ai-doc-tools/" target="_blank" rel="noopener">AI Tools ↗</a>
