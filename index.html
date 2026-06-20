@@ -2082,8 +2082,8 @@ function countUp(el) {
       thinkEl.remove();
       var reply = data.reply || 'Sorry, no response. Email sulagna.sasmal@gmail.com';
       addMsg(reply, 'bot');
-      history.push({ role: 'user', parts: [{ text: msg }] });
-      history.push({ role: 'model', parts: [{ text: reply }] });
+      history.push({ role: 'user', content: msg });
+      history.push({ role: 'assistant', content: reply });
     })
     .catch(function() {
       thinkEl.remove();

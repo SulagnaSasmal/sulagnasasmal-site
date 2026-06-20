@@ -180,37 +180,39 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid message' });
   }
 
-  if (!process.env.GEMINI_API_KEY) {
+  if (!process.env.GROQ_API_KEY) {
     return res.status(500).json({ reply: 'Chat is not configured yet. Contact sulagna.sasmal@gmail.com' });
   }
 
-  const contents = [
+  const messages = [
+    { role: 'system', content: SYSTEM_PROMPT },
     ...(Array.isArray(history) ? history.slice(-6) : []),
-    { role: 'user', parts: [{ text: message }] }
+    { role: 'user', content: message }
   ];
 
   try {
-    const geminiRes = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${process.env.GEMINI_API_KEY}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
-          contents,
-          generationConfig: { maxOutputTokens: 350, temperature: 0.1 }
-        })
-      }
-    );
+    const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.GROQ_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        messages,
+        max_tokens: 350,
+        temperature: 0.1
+      })
+    });
 
-    const data = await geminiRes.json();
+    const data = await groqRes.json();
 
     if (data.error) {
-      console.error('Gemini API error:', JSON.stringify(data.error));
-      return res.status(500).json({ reply: `Gemini error ${data.error.code}: ${data.error.message}` });
+      console.error('Groq API error:', JSON.stringify(data.error));
+      return res.status(500).json({ reply: `Error: ${data.error.message}` });
     }
 
-    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text
+    const reply = data?.choices?.[0]?.message?.content
       || "I don't have that detail. Contact Sulagna at sulagna.sasmal@gmail.com or +91 98902 67895.";
 
     res.json({ reply });
