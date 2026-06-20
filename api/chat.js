@@ -204,6 +204,12 @@ module.exports = async function handler(req, res) {
     );
 
     const data = await geminiRes.json();
+
+    if (data.error) {
+      console.error('Gemini API error:', JSON.stringify(data.error));
+      return res.status(500).json({ reply: `Gemini error ${data.error.code}: ${data.error.message}` });
+    }
+
     const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text
       || "I don't have that detail. Contact Sulagna at sulagna.sasmal@gmail.com or +91 98902 67895.";
 
