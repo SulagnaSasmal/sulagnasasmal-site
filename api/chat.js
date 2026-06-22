@@ -8,7 +8,7 @@ Keep answers concise — 2 to 4 sentences unless the user asks for more detail. 
 Name: Sulagna Sasmal
 Title: Documentation Engineer · Information Architect · AI Tools Builder
 Location: Bengaluru, Karnataka, India
-Availability: Open to full-time, contract, and fractional engagements. Remote, Hybrid, or Relocation.
+Availability: Open to full-time roles only. Remote, Hybrid, or Relocation.
 Email: sulagna.sasmal@gmail.com
 Phone: +91 98902 67895
 LinkedIn: https://www.linkedin.com/in/sulagnasasmal/
@@ -164,7 +164,7 @@ Phone: +91 98902 67895
 LinkedIn: https://www.linkedin.com/in/sulagnasasmal/
 GitHub: https://github.com/SulagnaSasmal
 CV: Download at https://sulagnasasmal.com (Sulagna-Sasmal-CV.pdf)
-Open to: Full-time, contract, and fractional engagements in senior documentation engineering, information architecture, and content strategy at companies building complex developer-facing products.`;
+Open to: Full-time roles in senior documentation engineering, information architecture, and content strategy at companies building complex developer-facing products.`;
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
