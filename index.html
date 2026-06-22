@@ -840,10 +840,13 @@ body {
 @keyframes chat-pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.55; transform:scale(1.35); } }
 .chat-panel {
   position: absolute; bottom: calc(100% + 0.75rem); right: 0;
-  width: 340px; background: var(--bg-card); border: 1px solid var(--border);
+  width: 340px; max-height: calc(100vh - 120px); background: var(--bg-card); border: 1px solid var(--border);
   border-radius: 14px; box-shadow: 0 12px 48px rgba(0,0,0,0.18);
   display: none; flex-direction: column; overflow: hidden;
+  transition: width 0.22s ease;
 }
+.chat-panel.expanded { width: 500px; }
+.chat-panel.expanded .chat-messages { max-height: min(460px, calc(100vh - 240px)); }
 @keyframes chat-in { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
 .chat-panel.open { display: flex; animation: chat-in 0.18s ease; }
 .chat-header {
@@ -854,12 +857,24 @@ body {
 .chat-header-info .chat-header-sub { color: #9aa0b8; font-size: 0.68rem; margin-top: 1px; }
 .chat-close { background: none; border: none; cursor: pointer; color: #9aa0b8; font-size: 1rem; line-height: 1; padding: 2px 4px; transition: color 0.15s; }
 .chat-close:hover { color: #e4e8f0; }
+.chat-header-actions { display: flex; align-items: center; gap: 0.1rem; }
+.chat-expand { background: none; border: none; cursor: pointer; color: #9aa0b8; font-size: 0.82rem; line-height: 1; padding: 2px 5px; transition: color 0.15s; }
+.chat-expand:hover { color: #e4e8f0; }
 .chat-disclaimer { font-size: 0.68rem; color: var(--text-4); background: var(--bg-tag); border-bottom: 1px solid var(--border); padding: 0.45rem 1rem; line-height: 1.45; flex-shrink: 0; }
 .chat-disclaimer a { color: var(--amber); }
 .chat-messages { flex: 1; overflow-y: auto; padding: 0.75rem 1rem; max-height: 260px; display: flex; flex-direction: column; gap: 0.5rem; }
 .chat-msg { max-width: 90%; padding: 0.5rem 0.75rem; border-radius: 10px; font-size: 0.79rem; line-height: 1.5; word-break: break-word; }
 .chat-msg.user { background: var(--amber); color: #fff; align-self: flex-end; border-bottom-right-radius: 3px; }
 .chat-msg.bot { background: var(--bg-tag); color: var(--text); border: 1px solid var(--border); align-self: flex-start; border-bottom-left-radius: 3px; }
+.chat-msg.bot p { margin: 0 0 0.35rem; }
+.chat-msg.bot p:last-child { margin-bottom: 0; }
+.chat-msg.bot ul, .chat-msg.bot ol { margin: 0.25rem 0; padding-left: 1.15rem; }
+.chat-msg.bot li { margin-bottom: 0.2rem; }
+.chat-msg.bot strong { font-weight: 700; }
+.chat-msg.bot em { font-style: italic; }
+.chat-msg.bot code { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; background: rgba(0,0,0,0.15); padding: 0.1em 0.3em; border-radius: 3px; }
+.chat-msg.bot a { color: var(--amber); text-decoration: none; }
+.chat-msg.bot a:hover { text-decoration: underline; }
 .chat-msg.thinking { color: var(--text-3); font-style: italic; }
 .chat-form { display: flex; border-top: 1px solid var(--border); padding: 0.6rem; gap: 0.45rem; flex-shrink: 0; }
 .chat-input {
@@ -893,7 +908,7 @@ body {
   .stack-item { width: 42px; height: 42px; }
 }
 @media (max-width: 1100px) { .dot-nav { display: none; } }
-@media (max-width: 480px) { .chat-panel { width: calc(100vw - 2rem); right: -0.5rem; } }
+@media (max-width: 480px) { .chat-panel { width: calc(100vw - 2rem); right: -0.5rem; } .chat-panel.expanded { width: calc(100vw - 2rem); } }
 @media (max-width: 640px) {
   .nav-links { display: none; }
   .hero { padding: 2rem 1.5rem 1.5rem; }
@@ -1925,7 +1940,10 @@ body {
         <div class="chat-header-title">Ask Sulagna</div>
         <div class="chat-header-sub">Answers from this portfolio only</div>
       </div>
-      <button class="chat-close" id="chat-close" aria-label="Close">✕</button>
+      <div class="chat-header-actions">
+        <button class="chat-expand" id="chat-expand" aria-label="Expand chat" title="Expand">⤢</button>
+        <button class="chat-close" id="chat-close" aria-label="Close">✕</button>
+      </div>
     </div>
     <div class="chat-disclaimer">
       Grounded in portfolio content only. For anything beyond that → <a href="mailto:sulagna.sasmal@gmail.com">email Sulagna</a>
@@ -2043,13 +2061,14 @@ function countUp(el) {
 
 // ── CHAT WIDGET ──────────────────────────────────────
 (function() {
-  var btn   = document.getElementById('chat-btn');
-  var panel = document.getElementById('chat-panel');
-  var close = document.getElementById('chat-close');
-  var form  = document.getElementById('chat-form');
-  var input = document.getElementById('chat-input');
-  var msgs  = document.getElementById('chat-messages');
-  var send  = document.getElementById('chat-send');
+  var btn    = document.getElementById('chat-btn');
+  var panel  = document.getElementById('chat-panel');
+  var close  = document.getElementById('chat-close');
+  var expand = document.getElementById('chat-expand');
+  var form   = document.getElementById('chat-form');
+  var input  = document.getElementById('chat-input');
+  var msgs   = document.getElementById('chat-messages');
+  var send   = document.getElementById('chat-send');
 
   var CHAT_API = 'https://sulagnasasmal-site.vercel.app/api/chat';
 
@@ -2064,6 +2083,12 @@ function countUp(el) {
   close.addEventListener('click', function() {
     panel.classList.remove('open');
     btn.setAttribute('aria-expanded', 'false');
+  });
+  expand.addEventListener('click', function() {
+    var isExpanded = panel.classList.toggle('expanded');
+    expand.textContent = isExpanded ? '⤡' : '⤢';
+    expand.title = isExpanded ? 'Shrink' : 'Expand';
+    expand.setAttribute('aria-label', isExpanded ? 'Shrink chat' : 'Expand chat');
   });
 
   form.addEventListener('submit', function(e) {
@@ -2097,10 +2122,50 @@ function countUp(el) {
   function addMsg(text, cls) {
     var el = document.createElement('div');
     el.className = 'chat-msg ' + cls;
-    el.textContent = text;
+    if (cls.indexOf('bot') !== -1 && cls.indexOf('thinking') === -1) {
+      el.innerHTML = renderMarkdown(text);
+    } else {
+      el.textContent = text;
+    }
     msgs.appendChild(el);
     msgs.scrollTop = msgs.scrollHeight;
     return el;
+  }
+
+  function renderMarkdown(text) {
+    var s = text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+    s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/__(.+?)__/g, '<strong>$1</strong>');
+    s = s.replace(/\*([^*\n]+?)\*/g, '<em>$1</em>');
+    s = s.replace(/`([^`\n]+?)`/g, '<code>$1</code>');
+    s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+    var lines = s.split('\n');
+    var out = [];
+    var inUl = false, inOl = false;
+    lines.forEach(function(line) {
+      var t = line.trim();
+      var ul = t.match(/^[-*•]\s+(.+)/);
+      var ol = t.match(/^\d+\.\s+(.+)/);
+      if (ul) {
+        if (inOl) { out.push('</ol>'); inOl = false; }
+        if (!inUl) { out.push('<ul>'); inUl = true; }
+        out.push('<li>' + ul[1] + '</li>');
+      } else if (ol) {
+        if (inUl) { out.push('</ul>'); inUl = false; }
+        if (!inOl) { out.push('<ol>'); inOl = true; }
+        out.push('<li>' + ol[1] + '</li>');
+      } else {
+        if (inUl) { out.push('</ul>'); inUl = false; }
+        if (inOl) { out.push('</ol>'); inOl = false; }
+        if (t !== '') out.push('<p>' + t + '</p>');
+      }
+    });
+    if (inUl) out.push('</ul>');
+    if (inOl) out.push('</ol>');
+    return out.join('');
   }
 })();
 
