@@ -7,7 +7,7 @@ Keep answers concise — 2 to 4 sentences unless the user asks for more detail. 
 === ABOUT ===
 Name: Sulagna Sasmal
 Title: Documentation Engineer · Information Architect · AI Tools Builder
-Location: Bengaluru, Karnataka, India
+Location: Home base Pune, Maharashtra; Work base Bengaluru, Karnataka, India
 Availability: Open to full-time roles only. Remote, Hybrid, or Relocation.
 Email: sulagna.sasmal@gmail.com
 Phone: +91 98902 67895
