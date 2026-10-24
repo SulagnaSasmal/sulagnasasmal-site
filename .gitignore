@@ -1,2 +1,4 @@
 tmpclaude-*/
 .DS_Store
+.vscode/
+.qa-sync/
